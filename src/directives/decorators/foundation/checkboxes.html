@@ -1,0 +1,18 @@
+<div sf-array="form" ng-model="$$value$$"
+     class="schema-form-checkboxes {{form.htmlClass}}"
+     ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  <div class="switch small" ng-repeat="val in titleMapValues track by $index" >
+    <span ng-bind-html="form.titleMap[$index].name">
+    <input type="checkbox"
+           ng-disabled="form.readonly"
+           sf-changed="form"
+           class="{{form.fieldHtmlClass}}"
+           ng-model="titleMapValues[$index]"
+           ng-attr-id="{{'asf-field-' + $id}}"
+           name="{{form.key.slice(-1)[0]}}">
+    <span ng-bind-html="form.titleMap[$index].name"></span>
+    <label ng-attr-for="{{'asf-field-' + $id}}" style="margin: 0"></label>
+  </div>
+  <div class="" sf-message="form.description"></div>
+</div>

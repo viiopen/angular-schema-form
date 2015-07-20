@@ -1,0 +1,18 @@
+<div class="schema-form-radios {{form.htmlClass}}" ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  <div class="radio" ng-repeat="item in form.titleMap" >
+    <label>
+      <input type="radio"
+             class="{{form.fieldHtmlClass}}"
+             sf-changed="form"
+             ng-disabled="form.readonly"
+             ng-model="$$value$$"
+             ng-model-options="form.ngModelOptions"
+             schema-validate="form"
+             ng-value="item.value"
+             name="{{form.key.join('.')}}">
+      <span ng-bind-html="item.name"></span>
+    </label>
+  </div>
+  <div class="" sf-message="form.description"></div>
+</div>

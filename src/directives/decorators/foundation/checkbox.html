@@ -1,0 +1,16 @@
+<label ng-class="{{form.labelHtmlClass}}">{{form.title}}</label>
+<div class="switch small schema-form-checkbox {{form.htmlClass}}"
+     ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+  <input type="checkbox"
+         sf-changed="form"
+         ng-disabled="form.readonly"
+         ng-model="$$value$$"
+         ng-model-options="form.ngModelOptions"
+         schema-validate="form"
+         class="{{form.fieldHtmlClass}}"
+         ng-attr-id="{{'asf-field-' + $id}}"
+         name="{{form.key.slice(-1)[0]}}" />
+  <!--<span ng-bind-html="form.title"></span>-->
+  <label ng-attr-for="{{'asf-field-' + $id}}" style="margin: 0"></label>
+  <div class="" sf-message="form.description"></div>
+</div>
