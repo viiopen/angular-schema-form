@@ -1,7 +1,10 @@
-<div class="schema-form-radios {{form.htmlClass}}" ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
-  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <div class="radio" ng-repeat="item in form.titleMap" >
-    <label>
+<div class="schema-form-radiobuttons {{form.htmlClass}}"
+     ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+  <div>
+    <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  </div>
+  <ul class="no-bullet" ng-if="form.titleMap">
+    <li ng-repeat="item in form.titleMap">
       <input type="radio"
              class="{{form.fieldHtmlClass}}"
              sf-changed="form"
@@ -10,9 +13,14 @@
              ng-model-options="form.ngModelOptions"
              schema-validate="form"
              ng-value="item.value"
+             ng-attr-id="{{'asf-field-' + $id}}"
              name="{{form.key.join('.')}}">
-      <span ng-bind-html="item.name"></span>
-    </label>
-  </div>
-  <div class="" sf-message="form.description"></div>
+      <label class="{{ (item.value === $$value$$) ? form.style.selected || '' : form.style.unselected || ''; }}"
+             ng-bind-html="item.name"
+             ng-attr-for="{{'asf-field-' + $id}}"
+             ng-class="{ active: item.value === $$value$$ }">
+      </label>
+    </li>
+  </ul>
+  <div class="help-block" sf-message="form.description"></div>
 </div>

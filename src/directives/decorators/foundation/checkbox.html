@@ -1,16 +1,54 @@
-<label ng-class="{{form.labelHtmlClass}}">{{form.title}}</label>
-<div class="switch small schema-form-checkbox {{form.htmlClass}}"
+<div class="schema-form-checkbox {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
-  <input type="checkbox"
-         sf-changed="form"
-         ng-disabled="form.readonly"
-         ng-model="$$value$$"
-         ng-model-options="form.ngModelOptions"
-         schema-validate="form"
-         class="{{form.fieldHtmlClass}}"
-         ng-attr-id="{{'asf-field-' + $id}}"
-         name="{{form.key.slice(-1)[0]}}" />
-  <!--<span ng-bind-html="form.title"></span>-->
-  <label ng-attr-for="{{'asf-field-' + $id}}" style="margin: 0"></label>
-  <div class="" sf-message="form.description"></div>
+  <div sf-message="form.title"></div>
+    <ul class="no-bullet">
+      <li style="display: flex; display: flexbox; display: box;">
+        <input type="checkbox"
+               style="
+                -webkit-box-ordinal-group: 1;
+                -moz-box-ordinal-group: 1;
+                -webkit-order: 0;
+                -ms-flex-order: 0;
+                order: 0;
+                -webkit-box-flex: 0;
+                -moz-box-flex: 0;
+                -webkit-flex: 0 0 12px;
+                -ms-flex: 0 0 12px;
+                flex: 0 0 12px;
+                -webkit-align-self: auto;
+                -ms-flex-item-align: auto;
+                align-self: auto;
+                margin-top:4px;
+               "
+               sf-changed="form"
+               ng-disabled="form.readonly"
+               ng-model="$$value$$"
+               ng-model-options="form.ngModelOptions"
+               schema-validate="form"
+               class="{{form.fieldHtmlClass}}"
+               ng-attr-id="{{'asf-field-' + $id}}"
+               name="{{form.key.slice(-1)[0]}}" />
+        <label ng-attr-for="{{'asf-field-' + $id}}"
+               style="
+                -webkit-box-ordinal-group: 1;
+                -moz-box-ordinal-group: 1;
+                -webkit-order: 0;
+                -ms-flex-order: 0;
+                order: 0;
+                -webkit-box-flex: 1;
+                -moz-box-flex: 1;
+                -webkit-flex: 1 1 auto;
+                -ms-flex: 1 1 auto;
+                flex: 1 1 auto;
+                -webkit-align-self: auto;
+                -ms-flex-item-align: auto;
+                align-self: auto;
+                margin:0;
+                padding:0;
+                padding-left:4px;
+              ">
+          {{form.description}}
+        </label>
+      </li>
+    </ul>
 </div>

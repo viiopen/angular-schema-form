@@ -9,7 +9,6 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
       priority: 500,
       require: 'ngModel',
       link: function(scope, element, attrs, ngModel) {
-
         // We need the ngModelController on several places,
         // most notably for errors.
         // So we emit it up to the decorator directive so it can put it on scope.
@@ -42,6 +41,10 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
             // Omit TV4 validation
             if (scope.options && scope.options.tv4Validation === false) {
+              return viewValue;
+            }
+            // Custom validation skips
+            if (form.type === 'date' || form.type === 'datetime') {
               return viewValue;
             }
 

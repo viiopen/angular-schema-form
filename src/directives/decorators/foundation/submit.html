@@ -9,7 +9,7 @@
           ng-click="buttonClick($event,form)"
           ng-disabled="form.readonly"
           ng-if="form.type !== 'submit'">
-      <span ng-if="form.icon" class="fa fa-lg {{form.icon}}"></span>
+      <i ng-if="form.icon" class="fa fa-lg {{form.icon}}"></i>
       {{form.title}}
   </button>
 </div>

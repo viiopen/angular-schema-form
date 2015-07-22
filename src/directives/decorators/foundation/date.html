@@ -1,0 +1,19 @@
+<div class="schema-form-date {{form.htmlClass}}"
+     ng-class="{'error': form.disableErrorState !== true && hasError()}">
+  <label>{{form.title}}</label>
+  <quick-datepicker
+    disable-timepicker="true"
+    icon-class="fa fa-calendar"
+    ng-model="$$value$$"
+    once-id="id"
+    placeholder="{{ form.description }}"
+    ng-disabled="form.readyonly"
+    sf-changed="form"
+    ng-model-options="form.ngModelOptions"
+    schema-validate="form"
+    ng-class="{{form.fieldHtmlClass}}"
+    ng-attr-id="{{'asf-field-' + $id}}"
+    name="{{form.key.slice(-1)[0]}}"
+    default-time="00:00"></quick-datepicker>
+    <span sf-message></span>
+</div>

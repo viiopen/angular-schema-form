@@ -2,17 +2,52 @@
      class="schema-form-checkboxes {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <div class="switch small" ng-repeat="val in titleMapValues track by $index" >
-    <span ng-bind-html="form.titleMap[$index].name">
-    <input type="checkbox"
-           ng-disabled="form.readonly"
-           sf-changed="form"
-           class="{{form.fieldHtmlClass}}"
-           ng-model="titleMapValues[$index]"
-           ng-attr-id="{{'asf-field-' + $id}}"
-           name="{{form.key.slice(-1)[0]}}">
-    <span ng-bind-html="form.titleMap[$index].name"></span>
-    <label ng-attr-for="{{'asf-field-' + $id}}" style="margin: 0"></label>
-  </div>
+  <ul class="no-bullet" ng-if="titleMapValues">
+    <li style="display: flex; display: flexbox; display: box;" ng-repeat="val in titleMapValues track by $index">
+      <input type="checkbox"
+             style="
+                -webkit-box-ordinal-group: 1;
+                -moz-box-ordinal-group: 1;
+                -webkit-order: 0;
+                -ms-flex-order: 0;
+                order: 0;
+                -webkit-box-flex: 0;
+                -moz-box-flex: 0;
+                -webkit-flex: 0 0 12px;
+                -ms-flex: 0 0 12px;
+                flex: 0 0 12px;
+                -webkit-align-self: auto;
+                -ms-flex-item-align: auto;
+                align-self: auto;
+                margin-top:4px;
+              "
+             ng-disabled="form.readonly"
+             sf-changed="form"
+             class="{{form.fieldHtmlClass}}"
+             ng-model="titleMapValues[$index]"
+             ng-attr-id="{{'asf-field-' + $id}}"
+             name="{{form.key.slice(-1)[0]}}">
+      <label ng-bind-html="form.titleMap[$index].name"
+             style="
+                -webkit-box-ordinal-group: 1;
+                -moz-box-ordinal-group: 1;
+                -webkit-order: 0;
+                -ms-flex-order: 0;
+                order: 0;
+                -webkit-box-flex: 1;
+                -moz-box-flex: 1;
+                -webkit-flex: 1 1 auto;
+                -ms-flex: 1 1 auto;
+                flex: 1 1 auto;
+                -webkit-align-self: auto;
+                -ms-flex-item-align: auto;
+                align-self: auto;
+                margin:0;
+                padding:0;
+                padding-left:4px;
+              "
+             ng-attr-for="{{'asf-field-' + $id}}"></label>
+    </li>
+  </ul>
   <div class="" sf-message="form.description"></div>
 </div>

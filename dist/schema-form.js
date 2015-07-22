@@ -1801,7 +1801,6 @@ angular.module('schemaForm').directive('sfField',
             scope.form = null;
           },
           post: function(scope, element, attrs, sfSchema) {
-
             //Keep error prone logic from the template
             scope.showTitle = function() {
               return scope.form && scope.form.notitle !== true && scope.form.title;
@@ -2254,7 +2253,6 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
       priority: 500,
       require: 'ngModel',
       link: function(scope, element, attrs, ngModel) {
-
         // We need the ngModelController on several places,
         // most notably for errors.
         // So we emit it up to the decorator directive so it can put it on scope.
@@ -2287,6 +2285,10 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
             // Omit TV4 validation
             if (scope.options && scope.options.tv4Validation === false) {
+              return viewValue;
+            }
+            // Custom validation skips
+            if (form.type === 'date' || form.type === 'datetime') {
               return viewValue;
             }
 

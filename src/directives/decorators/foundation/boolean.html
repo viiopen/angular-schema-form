@@ -1,0 +1,51 @@
+<label>{{form.title}}</label>
+<div class="schema-form-boolean {{form.htmlClass}}"
+     ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+  <div sf-message="form.description"></div>
+  <div class="switch round">
+    <input type="checkbox"
+           style="
+            -webkit-box-ordinal-group: 1;
+            -moz-box-ordinal-group: 1;
+            -webkit-order: 0;
+            -ms-flex-order: 0;
+            order: 0;
+            -webkit-box-flex: 0;
+            -moz-box-flex: 0;
+            -webkit-flex: 0 0 12px;
+            -ms-flex: 0 0 12px;
+            flex: 0 0 12px;
+            -webkit-align-self: auto;
+            -ms-flex-item-align: auto;
+            align-self: auto;
+            margin-top:4px;
+           "
+           sf-changed="form"
+           ng-disabled="form.readonly"
+           ng-model="$$value$$"
+           ng-model-options="form.ngModelOptions"
+           schema-validate="form"
+           class="{{form.fieldHtmlClass}}"
+           ng-attr-id="{{'asf-field-' + $id}}"
+           name="{{form.key.slice(-1)[0]}}" />
+    <label ng-attr-for="{{'asf-field-' + $id}}"
+           style="
+            -webkit-box-ordinal-group: 1;
+            -moz-box-ordinal-group: 1;
+            -webkit-order: 0;
+            -ms-flex-order: 0;
+            order: 0;
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            -webkit-flex: 1 1 auto;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            -webkit-align-self: auto;
+            -ms-flex-item-align: auto;
+            align-self: auto;
+            margin:0;
+            padding:0;
+            padding-left:4px;
+          "></label>
+  </div>
+</div>
