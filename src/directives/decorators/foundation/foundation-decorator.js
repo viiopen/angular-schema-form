@@ -23,6 +23,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     submit: {template: base + 'submit.html', replace: false},
     button: {template: base + 'submit.html', replace: false},
     radios: {template: base + 'radios.html', replace: false},
+    slider: {template: base + 'slider.html', replace: false},
     'radios-inline': {template: base + 'radios-inline.html', replace: false},
     /*radiobuttons: {template: base + 'radio-buttons.html', replace: false},*/
     help: {template: base + 'help.html', replace: false},
@@ -44,6 +45,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     datepicker: base + 'datepicker.html',
     input: base + 'default.html',
     radios: base + 'radios.html',
+    slider: base + 'slider.html',
     'radios-inline': base + 'radios-inline.html',
     /*radiobuttons: base + 'radio-buttons.html',*/
   });

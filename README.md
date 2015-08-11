@@ -1,3 +1,12 @@
+# viiopen notes
+
+Forked from https://github.com/sovanyio/angular-schema-form/tree/release/0.8.4-2, forked from
+https://github.com/Textalk/angular-schema-form
+
+## Additions
+
+Foundation decorators
+
 Angular Schema Form
 ===================
 [![bower version](https://img.shields.io/bower/v/angular-schema-form.svg?style=flat-square)](#bower)
