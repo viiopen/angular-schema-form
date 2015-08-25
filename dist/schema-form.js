@@ -742,7 +742,7 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                      attributes `builder` and `replace` are optional, and replace defaults to true.
    */
   this.defineDecorator = function(name, fields) {
-    decorators[name] = {'__name': name}; // TODO: this feels like a hack, come up with a better way. (ES6 Symbols would be a nice fit.)
+    decorators[name] = {'__name': name}; // TODO: this feels like a hack, come up with a better way.
 
     angular.forEach(fields, function(field, type) {
       field.builder = field.builder || [];
@@ -816,7 +816,7 @@ angular.module('schemaForm').provider('schemaFormDecorators',
       decorator: function(name) {
         return decorators[name] || decorators[defaultDecorator];
       },
-      defaultDecorator: defaultDecorator,
+      defaultDecorator: defaultDecorator
     };
   };
 
@@ -2115,7 +2115,9 @@ angular.module('schemaForm')
         schema: '=sfSchema',
         initialForm: '=sfForm',
         model: '=sfModel',
-        options: '=sfOptions'
+        options: '=sfOptions',
+        field: '=',
+        controls: '='
       },
       controller: ['$scope', function($scope) {
         this.evalInParentScope = function(expr, locals) {

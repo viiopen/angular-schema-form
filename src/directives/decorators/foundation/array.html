@@ -26,4 +26,12 @@
        ng-class="{'error': hasError()}"
        ng-show="(hasError() && errorMessage(schemaError())) || form.description"
        ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div>
+
+  <div ng-if="controls">
+    <fb-replace-with-field target="#{{ field.form.type == 'boolean' ? 'boolean-field-' + ngModel.$name : ngModel.$name }}" controls="controls" enabled="true" field-elid="{{ field.elid }}" model="model" attr="ngModel.$name" name="{{ ngModel.$name }}" lookup-fields="field.lookupFields"></fb-replace-with-field>
+  </div>
+  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <p ng-if="form.description"><small>
+    <span class="help-block" ng-bind-html="form.description"></span>
+  </small></p>
 </div>
