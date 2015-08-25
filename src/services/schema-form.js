@@ -24,6 +24,15 @@ angular.module('schemaForm').provider('schemaForm',
     return titleMap;
   };
 
+  // Takes an options array and generates a titleMap
+  var optionsToTitleMap = function(titleMap, originalEnum) {
+    var canonical = [];
+    angular.forEach(originalEnum, function(value, index) {
+      canonical.push({name: titleMap[index], value: value});
+    });
+    return canonical;
+  };
+
   // Takes a titleMap in either object or list format and returns one in
   // in the list format.
   var canonicalTitleMap = function(titleMap, originalEnum) {
@@ -109,7 +118,18 @@ angular.module('schemaForm').provider('schemaForm',
   //default in json form for number and integer is a text field
   //input type="number" would be more suitable don't ya think?
   var number = function(name, schema, options) {
-    if (stripNullType(schema.type) === 'number') {
+    if (stripNullType(schema.type) === 'number' && schema['enum']) {
+      var f = stdFormObj(name, schema, options);
+      f.key  = options.path;
+      f.type = 'select';
+      if (!f.titleMap && schema['options'] && schema['options']['titles']) {
+        f.titleMap = optionsToTitleMap(schema.options.titles, schema.enum);
+      } else if (!f.titleMap) {
+        f.titleMap = enumToTitleMap(schema['enum']);
+      }
+      options.lookup[sfPathProvider.stringify(options.path)] = f;
+      return f;
+    } else  if (stripNullType(schema.type) === 'number') {
       var f = stdFormObj(name, schema, options);
       f.key  = options.path;
       f.type = 'number';
@@ -119,7 +139,18 @@ angular.module('schemaForm').provider('schemaForm',
   };
 
   var integer = function(name, schema, options) {
-    if (stripNullType(schema.type) === 'integer') {
+    if (stripNullType(schema.type) === 'integer' && schema['enum']) {
+      var f = stdFormObj(name, schema, options);
+      f.key  = options.path;
+      f.type = 'select';
+      if (!f.titleMap && schema['options'] && schema['options']['titles']) {
+        f.titleMap = optionsToTitleMap(schema.options.titles, schema.enum);
+      } else if (!f.titleMap) {
+        f.titleMap = enumToTitleMap(schema['enum']);
+      }
+      options.lookup[sfPathProvider.stringify(options.path)] = f;
+      return f;
+    } else if (stripNullType(schema.type) === 'integer') {
       var f = stdFormObj(name, schema, options);
       f.key  = options.path;
       f.type = 'number';
@@ -143,7 +174,9 @@ angular.module('schemaForm').provider('schemaForm',
       var f = stdFormObj(name, schema, options);
       f.key  = options.path;
       f.type = 'select';
-      if (!f.titleMap) {
+      if (!f.titleMap && schema['options'] && schema['options']['titles']) {
+        f.titleMap = optionsToTitleMap(schema.options.titles, schema.enum);
+      } else if (!f.titleMap) {
         f.titleMap = enumToTitleMap(schema['enum']);
       }
       options.lookup[sfPathProvider.stringify(options.path)] = f;
@@ -156,7 +189,9 @@ angular.module('schemaForm').provider('schemaForm',
       var f = stdFormObj(name, schema, options);
       f.key  = options.path;
       f.type = 'checkboxes';
-      if (!f.titleMap) {
+      if (!f.titleMap && schema['options'] && schema['options']['titles']) {
+        f.titleMap = optionsToTitleMap(schema.options.titles, schema.enum);
+      } else if (!f.titleMap) {
         f.titleMap = enumToTitleMap(schema.items['enum']);
       }
       options.lookup[sfPathProvider.stringify(options.path)] = f;
