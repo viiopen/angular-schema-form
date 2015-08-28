@@ -24,7 +24,7 @@ gulp.task('minify', function() {
     namespace: function() {return 'schemaForm';}
     }))
   .pipe(gulp.dest('./dist/'))
-  .pipe(uglify())
+
   .pipe(rename('schema-form.min.js'))
   .pipe(gulp.dest('./dist/'));
 });
