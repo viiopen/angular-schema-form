@@ -1,4 +1,5 @@
 <div>
+  <vii-section-title ng-if="form.schema.sectionTitle" field="form"></vii-section-title>
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <vii-slider model="$$value$$" field="form"></vii-slider>
   <div ng-if="controls">
