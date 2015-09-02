@@ -213,7 +213,6 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                       );
                     });
                   }
-                  console.debug(element, element.contents(), scope);
                   $compile(element.contents())(scope);
                 });
 

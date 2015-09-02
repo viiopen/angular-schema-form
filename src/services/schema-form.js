@@ -105,6 +105,16 @@ angular.module('schemaForm').provider('schemaForm',
     return f;
   };
 
+  var markdown = function(name, schema, options) {
+    if (stripNullType(schema.type) === 'string' && stripNullType(schema.format) === 'markdown') {
+      var f = stdFormObj(name, schema, options);
+      f.key = options.path;
+      f.type = 'markdown';
+      options.lookup[sfPathProvider.stringify(options.path)] = f;
+      return f;
+    }
+  };
+
   var text = function(name, schema, options) {
     if (stripNullType(schema.type) === 'string' && !schema['enum']) {
       var f = stdFormObj(name, schema, options);
@@ -266,7 +276,7 @@ angular.module('schemaForm').provider('schemaForm',
   //First sorted by schema type then a list.
   //Order has importance. First handler returning an form snippet will be used.
   var defaults = {
-    string:  [select, text],
+    string:  [select, markdown, text],
     object:  [fieldset],
     number:  [number],
     integer: [integer],
