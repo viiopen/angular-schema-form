@@ -120,9 +120,12 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           if (ngModel.$setDirty) {
 
             // Angular 1.3+
-            ngModel.$setDirty();
-            ngModel.$setViewValue(ngModel.$viewValue);
-            ngModel.$commitViewValue();
+            if (!(ngModel.$modelValue && ngModel.$modelValue.match(/^@field/) && !ngModel.$viewValue)) {
+              console.debug('floop');
+              ngModel.$setDirty();
+              ngModel.$setViewValue(ngModel.$viewValue);
+              ngModel.$commitViewValue();
+            }
 
             // In Angular 1.3 setting undefined as a viewValue does not trigger parsers
             // so we need to do a special required check. Fortunately we have $isEmpty

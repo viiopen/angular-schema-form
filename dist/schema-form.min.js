@@ -1590,6 +1590,13 @@ angular.module('schemaForm').factory('sfValidator', [function() {
       value = undefined;
     }
 
+    // Skip validation if this is a replacement value
+    console.info('value: ', value);
+    if (value && value.match(/^@field/)) {
+      console.debug('skipping validation of a replacement value', form, value);
+      return {value: true};
+    }
+
     // Version 4 of JSON Schema has the required property not on the
     // property itself but on the wrapping object. Since we like to test
     // only this property we wrap it in a fake object.
@@ -2775,9 +2782,12 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           if (ngModel.$setDirty) {
 
             // Angular 1.3+
-            ngModel.$setDirty();
-            ngModel.$setViewValue(ngModel.$viewValue);
-            ngModel.$commitViewValue();
+            if (!(ngModel.$modelValue && ngModel.$modelValue.match(/^@field/) && !ngModel.$viewValue)) {
+              console.debug('floop');
+              ngModel.$setDirty();
+              ngModel.$setViewValue(ngModel.$viewValue);
+              ngModel.$commitViewValue();
+            }
 
             // In Angular 1.3 setting undefined as a viewValue does not trigger parsers
             // so we need to do a special required check. Fortunately we have $isEmpty

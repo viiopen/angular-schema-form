@@ -36,6 +36,13 @@ angular.module('schemaForm').factory('sfValidator', [function() {
       value = undefined;
     }
 
+    // Skip validation if this is a replacement value
+    console.info('value: ', value);
+    if (value && value.match(/^@field/)) {
+      console.debug('skipping validation of a replacement value', form, value);
+      return {value: true};
+    }
+
     // Version 4 of JSON Schema has the required property not on the
     // property itself but on the wrapping object. Since we like to test
     // only this property we wrap it in a fake object.
