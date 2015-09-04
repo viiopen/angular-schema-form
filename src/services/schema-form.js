@@ -3,17 +3,17 @@
  * This service is not that useful outside of schema form directive
  * but makes the code more testable.
  */
-angular.module('schemaForm').provider('schemaForm',
-['sfPathProvider', function(sfPathProvider) {
-  var stripNullType = function(type) {
-    if (Array.isArray(type) && type.length == 2) {
-      if (type[0] === 'null')
-        return type[1];
-      if (type[1] === 'null')
-        return type[0];
-    }
-    return type;
-  }
+
+var module, angular;
+
+(function(angular){
+
+  console.log('schema-form.js');
+
+  angular.module('schemaForm').provider('schemaForm',
+  ['sfPathProvider', function(sfPathProvider) {
+  
+  console.log('My code changes are here...');
 
   //Creates an default titleMap list from an enum, i.e. a list of strings.
   var enumToTitleMap = function(enm) {
@@ -31,25 +31,6 @@ angular.module('schemaForm').provider('schemaForm',
       canonical.push({name: titleMap[index], value: value});
     });
     return canonical;
-  };
-
-  // Takes a titleMap in either object or list format and returns one in
-  // in the list format.
-  var canonicalTitleMap = function(titleMap, originalEnum) {
-    if (!angular.isArray(titleMap)) {
-      var canonical = [];
-      if (originalEnum) {
-        angular.forEach(originalEnum, function(value, index) {
-          canonical.push({name: titleMap[value], value: value});
-        });
-      } else {
-        angular.forEach(titleMap, function(name, value) {
-          canonical.push({name: name, value: value});
-        });
-      }
-      return canonical;
-    }
-    return titleMap;
   };
 
   var defaultFormDefinition = function(name, schema, options) {
@@ -71,38 +52,6 @@ angular.module('schemaForm').provider('schemaForm',
         }
       }
     }
-  };
-
-  //Creates a form object with all common properties
-  var stdFormObj = function(name, schema, options) {
-    options = options || {};
-    var f = options.global && options.global.formDefaults ?
-            angular.copy(options.global.formDefaults) : {};
-    if (options.global && options.global.supressPropertyTitles === true) {
-      f.title = schema.title;
-    } else {
-      f.title = schema.title || name;
-    }
-
-    if (schema.description) { f.description = schema.description; }
-    if (options.required === true || schema.required === true) { f.required = true; }
-    if (schema.maxLength) { f.maxlength = schema.maxLength; }
-    if (schema.minLength) { f.minlength = schema.minLength; }
-    if (schema.readOnly || schema.readonly) { f.readonly  = true; }
-    if (schema.minimum) { f.minimum = schema.minimum + (schema.exclusiveMinimum ? 1 : 0); }
-    if (schema.maximum) { f.maximum = schema.maximum - (schema.exclusiveMaximum ? 1 : 0); }
-
-    // Non standard attributes (DONT USE DEPRECATED)
-    // If you must set stuff like this in the schema use the x-schema-form attribute
-    if (schema.validationMessage) { f.validationMessage = schema.validationMessage; }
-    if (schema.enumNames) { f.titleMap = canonicalTitleMap(schema.enumNames, schema['enum']); }
-    f.schema = schema;
-
-    // Ng model options doesn't play nice with undefined, might be defined
-    // globally though
-    f.ngModelOptions = f.ngModelOptions || {};
-
-    return f;
   };
 
   var markdown = function(name, schema, options) {
@@ -276,7 +225,12 @@ angular.module('schemaForm').provider('schemaForm',
   //First sorted by schema type then a list.
   //Order has importance. First handler returning an form snippet will be used.
   var defaults = {
-    string:  [select, markdown, text],
+    string:  [
+      select,
+      markdown,
+      category.bind(null, sfPathProvider),
+      text
+      ],
     object:  [fieldset],
     number:  [number],
     integer: [integer],
@@ -521,4 +475,85 @@ angular.module('schemaForm').provider('schemaForm',
     return service;
   };
 
-}]);
+  }]);
+
+
+  // Takes a titleMap in either object or list format and returns one in
+  // in the list format.
+  function canonicalTitleMap(titleMap, originalEnum) {
+    // angular
+    if (!angular.isArray(titleMap)) {
+      var canonical = [];
+      if (originalEnum) {
+        angular.forEach(originalEnum, function(value, index) {
+          canonical.push({name: titleMap[value], value: value});
+        });
+      } else {
+        angular.forEach(titleMap, function(name, value) {
+          canonical.push({name: name, value: value});
+        });
+      }
+      return canonical;
+    }
+    return titleMap;
+  }
+
+  function stdFormObj(name, schema, options) {
+    // angular
+    options = options || {};
+    var f = options.global && options.global.formDefaults ?
+            angular.copy(options.global.formDefaults) : {};
+    if (options.global && options.global.supressPropertyTitles === true) {
+      f.title = schema.title;
+    } else {
+      f.title = schema.title || name;
+    }
+
+    if (schema.description) { f.description = schema.description; }
+    if (options.required === true || schema.required === true) { f.required = true; }
+    if (schema.maxLength) { f.maxlength = schema.maxLength; }
+    if (schema.minLength) { f.minlength = schema.minLength; }
+    if (schema.readOnly || schema.readonly) { f.readonly  = true; }
+    if (schema.minimum) { f.minimum = schema.minimum + (schema.exclusiveMinimum ? 1 : 0); }
+    if (schema.maximum) { f.maximum = schema.maximum - (schema.exclusiveMaximum ? 1 : 0); }
+
+    // Non standard attributes (DONT USE DEPRECATED)
+    // If you must set stuff like this in the schema use the x-schema-form attribute
+    if (schema.validationMessage) { f.validationMessage = schema.validationMessage; }
+    if (schema.enumNames) { f.titleMap = canonicalTitleMap(schema.enumNames, schema['enum']); }
+    f.schema = schema;
+
+    // Ng model options doesn't play nice with undefined, might be defined
+    // globally though
+    f.ngModelOptions = f.ngModelOptions || {};
+
+    return f;
+  }
+
+  function stripNullType(type) {
+    if (Array.isArray(type) && type.length == 2) {
+      if (type[0] === 'null')
+        return type[1];
+      if (type[1] === 'null')
+        return type[0];
+    }
+    return type;
+  }
+
+  function category(sfPathProvider, name, schema, options) {
+console.log('here I am in my category...');
+    var f;
+
+    if (stripNullType(schema.type) === 'string' && 
+      stripNullType(schema.format) === 'category') {
+
+      f = stdFormObj(name, schema, options);
+      f.key = options.path;
+      f.type = 'category';
+      options.lookup[sfPathProvider.stringify(options.path)] = f;
+      return f;
+
+    }
+  }
+
+}).call(module || this, angular);

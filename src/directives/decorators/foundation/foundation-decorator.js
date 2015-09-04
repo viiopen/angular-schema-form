@@ -25,6 +25,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     radios: {template: base + 'radios.html', replace: false},
     slider: {template: base + 'slider.html', replace: false},
     markdown: {template: base + 'markdown.html', replace: false},
+    category: {template: base + 'category.html', replace: false},
     'radios-inline': {template: base + 'radios-inline.html', replace: false},
     /*radiobuttons: {template: base + 'radio-buttons.html', replace: false},*/
     help: {template: base + 'help.html', replace: false},
@@ -49,6 +50,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     radios: base + 'radios.html',
     slider: base + 'slider.html',
     markdown: base + 'markdown.html',
+    category: base + 'category.html',
     'radios-inline': base + 'radios-inline.html',
     /*radiobuttons: base + 'radio-buttons.html',*/
   });
