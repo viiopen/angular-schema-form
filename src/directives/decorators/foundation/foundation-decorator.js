@@ -24,9 +24,10 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     button: {template: base + 'submit.html', replace: false},
     radios: {template: base + 'radios.html', replace: false},
     slider: {template: base + 'slider.html', replace: false},
-    'odl-widget': {template: base + 'odl-widget.html', replace: false},        
+    'odl-widget': {template: base + 'odl-widget.html', replace: false},
     markdown: {template: base + 'markdown.html', replace: false},
     'radios-inline': {template: base + 'radios-inline.html', replace: false},
+    medications: {template: base + 'medications.html', replace: false},
     /*radiobuttons: {template: base + 'radio-buttons.html', replace: false},*/
     help: {template: base + 'help.html', replace: false},
     hidden: {template: base + 'hidden.html', replace: false},
@@ -50,6 +51,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     radios: base + 'radios.html',
     slider: base + 'slider.html',
     'odl-widget': base + 'odl-widget.html',
+    medications: {template: base + 'medications.html', replace: false},
     markdown: base + 'markdown.html',
     'radios-inline': base + 'radios-inline.html',
     /*radiobuttons: base + 'radio-buttons.html',*/
