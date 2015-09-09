@@ -26,13 +26,18 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     slider: {template: base + 'slider.html', replace: false},
     'odl-widget': {template: base + 'odl-widget.html', replace: false},
     markdown: {template: base + 'markdown.html', replace: false},
+    media: {template: base + 'media.html', replace: false},
     'radios-inline': {template: base + 'radios-inline.html', replace: false},
     medications: {template: base + 'medications.html', replace: false},
     /*radiobuttons: {template: base + 'radio-buttons.html', replace: false},*/
     help: {template: base + 'help.html', replace: false},
     hidden: {template: base + 'hidden.html', replace: false},
     'default': {template: base + 'default.html', replace: false}
-  }, []);
+  }, [
+    function(form) {
+      console.debug(form, 'www');
+    }
+  ]);
 
   //manual use directives
   decoratorsProvider.createDirectives({
@@ -53,6 +58,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     'odl-widget': base + 'odl-widget.html',
     medications: {template: base + 'medications.html', replace: false},
     markdown: base + 'markdown.html',
+    media: base + 'media.html',
     'radios-inline': base + 'radios-inline.html',
     /*radiobuttons: base + 'radio-buttons.html',*/
   });

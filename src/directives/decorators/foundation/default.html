@@ -48,21 +48,17 @@
     </div>
 
   </label>
-
-  <div ng-if="controls">
-    <fb-replace-with-field target="#{{ field.form.type == 'boolean' ? 'boolean-field-' + ngModel.$name : ngModel.$name }}" controls="controls" enabled="true" field-elid="{{ field.elid }}" model="model" attr="ngModel.$name" name="{{ ngModel.$name }}" lookup-fields="field.lookupFields"></fb-replace-with-field>
-  </div>
+  <p ng-if="form.description"><small>
+    <span ng-bind-html="form.description"></span>
+  </small></p>
   <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <span ng-show="form.feedback !== false"
         class="form-control-feedback"
         ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"
         aria-hidden="true"></span>
-  <p ng-if="form.description"><small>
-    <span ng-bind-html="form.description"></span>
-  </small></p>
-
-
-
+  <div ng-if="controls">
+    <fb-replace-with-field target="#{{ field.form.type == 'boolean' ? 'boolean-field-' + ngModel.$name : ngModel.$name }}" controls="controls" enabled="true" field-elid="{{ field.elid }}" model="model" attr="ngModel.$name" name="{{ ngModel.$name }}" lookup-fields="field.lookupFields"></fb-replace-with-field>
+  </div>
   <!-- This section exists for screen readers, skipping for now
   <span ng-show="hasError()"
         id="{{form.key.slice(-1)[0] + 'Status'}}"

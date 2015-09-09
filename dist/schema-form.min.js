@@ -413,6 +413,40 @@ angular.module('schemaForm').provider('sfBuilder', ['sfPathProvider', function(s
 
 }]);
 
+angular.module('schemaForm').directive('sfUploader', [
+  function() {
+    return {
+      restrict: 'A',
+      replace: false,
+      transclude: false,
+      controller: ['$scope', function($scope) {
+        $scope.multiple = true;
+
+        $scope.$watch('files', function(newVal) {
+          if (newVal) {
+            console.debug('files updated', $scope.files);
+          }
+        });
+
+        $scope.callbacks = {
+          onUploadComplete: function(files) {
+            if (typeof $scope.files == 'undefined') {
+              $scope.files = [];
+            }
+            for (var i = 0; i < files.length; i++) {
+              var f = files[i];
+              $scope.files.push({
+                hash: f.hash,
+                title: f.name
+              });
+            }
+          }
+        };
+      }]
+    }
+  }
+]);
+
 angular.module('schemaForm').provider('schemaFormDecorators',
 ['$compileProvider', 'sfPathProvider', function($compileProvider, sfPathProvider) {
   var defaultDecorator = '';
@@ -2481,7 +2515,8 @@ angular.module('schemaForm')
         model: '=sfModel',
         options: '=sfOptions',
         field: '=',
-        controls: '='
+        controls: '=',
+        files: '='
       },
       controller: ['$scope', function($scope) {
         this.evalInParentScope = function(expr, locals) {

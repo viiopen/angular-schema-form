@@ -3,18 +3,10 @@
   <label class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
     {{form.title}}
   </label>
-  <vii-markdown-editor ng-show="form.key"
-         sf-changed="form"
-         placeholder="{{form.placeholder}}"
-         class="{{form.fieldHtmlClass}}"
-         id="{{form.key.slice(-1)[0]}}"
-         ng-model-options="form.ngModelOptions"
-         ng-model="$$value$$"
-         ng-disabled="form.readonly"
-         schema-validate="form"
-         name="{{form.key.slice(-1)[0]}}"
-         ng-attr-title="{{form.description}}"
-         aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}" />
+
+  <vii-file-uploader sf-uploader multiple="multiple" callbacks="callbacks"></vii-file-uploader>
+  <vii-file-pen files="files" model="$$value$$"></vii-file-pen>
+
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>
@@ -23,10 +15,6 @@
         class="form-control-feedback"
         ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"
         aria-hidden="true"></span>
-
-  <div ng-if="controls">
-    <fb-replace-with-field target="#{{ field.form.type == 'boolean' ? 'boolean-field-' + ngModel.$name : ngModel.$name }}" controls="controls" enabled="true" field-elid="{{ field.elid }}" model="model" attr="ngModel.$name" name="{{ ngModel.$name }}" lookup-fields="field.lookupFields"></fb-replace-with-field>
-  </div>
   <!-- This section exists for screen readers, skipping for now
   <span ng-show="hasError()"
         id="{{form.key.slice(-1)[0] + 'Status'}}"
