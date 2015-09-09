@@ -1,6 +1,7 @@
 <input type="hidden"
          sf-changed="form"
          ng-disabled="form.readonly"
+         ng-init="$$value$$ = $$value$$ || form.defaultValue || form.options.default"
          ng-model="$$value$$"
          ng-model-options="form.ngModelOptions"
          schema-validate="form"
