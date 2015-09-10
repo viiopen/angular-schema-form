@@ -1,1 +1,22 @@
-<vii-detailed-range model="$$value$$" field="form"></vii-detailed-range>
+<div class="schema-form-{{form.type}} {{form.htmlClass}}"
+     ng-class="{'error': form.disableErrorState !== true && hasError()}">
+  <label class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
+    {{form.title}}
+  </label>
+  
+  <vii-detailed-range model="$$value$$" field="form"></vii-detailed-range>
+
+  <p ng-if="form.description"><small>
+    <span ng-bind-html="form.description"></span>
+  </small></p>
+  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <span ng-show="form.feedback !== false"
+        class="form-control-feedback"
+        ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"
+        aria-hidden="true"></span>
+
+  <div ng-if="controls">
+    <fb-replace-with-field target="#{{ field.form.type == 'boolean' ? 'boolean-field-' + ngModel.$name : ngModel.$name }}" controls="controls" enabled="true" field-elid="{{ field.elid }}" model="model" attr="ngModel.$name" name="{{ ngModel.$name }}" lookup-fields="field.lookupFields"></fb-replace-with-field>
+  </div>
+
+</div>
