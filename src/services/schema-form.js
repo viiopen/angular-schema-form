@@ -231,7 +231,11 @@ var module, angular;
     number:  [number],
     integer: [integer],
     boolean: [checkbox],
-    array:   [checkboxes, array]
+    array:   [
+      checkboxes, 
+      media.bind(null, sfPathProvider),
+      array
+      ]
   };
 
   var postProcessFn = function(form) { return form; };
@@ -545,6 +549,28 @@ var module, angular;
       path;
 
     if (type === 'string' && format === 'category') {
+
+      f       = stdFormObj(name, schema, options);
+      key     = options.path;
+      f.key   = key;
+      f.type  = format;
+      path    = sfPathProvider.stringify(key);
+      options.lookup[path] = f;
+
+      return f;
+
+    }
+
+  }
+
+  function media(sfPathProvider, name, schema, options) {
+    var f,
+      type    = stripNullType(schema.type),
+      format  = stripNullType(schema.format),
+      key,
+      path;
+
+    if (type === 'array' && format === 'media') {
 
       f       = stdFormObj(name, schema, options);
       key     = options.path;
