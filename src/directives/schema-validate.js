@@ -105,13 +105,15 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
         // A bit ugly but useful.
         scope.validateField =  function() {
 
+          var $modelValue = ngModel.$modelValue;
+
           // Special case: arrays
           // TODO: Can this be generalized in a way that works consistently?
           // Just setting the viewValue isn't enough to trigger validation
           // since it's the same value. This will be better when we drop
           // 1.2 support.
           if (schema && schema.type.indexOf('array') !== -1) {
-            validate(ngModel.$modelValue);
+            validate($modelValue);
           }
 
           // We set the viewValue to trigger parsers,
@@ -120,7 +122,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           if (ngModel.$setDirty) {
 
             // Angular 1.3+
-            if (!(ngModel.$modelValue && ngModel.$modelValue.match(/^@field/) && !ngModel.$viewValue)) {
+            if (!($modelValue && $modelValue.match && $modelValue.match(/^@field/) && !ngModel.$viewValue)) {
               console.debug('floop');
               ngModel.$setDirty();
               ngModel.$setViewValue(ngModel.$viewValue);
@@ -129,7 +131,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
             // In Angular 1.3 setting undefined as a viewValue does not trigger parsers
             // so we need to do a special required check. Fortunately we have $isEmpty
-            if (form.required && ngModel.$isEmpty(ngModel.$modelValue)) {
+            if (form.required && ngModel.$isEmpty($modelValue)) {
               ngModel.$setValidity('tv4-302', false);
             }
 
@@ -137,7 +139,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             // Angular 1.2
             // In angular 1.2 setting a viewValue of undefined will trigger the parser.
             // hence required works.
-            ngModel.$setViewValue(ngModel.$viewValue);
+            ngModel.$setViewValue($viewValue);
           }
         };
 
