@@ -2,7 +2,7 @@
      ng-class="{'error': form.disableErrorState !== true &amp;&amp; hasError()}">
   <label class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
     {{form.title}}
-    <vii-tree-nav-directive ng-show="form.key"
+    <schema-editor-category ng-show="form.key"
            sf-changed="form"
            placeholder="{{form.placeholder}}"
            class="{{form.fieldHtmlClass}}"

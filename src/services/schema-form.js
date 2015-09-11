@@ -8,13 +8,9 @@ var module, angular;
 
 (function(angular){
 
-  console.log('schema-form.js');
-
   angular.module('schemaForm').provider('schemaForm',
   ['sfPathProvider', function(sfPathProvider) {
   
-  console.log('My code changes are here...');
-
   //Creates an default titleMap list from an enum, i.e. a list of strings.
   var enumToTitleMap = function(enm) {
     var titleMap = []; //canonical titleMap format is a list.
@@ -541,19 +537,26 @@ var module, angular;
   }
 
   function category(sfPathProvider, name, schema, options) {
-console.log('here I am in my category...');
-    var f;
 
-    if (stripNullType(schema.type) === 'string' && 
-      stripNullType(schema.format) === 'category') {
+    var f,
+      type    = stripNullType(schema.type),
+      format  = stripNullType(schema.format),
+      key,
+      path;
 
-      f = stdFormObj(name, schema, options);
-      f.key = options.path;
-      f.type = 'category';
-      options.lookup[sfPathProvider.stringify(options.path)] = f;
+    if (type === 'string' && format === 'category') {
+
+      f       = stdFormObj(name, schema, options);
+      key     = options.path;
+      f.key   = key;
+      f.type  = format;
+      path    = sfPathProvider.stringify(key);
+      options.lookup[path] = f;
+
       return f;
 
     }
+
   }
 
 }).call(module || this, angular);
