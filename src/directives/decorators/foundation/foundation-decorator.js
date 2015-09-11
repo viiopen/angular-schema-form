@@ -28,6 +28,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     'odl-widget': {template: base + 'odl-widget.html', replace: false },
     markdown: {template: base + 'markdown.html', replace: false},
     media: {template: base + 'media.html', replace: false},
+    category: {template: base + 'category.html', replace: false},
     'radios-inline': {template: base + 'radios-inline.html', replace: false},
     medications: {template: base + 'medications.html', replace: false},
     /*radiobuttons: {template: base + 'radio-buttons.html', replace: false},*/
@@ -61,6 +62,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     medications: {template: base + 'medications.html', replace: false},
     markdown: base + 'markdown.html',
     media: base + 'media.html',
+    category: base + 'category.html',
     'radios-inline': base + 'radios-inline.html',
     /*radiobuttons: base + 'radio-buttons.html',*/
   });
