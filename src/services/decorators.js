@@ -190,6 +190,23 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                       /\$\$value\$\$/g,
                       'model' + (key[0] !== '[' ? '.' : '') + key
                     );
+
+                    // SLJ insert model-root before asf-model 9/12/2015
+                    template = template.replace(/asf-model=('|")/g, 'model-root="model" asf-model='+"$1");
+
+                    // SLJ hydrate the model 9/12/2015
+                    var modelPtr = scope.model;
+                    var prpty;
+
+                    for (var i = 0; i < scope.form.key.length; i++) {
+                      prpty = scope.form.key[i];
+
+                      if ( !angular.isDefined(modelPtr[prpty]) ) {
+                        modelPtr[prpty] = (i == scope.form.key.length - 1) ? null : {};
+                      }
+                      modelPtr = modelPtr[prpty];
+                    }
+
                   }
                   element.html(template);
 
