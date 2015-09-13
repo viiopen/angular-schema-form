@@ -1,7 +1,8 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true && hasError()}">
-  <label class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
+  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
     {{form.title}} {{form.$id}} {{form.id}} {{form.$$id}}
+  </label>
 
     <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
            ng-show="form.key"
@@ -47,7 +48,6 @@
             ng-bind-html="form.fieldAddonRight"></span>
     </div>
 
-  </label>
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>

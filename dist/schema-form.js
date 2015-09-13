@@ -493,6 +493,11 @@ angular.module('schemaForm').provider('schemaFormDecorators',
 
             //Keep error prone logic from the template
             scope.showTitle = function() {
+              var index = attrs.form.replace(/.*\[(\d)\]/, "$1");
+
+              if (scope.field.settings.hideFirstTitle && index == '0') {
+                return false;
+              }
               return scope.form && scope.form.notitle !== true && scope.form.title;
             };
 
@@ -640,10 +645,10 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                       'model' + (key[0] !== '[' ? '.' : '') + key
                     );
 
-                    // SLJ insert model-root before asf-model 9/12/2015
+                    // insert model-root before asf-model
                     template = template.replace(/asf-model=('|")/g, 'model-root="model" asf-model='+"$1");
 
-                    // SLJ hydrate the model 9/12/2015
+                    // hydrate the model
                     var modelPtr = scope.model;
                     var prpty;
 

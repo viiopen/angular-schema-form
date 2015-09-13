@@ -1,4 +1,4 @@
-<label ng-class="{{form.labelHtmlClass}}">{{form.title}}</label>
+<label ng-show="showTitle()" ng-class="{{form.labelHtmlClass}}">{{form.title}}</label>
 <div class="switch small schema-form-checkbox {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <input type="checkbox"

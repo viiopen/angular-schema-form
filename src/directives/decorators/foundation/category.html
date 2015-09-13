@@ -1,7 +1,8 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true &amp;&amp; hasError()}">
-  <label class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
+  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
     {{form.title}}
+  </label>
     <schema-editor-category ng-show="form.key"
            sf-changed="form"
            placeholder="{{form.placeholder}}"
@@ -14,7 +15,6 @@
            name="{{form.key.slice(-1)[0]}}"
            ng-attr-title="{{form.description}}"
            aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}" />
-  </label>
   <div ng-if="controls">
     <fb-replace-with-field target="#{{ field.form.type == 'boolean' ? 'boolean-field-' + ngModel.$name : ngModel.$name }}" controls="controls" enabled="true" field-elid="{{ field.elid }}" model="model" attr="ngModel.$name" name="{{ ngModel.$name }}" lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>

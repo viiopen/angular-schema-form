@@ -1,7 +1,7 @@
 <div>
   <vii-section-title ng-if="form.schema.sectionTitle" field="form"></vii-section-title>
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <vii-slider model="$$value$$" field="form"></vii-slider>
+  <vii-slider model="$$value$$" field="form" on-na="deleteProperty(path)"></vii-slider>
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>

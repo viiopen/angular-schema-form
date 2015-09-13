@@ -1,9 +1,9 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true && hasError()}">
-  <label class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
+  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
     {{form.title}}
   </label>
-  
+
   <vii-detailed-range model="$$value$$" field="form"></vii-detailed-range>
 
   <p ng-if="form.description"><small>
