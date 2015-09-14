@@ -482,7 +482,6 @@ angular.module('schemaForm').provider('schemaFormDecorators',
           scope: true,
           require: '?^sfSchema',
           link: function(scope, element, attrs, sfSchema) {
-
             //The ngModelController is used in some templates and
             //is needed for error messages,
             scope.$on('schemaFormPropagateNgModelController', function(event, ngModel) {
@@ -1788,7 +1787,7 @@ angular.module('schemaForm').directive('sfArray', ['sfSelect', 'schemaForm', 'sf
 
           // Since ng-model happily creates objects in a deep path when setting a
           // a value but not arrays we need to create the array.
-          if (angular.isUndefined(list)) {
+          if (!list) {
             list = [];
             sfSelect(form.key, scope.model, list);
           }
