@@ -190,22 +190,28 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                       'model' + (key[0] !== '[' ? '.' : '') + key
                     );
 
-                    // insert model-root before asf-model
-                    template = template.replace(/asf-model=('|")/g, 'model-root="model" asf-model='+"$1");
-
-                    // hydrate the model
+                    /*
+                    Hydrate the model from the root to ensure deep paths like
+                    model['prop']['prop2']['prop3'] actually work.  Also, get
+                    the model's parent.  For directives using the asf-model
+                    attribute, insert the model and the model's parent (i.e.,
+                    model['prop']['prop1']['prop2']
+                    */
                     var modelPtr = scope.model;
                     var prpty;
+                    var parent = 'model' + (key[0] !== '[' ? '.' : '');
 
                     for (var i = 0; i < scope.form.key.length; i++) {
                       prpty = scope.form.key[i];
 
                       if ( !angular.isDefined(modelPtr[prpty]) ) {
                         modelPtr[prpty] = (i == scope.form.key.length - 1) ? null : {};
+                        parent += (i == scope.form.key.length - 1) ? '' : ("['" + prpty + "']");
                       }
                       modelPtr = modelPtr[prpty];
                     }
 
+                    template = template.replace(/asf-model=('|")/g, 'asf-model-parent="'+parent+'" asf-model='+"$1");
                   }
                   element.html(template);
 
