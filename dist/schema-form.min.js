@@ -641,10 +641,8 @@ angular.module('schemaForm').provider('schemaFormDecorators',
 
                     /*
                     Hydrate the model from the root to ensure deep paths like
-                    model['prop']['prop2']['prop3'] actually work.  Also, get
-                    the model's parent.  For directives using the asf-model
-                    attribute, insert the model and the model's parent (i.e.,
-                    model['prop']['prop1']['prop2']
+                    model['prop']['prop2']['prop3'] actually work.  Also insert
+                    an attr for the model's parent i.e. model['prop']['prop1']['prop2']
                     */
                     var modelPtr = scope.model;
                     var prpty;
@@ -660,7 +658,7 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                       modelPtr = modelPtr[prpty];
                     }
 
-                    template = template.replace(/asf-model=('|")/g, 'asf-model-parent="'+parent+'" asf-model='+"$1");
+                    template = template.replace(/ng-model=('|")/g, 'ng-model-parent="'+parent+'" ng-model='+"$1");
                   }
                   element.html(template);
 
