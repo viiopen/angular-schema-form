@@ -652,10 +652,10 @@ angular.module('schemaForm').provider('schemaFormDecorators',
 
                     for (var i = 0; i < scope.form.key.length; i++) {
                       prpty = scope.form.key[i];
+                      if (i < scope.form.key.length - 1) parent += "['" + prpty + "']";
 
                       if ( !angular.isDefined(modelPtr[prpty]) ) {
                         modelPtr[prpty] = (i == scope.form.key.length - 1) ? null : {};
-                        parent += (i == scope.form.key.length - 1) ? '' : ("['" + prpty + "']");
                       }
                       modelPtr = modelPtr[prpty];
                     }
