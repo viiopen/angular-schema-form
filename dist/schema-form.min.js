@@ -2902,12 +2902,17 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           if (ngModel.$setDirty) {
 
             // Angular 1.3+
-            if (!($modelValue && (!$modelValue.match || $modelValue.match(/^@field/)) && !ngModel.$viewValue)) {
-              console.debug('floop');
-              ngModel.$setDirty();
-              ngModel.$setViewValue(ngModel.$viewValue);
-              ngModel.$commitViewValue();
+
+            // don't re-set dirtiness / view value / etc when field replacement
+            // is being used, see validator.js
+            if (angular.isString($modelValue) && $modelValue.match(/^@field/)) {
+              ngModel.$setValidity('tv4-302', true);
+              return;
             }
+
+            ngModel.$setDirty();
+            ngModel.$setViewValue(ngModel.$viewValue);
+            ngModel.$commitViewValue();
 
             // In Angular 1.3 setting undefined as a viewValue does not trigger parsers
             // so we need to do a special required check. Fortunately we have $isEmpty
