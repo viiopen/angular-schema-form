@@ -1709,7 +1709,7 @@ angular.module('schemaForm').factory('sfValidator', [function() {
 
     // Skip validation if this is a replacement value
     console.info('value: ', value);
-    if (value && value.match && value.match(/^@field/)) {
+    if (value && value.match && value.match(/^@field/))) {
       console.debug('skipping validation of a replacement value', form, value);
       return {value: true};
     }
@@ -2902,7 +2902,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           if (ngModel.$setDirty) {
 
             // Angular 1.3+
-            if (!($modelValue && $modelValue.match && $modelValue.match(/^@field/) && !ngModel.$viewValue)) {
+            if (!($modelValue && (!$modelValue.match || $modelValue.match(/^@field/)) && !ngModel.$viewValue)) {
               console.debug('floop');
               ngModel.$setDirty();
               ngModel.$setViewValue(ngModel.$viewValue);

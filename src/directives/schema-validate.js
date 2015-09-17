@@ -122,7 +122,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           if (ngModel.$setDirty) {
 
             // Angular 1.3+
-            if (!($modelValue && $modelValue.match && $modelValue.match(/^@field/) && !ngModel.$viewValue)) {
+            if (!($modelValue && (!$modelValue.match || $modelValue.match(/^@field/)) && !ngModel.$viewValue)) {
               console.debug('floop');
               ngModel.$setDirty();
               ngModel.$setViewValue(ngModel.$viewValue);
