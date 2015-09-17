@@ -105,15 +105,13 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
         // A bit ugly but useful.
         scope.validateField =  function() {
 
-          var $modelValue = ngModel.$modelValue;
-
           // Special case: arrays
           // TODO: Can this be generalized in a way that works consistently?
           // Just setting the viewValue isn't enough to trigger validation
           // since it's the same value. This will be better when we drop
           // 1.2 support.
           if (schema && schema.type.indexOf('array') !== -1) {
-            validate($modelValue);
+            validate(ngModel.$modelValue);
           }
 
           // We set the viewValue to trigger parsers,
@@ -125,7 +123,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
             // don't re-set dirtiness / view value / etc when field replacement
             // is being used, see validator.js
-            if (angular.isString($modelValue) && $modelValue.match(/^@field/)) {
+            if (angular.isString(ngModel.$modelValue) && $modelValue.match(/^@field/)) {
               ngModel.$setValidity('tv4-302', true);
               return;
             }
@@ -136,7 +134,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
             // In Angular 1.3 setting undefined as a viewValue does not trigger parsers
             // so we need to do a special required check. Fortunately we have $isEmpty
-            if (form.required && ngModel.$isEmpty($modelValue)) {
+            if (form.required && ngModel.$isEmpty(ngModel.$modelValue)) {
               ngModel.$setValidity('tv4-302', false);
             }
 
