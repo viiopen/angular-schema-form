@@ -6,13 +6,12 @@
 
   <vii-weight
     field="field"
-    type="{{form.type}}"
     sf-changed="form"
-    placeholder="{{form.placeholder}}"
     class="{{form.fieldHtmlClass}}"
     id="{{form.key.slice(-1)[0]}}"
     ng-model-options="form.ngModelOptions"
     ng-model="$$value$$"
+    sf-simple-validation
     ng-disabled="form.readonly"
     schema-validate="form"
     name="{{form.key.slice(-1)[0]}}"

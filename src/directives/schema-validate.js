@@ -103,46 +103,76 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
         var schema = form.schema;
 
         // A bit ugly but useful.
-        scope.validateField =  function() {
-
-          // Special case: arrays
-          // TODO: Can this be generalized in a way that works consistently?
-          // Just setting the viewValue isn't enough to trigger validation
-          // since it's the same value. This will be better when we drop
-          // 1.2 support.
-          if (schema && schema.type.indexOf('array') !== -1) {
-            validate(ngModel.$modelValue);
+        scope.validateField = function(inDigest) {
+          // don't re-set dirtiness / view value / etc when field replacement
+          // is being used, see validator.js
+          if (angular.isString(ngModel.$modelValue) && ngModel.$modelValue.match && ngModel.$modelValue.match(/^@field/)) {
+            ngModel.$setValidity('tv4-302', true);
+            ngModel.$setValidity('schemaForm', true);
+            return true;
           }
 
-          // We set the viewValue to trigger parsers,
-          // since modelValue might be empty and validating just that
-          // might change an existing error to a "required" error message.
-          if (ngModel.$setDirty) {
+          // BB - This is so we can support not-validation-validation of custom fields 09/18/15
+          var simpleValidation = _.has(attrs, 'sfSimpleValidation');
+          if (simpleValidation) {
+            var value = !form.required;
 
-            // Angular 1.3+
-
-            // don't re-set dirtiness / view value / etc when field replacement
-            // is being used, see validator.js
-            if (angular.isString(ngModel.$modelValue) && $modelValue.match(/^@field/)) {
-              ngModel.$setValidity('tv4-302', true);
-              return;
+            if (ngModel.$modelValue) {
+              value = true;
+            }
+            ngModel.$setValidity('tv4-302', value);
+            ngModel.$setValidity('schemaForm', value);
+            if (value) {
+              ngModel.$setPristine();
+              element.removeClass('ng-invalid');
+              element.removeClass('ng-dirty');
+              element.removeClass('ng-invalid-tv4-302');
+              element.removeClass('ng-invalid-schemaForm');
+            } else {
+              element.addClass('ng-invalid');
+              element.addClass('ng-dirty');
+              element.addClass('ng-invalid-tv4-302');
+              element.addClass('ng-invalid-schemaForm');
+              ngModel.$setDirty();
             }
 
-            ngModel.$setDirty();
-            ngModel.$setViewValue(ngModel.$viewValue);
-            ngModel.$commitViewValue();
-
-            // In Angular 1.3 setting undefined as a viewValue does not trigger parsers
-            // so we need to do a special required check. Fortunately we have $isEmpty
-            if (form.required && ngModel.$isEmpty(ngModel.$modelValue)) {
-              ngModel.$setValidity('tv4-302', false);
+            if (!inDigest) {
+              scope.$apply();
             }
 
           } else {
-            // Angular 1.2
-            // In angular 1.2 setting a viewValue of undefined will trigger the parser.
-            // hence required works.
-            ngModel.$setViewValue($viewValue);
+            // Special case: arrays
+            // TODO: Can this be generalized in a way that works consistently?
+            // Just setting the viewValue isn't enough to trigger validation
+            // since it's the same value. This will be better when we drop
+            // 1.2 support.
+            if (schema && schema.type.indexOf('array') !== -1) {
+              validate(ngModel.$modelValue);
+            }
+
+            // We set the viewValue to trigger parsers,
+            // since modelValue might be empty and validating just that
+            // might change an existing error to a "required" error message.
+            if (ngModel.$setDirty) {
+
+              // Angular 1.3+
+
+              ngModel.$setDirty();
+              ngModel.$setViewValue(ngModel.$viewValue);
+              ngModel.$commitViewValue();
+
+              // In Angular 1.3 setting undefined as a viewValue does not trigger parsers
+              // so we need to do a special required check. Fortunately we have $isEmpty
+              if (form.required && ngModel.$isEmpty(ngModel.$modelValue)) {
+                ngModel.$setValidity('tv4-302', false);
+              }
+
+            } else {
+              // Angular 1.2
+              // In angular 1.2 setting a viewValue of undefined will trigger the parser.
+              // hence required works.
+              ngModel.$setViewValue($viewValue);
+            }
           }
         };
 
