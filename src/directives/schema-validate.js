@@ -136,10 +136,6 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
               ngModel.$setDirty();
             }
 
-            if (!inDigest) {
-              scope.$apply();
-            }
-
           } else {
             // Special case: arrays
             // TODO: Can this be generalized in a way that works consistently?
