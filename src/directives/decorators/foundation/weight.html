@@ -1,5 +1,5 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
-     ng-class="{'error': form.disableErrorState !== true && hasError() && !form.correcting}">
+     ng-class="{'error': form.disableErrorState !== true && hasError()}">
   <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
     {{form.title}}
   </label>
@@ -11,11 +11,11 @@
     id="{{form.key.slice(-1)[0]}}"
     ng-model-options="form.ngModelOptions"
     ng-model="$$value$$"
+    sf-simple-validation
     ng-disabled="form.readonly"
     schema-validate="form"
     name="{{form.key.slice(-1)[0]}}"
     ng-attr-title="{{form.description}}"
-    correcting="form.correcting"
     aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}"></vii-weight>
 
   <p ng-if="form.description"><small>
