@@ -10,7 +10,7 @@ var module, angular;
 
   angular.module('schemaForm').provider('schemaForm',
   ['sfPathProvider', function(sfPathProvider) {
-  
+
   //Creates an default titleMap list from an enum, i.e. a list of strings.
   var enumToTitleMap = function(enm) {
     var titleMap = []; //canonical titleMap format is a list.
@@ -58,26 +58,6 @@ var module, angular;
       options.lookup[sfPathProvider.stringify(options.path)] = f;
       return f;
     }
-
-    if (schema.description) { f.description = schema.description; }
-    if (options.required === true || schema.required === true) { f.required = true; }
-    if (schema.maxLength) { f.maxlength = schema.maxLength; }
-    if (schema.minLength) { f.minlength = schema.minLength; }
-    if (schema.readOnly || schema.readonly) { f.readonly  = true; }
-    if (schema.minimum) { f.minimum = schema.minimum + (schema.exclusiveMinimum ? 1 : 0); }
-    if (schema.maximum) { f.maximum = schema.maximum - (schema.exclusiveMaximum ? 1 : 0); }
-
-    // Non standard attributes (DONT USE DEPRECATED)
-    // If you must set stuff like this in the schema use the x-schema-form attribute
-    if (schema.validationMessage) { f.validationMessage = schema.validationMessage; }
-    if (schema.enumNames) { f.titleMap = canonicalTitleMap(schema.enumNames, schema['enum']); }
-    f.schema = schema;
-
-    // Ng model options doesn't play nice with undefined, might be defined
-    // globally though
-    f.ngModelOptions = f.ngModelOptions || {};
-
-    return f;
   };
 
   var text = function(name, schema, options) {
@@ -252,7 +232,7 @@ var module, angular;
     integer: [integer],
     boolean: [checkbox],
     array:   [
-      checkboxes, 
+      checkboxes,
       media.bind(null, sfPathProvider),
       array
       ]
@@ -405,7 +385,7 @@ var module, angular;
         if (obj.type === 'checkbox' && angular.isUndefined(obj.schema['default'])) {
           obj.schema['default'] = false;
         }
-        
+
         // Special case: template type with tempplateUrl that's needs to be loaded before rendering
         // TODO: this is not a clean solution. Maybe something cleaner can be made when $ref support
         // is introduced since we need to go async then anyway

@@ -165,12 +165,12 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
               if (form.required && ngModel.$isEmpty(ngModel.$modelValue)) {
                 ngModel.$setValidity('tv4-302', false);
               }
-
-          } else {
-            // Angular 1.2
-            // In angular 1.2 setting a viewValue of undefined will trigger the parser.
-            // hence required works.
-            ngModel.$setViewValue(ngModel.$viewValue);
+            } else {
+              // Angular 1.2
+              // In angular 1.2 setting a viewValue of undefined will trigger the parser.
+              // hence required works.
+              ngModel.$setViewValue(ngModel.$viewValue);
+            }
           }
         };
 
@@ -181,7 +181,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
               (!scope.options || scope.options.validateOnRender !== true))  {
             return val;
           }
-	  validate(ngModel.$modelValue);
+	        validate(ngModel.$modelValue);
           return val;
         });
         // Listen to an event so we can validate the input on request
@@ -191,5 +191,5 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           return error;
         };
       }
-    };
+    }
   }]);
