@@ -15,7 +15,7 @@ angular.module('schemaForm').provider('sfBuilder', ['sfPathProvider', function(s
     sfField: function(args) {
       args.fieldFrag.firstChild.setAttribute('sf-field', formId);
 
-      // We use a lookup table for easy eaccess to our form.
+      // We use a lookup table for easy access to our form.
       args.lookup['f' + formId] = args.form;
       formId++;
     },
@@ -157,6 +157,13 @@ angular.module('schemaForm').provider('sfBuilder', ['sfPathProvider', function(s
     }
   };
   this.builders = builders;
+  var stdBuilders = [
+    builders.sfField,
+    builders.ngModel,
+    builders.ngModelOptions,
+    builders.condition
+  ];
+  this.stdBuilders = stdBuilders;
 
   this.$get = ['$templateCache', 'schemaFormDecorators', 'sfPath', function($templateCache, schemaFormDecorators, sfPath) {
 
@@ -184,7 +191,7 @@ angular.module('schemaForm').provider('sfBuilder', ['sfPathProvider', function(s
 
         // Sanity check.
         if (!f.type) {
-          return;
+          return frag;
         }
 
         var field = decorator[f.type] || decorator['default'];
@@ -196,6 +203,7 @@ angular.module('schemaForm').provider('sfBuilder', ['sfPathProvider', function(s
           } else {
             n.setAttribute('form', path + '[' + index + ']');
           }
+
           (checkForSlot(f, slots) || frag).appendChild(n);
 
         } else {
@@ -265,6 +273,7 @@ angular.module('schemaForm').provider('sfBuilder', ['sfPathProvider', function(s
 
       },
       builder: builders,
+      stdBuilders: stdBuilders,
       internalBuild: build
     };
   }];
