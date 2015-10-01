@@ -18,6 +18,14 @@
   </small></p>
   <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
-    <fb-replace-with-field target="#{{ field.form.type == 'boolean' ? 'boolean-field-' + ngModel.$name : ngModel.$name }}" controls="controls" enabled="true" field-elid="{{ field.elid }}" model="model" attr="ngModel.$name" name="{{ ngModel.$name }}" lookup-fields="field.lookupFields"></fb-replace-with-field>
+    <fb-replace-with-field
+      target="#{{ ngModel.$name }}"
+      controls="controls"
+      enabled="true"
+      field-elid="{{ field.elid }}"
+      model="model"
+      attr="ngModel.$name"
+      name="{{ ngModel.$name }}"
+      lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>
