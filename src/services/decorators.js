@@ -41,6 +41,9 @@ angular.module('schemaForm').provider('schemaFormDecorators',
           scope: true,
           require: '?^sfSchema',
           link: function(scope, element, attrs, sfSchema) {
+            // BB - Save the scope's ID so we can re-use it 10/02/15
+            scope.fieldId = scope.$id;
+
             //The ngModelController is used in some templates and
             //is needed for error messages,
             scope.$on('schemaFormPropagateNgModelController', function(event, ngModel) {

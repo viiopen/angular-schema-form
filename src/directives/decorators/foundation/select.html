@@ -10,6 +10,7 @@
           class="{{form.fieldHtmlClass}}"
           schema-validate="form"
           ng-options="item.value as item.name group by item.group for item in form.titleMap"
+          ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
           name="{{form.key.slice(-1)[0]}}">
   </select>
   <p ng-if="form.description"><small>
@@ -18,7 +19,7 @@
   <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name }}"
+      target="#{{ ngModel.$name + '-' + fieldId }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"

@@ -1,7 +1,7 @@
 <div class="schema-form-radios-inline {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <label class=" {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <div>
+  <div ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
       <label class="radio-inline" ng-repeat="item in form.titleMap" >
       <input type="radio"
              class="{{form.fieldHtmlClass}}"
@@ -20,7 +20,7 @@
   <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name }}"
+      target="#{{ ngModel.$name + '-' + fieldId }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"

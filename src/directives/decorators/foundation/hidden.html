@@ -5,5 +5,5 @@
          ng-model="$$value$$"
          ng-model-options="form.ngModelOptions"
          schema-validate="form"
-         ng-attr-id="{{'asf-field-' + $id}}"
+         ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
          name="{{form.key.slice(-1)[0]}}" />

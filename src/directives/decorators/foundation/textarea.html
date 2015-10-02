@@ -3,7 +3,7 @@
 
   <textarea ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
             class="{{form.fieldHtmlClass}}"
-            id="{{form.key.slice(-1)[0]}}"
+            ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
             sf-changed="form"
             placeholder="{{form.placeholder}}"
             ng-disabled="form.readonly"
@@ -17,7 +17,7 @@
           class="prefix"
           ng-bind-html="form.fieldAddonLeft"></span>
     <textarea class="{{form.fieldHtmlClass}}"
-              id="{{form.key.slice(-1)[0]}}"
+              ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
               sf-changed="form"
               placeholder="{{form.placeholder}}"
               ng-disabled="form.readonly"
@@ -35,7 +35,7 @@
   <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name }}"
+      target="#{{ ngModel.$name + '-' + fieldId }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"

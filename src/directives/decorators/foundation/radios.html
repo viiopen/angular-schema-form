@@ -1,26 +1,28 @@
 <div class="schema-form-radios {{form.htmlClass}}" ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <div class="radio" ng-repeat="item in form.titleMap" >
-    <label>
-      <input type="radio"
-             class="{{form.fieldHtmlClass}}"
-             sf-changed="form"
-             ng-disabled="form.readonly"
-             ng-model="$$value$$"
-             ng-model-options="form.ngModelOptions"
-             schema-validate="form"
-             ng-value="item.value"
-             name="{{form.key.join('.')}}">
-      <span ng-bind-html="item.name"></span>
-    </label>
-  </div>
+  <span ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
+    <div class="radio" ng-repeat="item in form.titleMap" >
+      <label>
+        <input type="radio"
+               class="{{form.fieldHtmlClass}}"
+               sf-changed="form"
+               ng-disabled="form.readonly"
+               ng-model="$$value$$"
+               ng-model-options="form.ngModelOptions"
+               schema-validate="form"
+               ng-value="item.value"
+               name="{{form.key.join('.')}}">
+        <span ng-bind-html="item.name"></span>
+      </label>
+    </div>
+  </span>
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>
   <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name }}"
+      target="#{{ ngModel.$name + '-' + fieldId }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"

@@ -8,7 +8,7 @@
          ng-model-options="form.ngModelOptions"
          schema-validate="form"
          class="{{form.fieldHtmlClass}}"
-         ng-attr-id="{{'asf-field-' + $id}}"
+         ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
          name="{{form.key.slice(-1)[0]}}" />
   <!--<span ng-bind-html="form.title"></span>-->
   <label ng-attr-for="{{'asf-field-' + $id}}" style="margin: 0"></label>
@@ -18,7 +18,7 @@
   <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name }}"
+      target="#{{ ngModel.$name + '-' + fieldId }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"

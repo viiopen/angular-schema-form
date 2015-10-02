@@ -7,7 +7,7 @@
          sf-changed="form"
          placeholder="{{form.placeholder}}"
          class="{{form.fieldHtmlClass}}"
-         id="{{form.key.slice(-1)[0]}}"
+         ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
          ng-model-options="form.ngModelOptions"
          ng-model="$$value$$"
          ng-disabled="form.readonly"
@@ -26,7 +26,7 @@
 
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name }}"
+      target="#{{ ngModel.$name + '-' + fieldId }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"

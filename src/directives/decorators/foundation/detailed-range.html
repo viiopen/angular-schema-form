@@ -4,7 +4,10 @@
     {{form.title}}
   </label>
 
-  <vii-detailed-range model="$$value$$" field="form"></vii-detailed-range>
+  <vii-detailed-range
+        model="$$value$$"
+        field="form"
+        ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"></vii-detailed-range>
 
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
@@ -17,7 +20,7 @@
 
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name }}"
+      target="#{{ ngModel.$name + '-' + fieldId }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"

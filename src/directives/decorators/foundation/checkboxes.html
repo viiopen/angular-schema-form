@@ -2,24 +2,25 @@
      class="schema-form-checkboxes {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <div class="switch small" ng-repeat="val in titleMapValues track by $index" >
-    <input type="checkbox"
-           ng-disabled="form.readonly"
-           sf-changed="form"
-           class="{{form.fieldHtmlClass}}"
-           ng-model="titleMapValues[$index]"
-           ng-attr-id="{{'asf-field-' + $id}}"
-           name="{{form.key.slice(-1)[0]}}">
-    <label ng-attr-for="{{'asf-field-' + $id}}" style="margin: 0"></label>
-    <span ng-bind-html="form.titleMap[$index].name"></span>
-  </div>
-  <p ng-if="form.description"><small>
-    <span class="help-block" ng-bind-html="form.description"></span>
-  </small></p>
-  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <span ng-attr-id="{{ 'checkboxes-' + fieldId}}">
+    <div class="switch small" ng-repeat="val in titleMapValues track by $index" >
+      <input type="checkbox"
+             ng-disabled="form.readonly"
+             sf-changed="form"
+             class="{{form.fieldHtmlClass}}"
+             ng-model="titleMapValues[$index]"
+             name="{{form.key.slice(-1)[0]}}">
+      <label ng-attr-for="{{'asf-field-' + $id}}" style="margin: 0"></label>
+      <span ng-bind-html="form.titleMap[$index].name"></span>
+    </div>
+    <p ng-if="form.description"><small>
+      <span class="help-block" ng-bind-html="form.description"></span>
+    </small></p>
+    <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  </span>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name }}"
+      target="#{{ 'checkboxes-' + fieldId }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"
