@@ -16,7 +16,8 @@ angular.module('schemaForm')
         options: '=sfOptions',
         field: '=',
         controls: '=',
-        files: '='
+        files: '=',
+        isMobile: '='
       },
       controller: ['$scope', function($scope) {
         this.evalInParentScope = function(expr, locals) {
