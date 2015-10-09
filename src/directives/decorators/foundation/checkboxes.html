@@ -9,6 +9,7 @@
              sf-changed="form"
              class="{{form.fieldHtmlClass}}"
              ng-model="titleMapValues[$index]"
+             ng-attr-id="{{'asf-field-' + $id}}"
              name="{{form.key.slice(-1)[0]}}">
       <label ng-attr-for="{{'asf-field-' + $id}}" style="margin: 0"></label>
       <span ng-bind-html="form.titleMap[$index].name"></span>
