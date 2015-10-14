@@ -201,6 +201,9 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                       'model' + (key[0] !== '[' ? '.' : '') + key
                     );
 
+                    // set the unique ID
+                    template = template.replace(/\$\$uid\$\$/g, (key + scope.field.id).replace(/\W+/g, '-'));
+
                     /*
                     Hydrate the model from the root to ensure deep paths like
                     model['prop']['prop2']['prop3'] actually work.  Also insert

@@ -1,17 +1,17 @@
 <div class="schema-form-radios {{form.htmlClass}}" ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <span ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
-    <div class="radio" ng-repeat="item in form.titleMap" >
-      <label>
+    <div class="radio" ng-repeat="item in form.titleMap track by $index" >
+      <label for="r$$uid$$-{{ $index }}">
         <input type="radio"
+               id="r$$uid$$-{{ $index }}"
                class="{{form.fieldHtmlClass}}"
                sf-changed="form"
                ng-disabled="form.readonly"
                ng-model="$$value$$"
                ng-model-options="form.ngModelOptions"
                schema-validate="form"
-               ng-value="item.value"
-               name="{{form.key.join('.')}}">
+               ng-value="item.value">
         <span ng-bind-html="item.name"></span>
       </label>
     </div>
