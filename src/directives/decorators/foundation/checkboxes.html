@@ -5,12 +5,13 @@
   <span ng-attr-id="{{ 'checkboxes-' + fieldId}}">
     <div class="switch small" ng-repeat="val in titleMapValues track by $index" >
       <input type="checkbox"
-        id="chks$$uid$$-{{ $index }}"
         ng-disabled="form.readonly"
         sf-changed="form"
         class="{{form.fieldHtmlClass}}"
+        ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}-$$uid$$"
+        name="{{form.key.slice(-1)[0]}}"
         ng-model="titleMapValues[$index]">
-      <label for="chks$$uid$$-{{ $index }}" style="margin: 0"></label>
+      <label ng-attr-for="{{form.key.slice(-1)[0] + '-' + fieldId}}-$$uid$$" style="margin: 0"></label>
       <span ng-bind-html="form.titleMap[$index].name"></span>
     </div>
     <p ng-if="form.description"><small>

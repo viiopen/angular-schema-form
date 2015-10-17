@@ -2,15 +2,16 @@
 <div class="switch small schema-form-checkbox {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <input type="checkbox"
-         id="chk$$uid$$"
          sf-changed="form"
          ng-disabled="form.readonly"
          ng-model="$$value$$"
          ng-model-options="form.ngModelOptions"
          schema-validate="form"
-         class="{{form.fieldHtmlClass}}">
+         ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}-$$uid$$"
+         name="{{form.key.slice(-1)[0]}}"
+         class="{{form.fieldHtmlClass}}" />
   <!--<span ng-bind-html="form.title"></span>-->
-  <label for="chk$$uid$$" style="margin: 0"></label>
+  <label ng-attr-for="{{form.key.slice(-1)[0] + '-' + fieldId}}-$$uid$$" style="margin: 0"></label>
   <p ng-if="form.description"><small>
     <span class="help-block" ng-bind-html="form.description"></span>
   </small></p>
