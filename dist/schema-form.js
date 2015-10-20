@@ -2763,6 +2763,7 @@ angular.module('schemaForm')
 
         // Common renderer function, can either be triggered by a watch or by an event.
         var render = function(schema, form) {
+
           var asyncTemplates = [];
           var merged = schemaForm.merge(schema, form, ignore, scope.options, undefined, asyncTemplates);
 
@@ -2832,10 +2833,17 @@ angular.module('schemaForm')
           //ok, now that that is done let's set any defaults
           if (!scope.options || scope.options.setSchemaDefaults !== false) {
             schemaForm.traverseSchema(schema, function(prop, path) {
-              if (angular.isDefined(prop['default'])) {
+              var formDefault = null;
+              for (var x = 0; x < form.length; x++) {
+                if (angular.equals(form[x].schema, prop)) {
+                  formDefault = form[x].defaultValue;
+                  break;
+                }
+              }
+              if (angular.isDefined(prop['default']) || formDefault) {
                 var val = sfSelect(path, scope.model);
                 if (angular.isUndefined(val)) {
-                  sfSelect(path, scope.model, prop['default']);
+                  sfSelect(path, scope.model, prop['default'] || formDefault);
                 }
               }
             });
