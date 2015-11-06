@@ -20,6 +20,7 @@ $templateCache.put("directives/decorators/foundation/fieldset.html","<fieldset n
 $templateCache.put("directives/decorators/foundation/height.html","<div class=\"schema-form-{{form.type}} {{form.htmlClass}}\" ng-class=\"{\'error\': form.disableErrorState !== true && hasError()}\"><label ng-show=\"showTitle()\" class=\"{{form.labelHtmlClass}}\" ng-class=\"{\'sr-only\': !showTitle()}\" for=\"{{form.key.slice(-1)[0]}}\">{{form.title}}</label><vii-height field=\"field\" sf-changed=\"form\" class=\"{{form.fieldHtmlClass}}\" ng-attr-id=\"{{form.key.slice(-1)[0] + \'-\' + fieldId}}\" ng-model-options=\"form.ngModelOptions\" ng-model=\"$$value$$\" sf-simple-validation=\"\" ng-disabled=\"form.readonly\" schema-validate=\"form\" name=\"{{form.key.slice(-1)[0]}}\" ng-attr-title=\"{{form.description}}\" aria-describedby=\"{{form.key.slice(-1)[0] + \'Status\'}}\"></vii-height><p ng-if=\"form.description\"><small><span ng-bind-html=\"form.description\"></span></small></p><fb-validation-error error=\"field.errorModel[field.errorAttr]\"></fb-validation-error><span ng-show=\"form.feedback !== false\" class=\"form-control-feedback\" ng-class=\"evalInScope(form.feedback) || {\'fa\': true, \'fa-lg\': true, \'check-circle\': hasSuccess(), \'success-color\': hasSuccess(), \'exclamation-circle\': hasError(), \'alert-color\': hasError() }\" aria-hidden=\"true\"></span><div ng-if=\"controls\"><fb-replace-with-field target=\"#{{ ngModel.$name + \'-\' + fieldId }}\" controls=\"controls\" enabled=\"true\" field-elid=\"{{ field.elid }}\" model=\"model\" attr=\"ngModel.$name\" name=\"{{ ngModel.$name }}\" lookup-fields=\"field.lookupFields\"></fb-replace-with-field></div></div>");
 $templateCache.put("directives/decorators/foundation/help.html","<div class=\"schema-form-helpvalue {{form.htmlClass}}\" ng-bind-html=\"form.helpvalue\"></div>");
 $templateCache.put("directives/decorators/foundation/hidden.html","<input type=\"hidden\" sf-changed=\"form\" ng-disabled=\"form.readonly\" ng-init=\"$$value$$ = $$value$$ || form.defaultValue || form.options.default\" ng-model=\"$$value$$\" ng-model-options=\"form.ngModelOptions\" schema-validate=\"form\" ng-attr-id=\"{{form.key.slice(-1)[0] + \'-\' + fieldId}}\" name=\"{{form.key.slice(-1)[0]}}\">");
+$templateCache.put("directives/decorators/foundation/label.html","<div class=\"vii-form-label\"><label for=\"field{{ form.id }}\">{{ form.label }}</label></div>");
 $templateCache.put("directives/decorators/foundation/markdown.html","<div class=\"schema-form-{{form.type}} {{form.htmlClass}}\" ng-class=\"{\'error\': form.disableErrorState !== true && hasError()}\"><label ng-show=\"showTitle()\" class=\"{{form.labelHtmlClass}}\" ng-class=\"{\'sr-only\': !showTitle()}\" for=\"{{form.key.slice(-1)[0]}}\">{{form.title}}</label><vii-markdown-editor ng-show=\"form.key\" sf-changed=\"form\" placeholder=\"{{form.placeholder}}\" class=\"{{form.fieldHtmlClass}}\" ng-attr-id=\"{{form.key.slice(-1)[0] + \'-\' + fieldId}}\" ng-model-options=\"form.ngModelOptions\" ng-model=\"$$value$$\" ng-disabled=\"form.readonly\" schema-validate=\"form\" name=\"{{form.key.slice(-1)[0]}}\" ng-attr-title=\"{{form.description}}\" aria-describedby=\"{{form.key.slice(-1)[0] + \'Status\'}}\"><p ng-if=\"form.description\"><small><span ng-bind-html=\"form.description\"></span></small></p><fb-validation-error error=\"field.errorModel[field.errorAttr]\"></fb-validation-error><span ng-show=\"form.feedback !== false\" class=\"form-control-feedback\" ng-class=\"evalInScope(form.feedback) || {\'fa\': true, \'fa-lg\': true, \'check-circle\': hasSuccess(), \'success-color\': hasSuccess(), \'exclamation-circle\': hasError(), \'alert-color\': hasError() }\" aria-hidden=\"true\"></span><div ng-if=\"controls\"><fb-replace-with-field target=\"#{{ ngModel.$name + \'-\' + fieldId }}\" controls=\"controls\" enabled=\"true\" field-elid=\"{{ field.elid }}\" model=\"model\" attr=\"ngModel.$name\" name=\"{{ ngModel.$name }}\" lookup-fields=\"field.lookupFields\"></fb-replace-with-field></div></vii-markdown-editor></div>");
 $templateCache.put("directives/decorators/foundation/media.html","<div class=\"schema-form-{{form.type}} {{form.htmlClass}}\" ng-class=\"{\'error\': form.disableErrorState !== true && hasError()}\"><label ng-show=\"showTitle()\" class=\"{{form.labelHtmlClass}}\" ng-class=\"{\'sr-only\': !showTitle()}\" for=\"{{form.key.slice(-1)[0]}}\">{{form.title}}</label><vii-file-uploader sf-uploader=\"\" multiple=\"multiple\" callbacks=\"callbacks\"></vii-file-uploader><vii-file-pen files=\"files\" model=\"$$value$$\"></vii-file-pen><p ng-if=\"form.description\"><small><span ng-bind-html=\"form.description\"></span></small></p><fb-validation-error error=\"field.errorModel[field.errorAttr]\"></fb-validation-error><span ng-show=\"form.feedback !== false\" class=\"form-control-feedback\" ng-class=\"evalInScope(form.feedback) || {\'fa\': true, \'fa-lg\': true, \'check-circle\': hasSuccess(), \'success-color\': hasSuccess(), \'exclamation-circle\': hasError(), \'alert-color\': hasError() }\" aria-hidden=\"true\"></span></div>");
 $templateCache.put("directives/decorators/foundation/medications.html","<div><vii-medications model=\"$$value$$\" form=\"form\" field=\"field\" is-mobile=\"isMobile\" ng-attr-id=\"{{form.key.slice(-1)[0] + \'-\' + fieldId}}\"></vii-medications><div ng-if=\"controls\"><fb-replace-with-field target=\"#{{ ngModel.$name + \'-\' + fieldId }}\" controls=\"controls\" enabled=\"true\" field-elid=\"{{ field.elid }}\" model=\"model\" attr=\"ngModel.$name\" name=\"{{ ngModel.$name }}\" lookup-fields=\"field.lookupFields\"></fb-replace-with-field></div><fb-validation-error error=\"field.errorModel[field.errorAttr]\"></fb-validation-error><p ng-if=\"form.description\"><small><span ng-bind-html=\"form.description\"></span></small></p></div>");
@@ -40,42 +41,45 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
   var base = 'directives/decorators/foundation/';
 
   decoratorsProvider.defineDecorator('foundationDecorator', {
-    textarea: {template: base + 'textarea.html', replace: false},
-    fieldset: {template: base + 'fieldset.html', replace: false},
-    /*fieldset: {template: base + 'fieldset.html', replace: true, builder: function(args) {
+    'actions': {template: base + 'actions.html', replace: false},
+    'array': {template: base + 'array.html', replace: false},
+    'button': {template: base + 'submit.html', replace: false},
+    'category': {template: base + 'category.html', replace: false},
+    'checkbox': {template: base + 'checkbox.html', replace: false},
+    'checkboxes': {template: base + 'checkboxes.html', replace: false},
+    'conditional': {template: base + 'section.html', replace: false},
+    'default': {template: base + 'default.html', replace: false},
+    'detailed-range': { template: base + 'detailed-range.html', replace: false },
+    'fieldset': {template: base + 'fieldset.html', replace: false},
+    'height': {template: base + 'height.html', replace: false},
+    'help': {template: base + 'help.html', replace: false},
+    'hidden': {template: base + 'hidden.html', replace: false},
+    'label': {template: base + 'label.html', replace: false},
+    'markdown': {template: base + 'markdown.html', replace: false},
+    'media': {template: base + 'media.html', replace: false},
+    'medications': {template: base + 'medications.html', replace: false},
+    'number': {template: base + 'default.html', replace: false},
+    'odl-widget': {template: base + 'odl-widget.html', replace: false },
+    'password': {template: base + 'default.html', replace: false},
+    'radios': {template: base + 'radios.html', replace: false},
+    'radios-inline': {template: base + 'radios-inline.html', replace: false},
+    'save': {template: base + 'save.html', replace: false},
+    'section': {template: base + 'section.html', replace: false},
+    'select': {template: base + 'select.html', replace: false},
+    'slider': {template: base + 'slider.html', replace: false},
+    'submit': {template: base + 'submit.html', replace: false},
+    'tabarray': {template: base + 'tabarray.html', replace: false},
+    'tabs': {template: base + 'tabs.html', replace: false},
+    'textarea': {template: base + 'textarea.html', replace: false},
+    'weight': {template: base + 'weight.html', replace: false}
+    /*
+    'fieldset': {template: base + 'fieldset.html', replace: true, builder: function(args) {
       var children = args.build(args.form.items, args.path + '.items');
       console.log('fieldset children frag', children.childNodes)
       args.fieldFrag.childNode.appendChild(children);
-    }},*/
-    array: {template: base + 'array.html', replace: false},
-    tabarray: {template: base + 'tabarray.html', replace: false},
-    tabs: {template: base + 'tabs.html', replace: false},
-    section: {template: base + 'section.html', replace: false},
-    conditional: {template: base + 'section.html', replace: false},
-    actions: {template: base + 'actions.html', replace: false},
-    select: {template: base + 'select.html', replace: false},
-    checkbox: {template: base + 'checkbox.html', replace: false},
-    checkboxes: {template: base + 'checkboxes.html', replace: false},
-    number: {template: base + 'default.html', replace: false},
-    password: {template: base + 'default.html', replace: false},
-    submit: {template: base + 'submit.html', replace: false},
-    button: {template: base + 'submit.html', replace: false},
-    radios: {template: base + 'radios.html', replace: false},
-    slider: {template: base + 'slider.html', replace: false},
-    'detailed-range': { template: base + 'detailed-range.html', replace: false },
-    'odl-widget': {template: base + 'odl-widget.html', replace: false },
-    save: {template: base + 'save.html', replace: false},
-    markdown: {template: base + 'markdown.html', replace: false},
-    media: {template: base + 'media.html', replace: false},
-    category: {template: base + 'category.html', replace: false},
-    'radios-inline': {template: base + 'radios-inline.html', replace: false},
-    medications: {template: base + 'medications.html', replace: false},
-    height: {template: base + 'height.html', replace: false},
-    weight: {template: base + 'weight.html', replace: false},
-    /*radiobuttons: {template: base + 'radio-buttons.html', replace: false},*/
-    help: {template: base + 'help.html', replace: false},
-    hidden: {template: base + 'hidden.html', replace: false},
-    'default': {template: base + 'default.html', replace: false}
+    }},
+    'radiobuttons': {template: base + 'radio-buttons.html', replace: false},
+    */
   }, [
     function(form) {
       console.debug(form, 'www');
@@ -84,31 +88,34 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
 
   //manual use directives
   decoratorsProvider.createDirectives({
-    textarea: base + 'textarea.html',
-    select: base + 'select.html',
-    checkbox: base + 'checkbox.html',
-    checkboxes: base + 'checkboxes.html',
-    number: base + 'default.html',
-    submit: base + 'submit.html',
-    button: base + 'submit.html',
-    text: base + 'default.html',
-    date: base + 'default.html',
-    password: base + 'default.html',
-    datepicker: base + 'datepicker.html',
-    input: base + 'default.html',
-    radios: base + 'radios.html',
-    slider: base + 'slider.html',
+    'button': base + 'submit.html',
+    'category': base + 'category.html',
+    'checkbox': base + 'checkbox.html',
+    'checkboxes': base + 'checkboxes.html',
+    'date': base + 'default.html',
+    'datepicker': base + 'datepicker.html',
     'detailed-range': base + 'detailed-range.html',
+    'height': {template: base + 'height.html', replace: false},
+    'input': base + 'default.html',
+    'label': {template: base + 'label.html', replace: false},
+    'markdown': base + 'markdown.html',
+    'media': base + 'media.html',
+    'medications': {template: base + 'medications.html', replace: false},
+    'number': base + 'default.html',
     'odl-widget': base + 'odl-widget.html',
-    save: base + 'save.html',
-    medications: {template: base + 'medications.html', replace: false},
-    height: {template: base + 'height.html', replace: false},
-    weight: {template: base + 'weight.html', replace: false},
-    markdown: base + 'markdown.html',
-    media: base + 'media.html',
-    category: base + 'category.html',
+    'password': base + 'default.html',
+    'radios': base + 'radios.html',
     'radios-inline': base + 'radios-inline.html',
-    /*radiobuttons: base + 'radio-buttons.html',*/
+    'save': base + 'save.html',
+    'select': base + 'select.html',
+    'slider': base + 'slider.html',
+    'submit': base + 'submit.html',
+    'text': base + 'default.html',
+    'textarea': base + 'textarea.html',
+    'weight': {template: base + 'weight.html', replace: false}
+    /*
+    'radiobuttons': base + 'radio-buttons.html',
+    */
   });
 
 }]).directive('sfFieldset', function() {
