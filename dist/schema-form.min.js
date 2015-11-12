@@ -29,7 +29,13 @@ try {
   deps.push('angularSpectrumColorpicker');
 } catch (e) {}
 
+try {
+  //This throws an expection if module does not exist.
+  deps.push('vii.filters');
+} catch (e) {}
+
 var schemaForm = angular.module('schemaForm', deps);
+
 
 angular.module('schemaForm').provider('sfPath',
 [function() {
@@ -3103,6 +3109,16 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
       }
     }
   }]);
+
+angular.module('vii.filters', [])
+
+.filter('trustAsHtml', function($sce) {
+  return function(val) {
+    return $sce.trustAsHtml(val);
+  }
+})
+
+; // end of filters
 
 return schemaForm;
 }));

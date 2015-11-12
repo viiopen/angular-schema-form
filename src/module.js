@@ -20,4 +20,10 @@ try {
   deps.push('angularSpectrumColorpicker');
 } catch (e) {}
 
+try {
+  //This throws an expection if module does not exist.
+  deps.push('vii.filters');
+} catch (e) {}
+
 var schemaForm = angular.module('schemaForm', deps);
+

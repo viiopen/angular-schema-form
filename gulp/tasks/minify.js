@@ -9,7 +9,8 @@ gulp.task('minify', function() {
     './src/module.js',
     './src/sfPath.js',
     './src/services/*.js',
-    './src/directives/*.js'
+    './src/directives/*.js',
+    './src/filters/*.js'
     ])
   .pipe(concat('schema-form.js'))
   .pipe(umd({
