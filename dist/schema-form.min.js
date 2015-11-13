@@ -1367,7 +1367,9 @@ var module, angular;
       text
       ],
     object:  [fieldset],
-    number:  [number],
+    number:  [
+      category.bind(null, sfPathProvider),
+      number],
     integer: [integer],
     boolean: [checkbox],
     array:   [
@@ -1687,7 +1689,7 @@ var module, angular;
       key,
       path;
 
-    if (type === 'string' && format === 'category') {
+    if (['string', 'number'].indexOf(type) !== -1 && format === 'category') {
 
       f       = stdFormObj(name, schema, options);
       key     = options.path;

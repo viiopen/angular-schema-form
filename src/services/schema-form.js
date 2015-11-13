@@ -228,7 +228,9 @@ var module, angular;
       text
       ],
     object:  [fieldset],
-    number:  [number],
+    number:  [
+      category.bind(null, sfPathProvider),
+      number],
     integer: [integer],
     boolean: [checkbox],
     array:   [
