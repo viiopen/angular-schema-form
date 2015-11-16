@@ -445,7 +445,8 @@ angular.module('schemaForm').directive('sfUploader', [
 
         $scope.callbacks = {
           onUploadComplete: function(files) {
-            if (typeof $scope.files == 'undefined') {
+            if (typeof $scope.files == 'undefined' ||
+              $scope.files === null) {
               $scope.files = [];
             }
             for (var i = 0; i < files.length; i++) {
