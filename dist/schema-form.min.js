@@ -2952,7 +2952,6 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
         var validate = function(viewValue, triggeredByBroadcast) {
           error = null; // viiopen
-console.log("VALIDATE", viewValue, form, new Date());
 
           //console.log('validate called', viewValue)
           //Still might be undefined
