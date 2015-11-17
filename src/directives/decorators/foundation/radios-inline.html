@@ -1,23 +1,25 @@
 <div class="schema-form-radios-inline {{form.htmlClass}}"
-     ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+  ng-init="f_id = '$$uid$$'"
+  ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
   <label class=" {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  <div ng-if="form.description" ng-bind-html="form.description" class="description"></div>
   <div ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
-      <label class="radio-inline" ng-repeat="item in form.titleMap" >
+    <label class="radio-inline" ng-repeat="item in form.titleMap track by $index" for="{{f_id}}-{{$index}}">
       <input type="radio"
+             id="{{f_id}}-{{$index}}"
              class="{{form.fieldHtmlClass}}"
              sf-changed="form"
              ng-disabled="form.readonly"
              ng-model="$$value$$"
              schema-validate="form"
-             ng-value="item.value"
-             name="{{form.key.join('.')}}">
+             ng-value="item.value">
       <span ng-bind-html="item.name"></span>
     </label>
   </div>
-  <p ng-if="form.description"><small>
-    <span ng-bind-html="form.description"></span>
-  </small></p>
-  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
+  <fb-validation-error
+    ng-if="field.errorModel[field.errorAttr]"
+    error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ ngModel.$name + '-' + fieldId }}"
@@ -30,3 +32,16 @@
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>
+<style>
+  /* TODO: Move into SCSS */
+  .schema-form-radios-inline label.radio-inline {
+    display: inline-block;
+    margin-right: 1rem;
+    margin-top: .5rem;
+  }
+
+  .schema-form-radios-inline label.radio-inline span {
+    position: relative;
+    top: .1em;
+  }
+</style>

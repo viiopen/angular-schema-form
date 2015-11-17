@@ -1,15 +1,19 @@
 <div>
-  <vii-section-title ng-if="form.schema.sectionTitle" field="form"></vii-section-title>
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <vii-slider
     model="$$value$$"
+    ng-model="$$value$$"
     field="form"
     on-na="deleteProperty(path)"
-    ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"></vii-slider>
+    schema-validate="form"
+    ng-attr-id="sld$$uid$$-{{fieldId}}">
+  </vii-slider>
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>
-  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <fb-validation-error
+    ng-if="field.errorModel[field.errorAttr]"
+    error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ ngModel.$name + '-' + fieldId }}"

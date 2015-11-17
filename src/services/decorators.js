@@ -202,7 +202,9 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                     );
 
                     // set the unique ID
-                    template = template.replace(/\$\$uid\$\$/g, (key + scope.field.id).replace(/\W+/g, '-'));
+                    var uid = (key + scope.field.id).replace(/\W+/g, '-').replace(/^-+/, '');
+                    template = template.replace(/\$\$uid\$\$/g, uid);
+                    //template = template.replace(/\$\$uid\$\$/g, (key + scope.field.id).replace(/\W+/g, '-'));
 
                     /*
                     Hydrate the model from the root to ensure deep paths like

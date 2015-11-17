@@ -1,14 +1,11 @@
 <div>
-  <!--
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <vii-slider model="$$value$$" field="form"></vii-slider>
-  -->
   <vii-medications
     model="$$value$$"
     form="form"
     field="field"
     is-mobile="isMobile"
-    ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"></vii-medications>
+    ng-attr-id="meds$$uid$$-{{fieldId}}"></vii-medications>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ ngModel.$name + '-' + fieldId }}"
@@ -20,7 +17,9 @@
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
-  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <fb-validation-error
+    ng-if="field.errorModel[field.errorAttr]"
+    error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>

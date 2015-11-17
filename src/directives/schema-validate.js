@@ -29,7 +29,10 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
         // Validate against the schema.
 
-        var validate = function(viewValue) {
+        var validate = function(viewValue, triggeredByBroadcast) {
+          error = null; // viiopen
+console.log("VALIDATE", viewValue, form, new Date());
+
           //console.log('validate called', viewValue)
           //Still might be undefined
           if (!form) {
@@ -49,10 +52,43 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
               .filter(function(k) { return k.indexOf('tv4-') === 0; })
               .forEach(function(k) { ngModel.$setValidity(k, true); });
 
+
+          // viiopen
+          if (form.required && !viewValue) {
+            error = 'Required';
+          }
+
+          // viiopen send message back if necessary
+          if (triggeredByBroadcast) {
+            if (result.error) {
+              if (error != 'Required') error = result.error.message;
+              form.showingError = true;
+              scope.$emit('vii-asf-error', error);
+            }
+          }
+
+          // viiopen if there was no error but the field still looks invalid, clean it
+          if (!result.error && form.showingError) {
+            form.showingError = false;
+            scope.$emit('vii-remove-asf-error');
+          }
+
           if (!result.valid) {
             // it is invalid, return undefined (no model update)
+            /* viiopen
             ngModel.$setValidity('tv4-' + result.error.code, false);
             error = result.error;
+            */
+            // viiopen
+            var code = result.error.code;
+            if (error == 'Required') {
+              code = '302';
+            } else {
+              error = result.error;
+            }
+            ngModel.$setValidity('tv4-' + code, false);
+            form.showingError = true;
+            scope.$emit('vii-asf-error', error);
 
             // In Angular 1.3+ return the viewValue, otherwise we inadvertenly
             // will trigger a 'parse' error.
@@ -107,6 +143,14 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
         // A bit ugly but useful.
         scope.validateField = function(inDigest) {
+          /* viiopen
+
+          It's really odd that this (scope.validateField()) is called when 'schemaFormValidate'
+          is $broadcast()ed, but scope.validate() is called on blur.
+
+          Just use scope.validate(). If it's good enough for blur, it's good enough for broadcast.
+          */
+
           // don't re-set dirtiness / view value / etc when field replacement
           // is being used, see validator.js
           if (angular.isString(ngModel.$modelValue) && ngModel.$modelValue.match && ngModel.$modelValue.match(/^@field/)) {
@@ -116,8 +160,10 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           }
 
           // BB - This is so we can support not-validation-validation of custom fields 09/18/15
-          var simpleValidation = _.has(attrs, 'sfSimpleValidation');
-          if (simpleValidation) {
+          ///// viiopen - skip for now
+          /////var simpleValidation = _.has(attrs, 'sfSimpleValidation');
+          /////if (simpleValidation) {
+          if (false) {
             var value = !form.required;
 
             if (ngModel.$modelValue) {
@@ -145,9 +191,10 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             // Just setting the viewValue isn't enough to trigger validation
             // since it's the same value. This will be better when we drop
             // 1.2 support.
-            if (schema && schema.type.indexOf('array') !== -1) {
-              validate(ngModel.$modelValue);
-            }
+            /////////if (schema && schema.type.indexOf('array') !== -1) {
+            // viiopen - Just call it.
+              validate(ngModel.$modelValue, inDigest);
+            /////////}
 
             // We set the viewValue to trigger parsers,
             // since modelValue might be empty and validating just that
@@ -185,7 +232,11 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           return val;
         });
         // Listen to an event so we can validate the input on request
-        scope.$on('schemaFormValidate', scope.validateField);
+        //////scope.$on('schemaFormValidate', scope.validateField);
+        // viiopen - if the message was $broadcast()ed with a flag, pass it to validateField()
+        scope.$on('schemaFormValidate', function(event, showErrors) {
+          scope.validateField(showErrors);
+        });
 
         scope.schemaError = function() {
           return error;

@@ -1,28 +1,33 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
-     ng-class="{'error': form.disableErrorState !== true && hasError()}">
-  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">
+  ng-init="f_id = '$uid$$'"
+  ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
+  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}"
+    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
     {{form.title}}
   </label>
   <vii-markdown-editor ng-show="form.key"
          sf-changed="form"
          placeholder="{{form.placeholder}}"
          class="{{form.fieldHtmlClass}}"
-         ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
+         ng-attr-id="{{f_id}}"
          ng-model-options="form.ngModelOptions"
          ng-model="$$value$$"
          ng-disabled="form.readonly"
          schema-validate="form"
-         name="{{form.key.slice(-1)[0]}}"
+         name="{{f_id}}"
          ng-attr-title="{{form.description}}"
-         aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}" />
+         aria-describedby="{{f_id}} Status" />
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>
-  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
-  <span ng-show="form.feedback !== false"
-        class="form-control-feedback"
-        ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"
-        aria-hidden="true"></span>
+  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
+  <fb-validation-error
+    ng-if="field.errorModel[field.errorAttr]"
+    error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <span ng-if="form.feedback !== false"
+    class="form-control-feedback"
+    ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"
+    aria-hidden="true"></span>
 
   <div ng-if="controls">
     <fb-replace-with-field

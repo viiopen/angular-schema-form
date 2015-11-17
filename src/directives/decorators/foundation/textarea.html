@@ -1,30 +1,35 @@
-<div class="{{form.htmlClass}} schema-form-textarea" ng-class="{'error': form.disableErrorState !== true && hasError()}">
-  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}" for="{{form.key.slice(-1)[0]}}">{{form.title}}</label>
+<div class="{{form.htmlClass}} schema-form-textarea"
+  ng-init="f_id = '$$uid$$'"
+  ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
+  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}"
+    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
+    {{form.title}}
+  </label>
 
   <textarea ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
             class="{{form.fieldHtmlClass}}"
-            ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
+            id="{{f_id}}"
             sf-changed="form"
             placeholder="{{form.placeholder}}"
             ng-disabled="form.readonly"
             ng-model="$$value$$"
             ng-model-options="form.ngModelOptions"
             schema-validate="form"
-            name="{{form.key.slice(-1)[0]}}"></textarea>
+            name="{{f_id}}"></textarea>
 
   <div ng-if="form.fieldAddonLeft || form.fieldAddonRight">
     <span ng-if="form.fieldAddonLeft"
           class="prefix"
           ng-bind-html="form.fieldAddonLeft"></span>
     <textarea class="{{form.fieldHtmlClass}}"
-              ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
+              id="{{f_id}}"
               sf-changed="form"
               placeholder="{{form.placeholder}}"
               ng-disabled="form.readonly"
               ng-model="$$value$$"
               ng-model-options="form.ngModelOptions"
               schema-validate="form"
-              name="{{form.key.slice(-1)[0]}}"></textarea>
+              name="{{f_id}}"></textarea>
     <span ng-if="form.fieldAddonRight"
           class="postfix"
           ng-bind-html="form.fieldAddonRight"></span>
@@ -32,7 +37,10 @@
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>
-  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
+  <fb-validation-error
+    ng-if="field.errorModel[field.errorAttr]"
+    error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ ngModel.$name + '-' + fieldId }}"

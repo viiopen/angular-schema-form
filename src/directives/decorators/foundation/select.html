@@ -1,5 +1,6 @@
 <div class="{{form.htmlClass}} schema-form-select"
-     ng-class="{'error': form.disableErrorState !== true && hasError()}">
+  ng-init="f_id = '$$uid$$'"
+  ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">
     {{form.title}}
   </label>
@@ -10,13 +11,16 @@
           class="{{form.fieldHtmlClass}}"
           schema-validate="form"
           ng-options="item.value as item.name group by item.group for item in form.titleMap"
-          ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}"
-          name="{{form.key.slice(-1)[0]}}">
+          ng-attr-id="{{f_id}}"
+          name="{{f_id}}">
   </select>
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
   </small></p>
-  <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
+  <fb-validation-error
+    ng-if="field.errorModel[field.errorAttr]"
+    error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ ngModel.$name + '-' + fieldId }}"
