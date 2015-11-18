@@ -1,30 +1,21 @@
 <div class="schema-form-radios {{form.htmlClass}}"
-  ng-id="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
-  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <!--
-  <span ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
-  -->
-    <div class="radio" ng-repeat="item in form.titleMap track by $index" >
-      <label for="{{f_id}}-{{$index}}">
-        <input type="radio"
-               id="{{f_id}}-{{$index}}"
-               class="{{form.fieldHtmlClass}}"
-               sf-changed="form"
-               ng-disabled="form.readonly"
-               ng-model="$$value$$"
-               ng-model-options="form.ngModelOptions"
-               schema-validate="form"
-               ng-value="item.value">
-        <span ng-bind-html="item.name"></span>
-      </label>
-    </div>
-  <!--
-  </span>
-  -->
-  <p ng-if="form.description"><small>
-    <span ng-bind-html="form.description"></span>
-  </small></p>
+  <label class=" {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  <div ng-if="form.description" ng-bind-html="form.description" class="description"></div>
+  <div ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
+    <label class="radio" ng-repeat="item in form.titleMap track by $index" for="{{f_id}}-{{$index}}">
+      <input type="radio"
+             id="{{f_id}}-{{$index}}"
+             class="{{form.fieldHtmlClass}}"
+             sf-changed="form"
+             ng-disabled="form.readonly"
+             ng-model="$$value$$"
+             schema-validate="form"
+             ng-value="item.value">
+      <span ng-bind-html="item.name"></span><br/>
+    </label>
+  </div>
   <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
   <fb-validation-error
     ng-if="field.errorModel[field.errorAttr]"

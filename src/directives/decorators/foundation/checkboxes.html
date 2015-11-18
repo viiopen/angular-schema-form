@@ -1,28 +1,26 @@
-<div sf-array="form" ng-model="$$value$$"
-  ng-init="f_id = '$$uid$$'"
-  class="schema-form-checkboxes {{form.htmlClass}}"
-  ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+<div sf-field-model="sf-new-array"
+     ng-init="f_id = '$$uid$$'"
+     sf-new-array="$$value$$"
+     class="schema-form-checkboxes {{form.htmlClass}}"
+     ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <div ng-attr-id="{{ 'checkboxes-' + fieldId}}">
     <div class="switch tiny" ng-repeat="val in titleMapValues track by $index" >
       <input type="checkbox"
-             id="{{f_id}}-{{$index}}"
-             ng-disabled="form.readonly"
-             sf-changed="form"
-             class="{{form.fieldHtmlClass}}"
-             ng-model="titleMapValues[$index]"
-             schema-validate="form"
-             name="{{f_id}}-{{$index}}" />
-      <label for="{{f_id}}-{{$index}}"></label>
+        ng-disabled="form.readonly"
+        sf-changed="form"
+        class="{{form.fieldHtmlClass}}"
+        ng-attr-id="{{f_id}}-{{$index}}"
+        name="{{f_id}}-{{$index}}"
+        ng-model="titleMapValues[$index]">
+      <label ng-attr-for="{{f_id}}-{{$index}}"></label>
       <span ng-bind-html="form.titleMap[$index].name"></span>
     </div>
     <p ng-if="form.description"><small>
-      <span ng-bind-html="form.description"></span>
+      <span class="help-block" ng-bind-html="form.description"></span>
     </small></p>
     <fb-validation-error
       ng-if="field.errorModel[field.errorAttr]"
       error="field.errorModel[field.errorAttr]"></fb-validation-error>
-  </div>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ 'checkboxes-' + fieldId }}"
@@ -35,17 +33,4 @@
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>
-<style>
-  .schema-form-checkboxes .switch {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    margin: .25rem auto;
-  }
 
-  .schema-form-checkboxes .switch label {
-    margin: 0px .25rem 0px 0px;
-  }
-</style>
