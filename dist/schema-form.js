@@ -2959,6 +2959,11 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             return viewValue;
           }
 
+          // viiopen - if the value is empty but not required, stop
+          if (!form.required && !viewValue) {
+            return viewValue;
+          }
+
           // Omit TV4 validation
           if (scope.options && scope.options.tv4Validation === false) {
             return viewValue;
@@ -3184,7 +3189,7 @@ angular.module('schemaForm').directive('sfShowErrors', [function() {
           }
         }
         if (found) {
-          child.className += ' error';
+          if (child.className.indexOf('error') == -1) child.className += ' error';
           child.innerHTML = error;
         } else {
           console.log('Could not find help-block for this field', element);

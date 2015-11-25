@@ -38,6 +38,11 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             return viewValue;
           }
 
+          // viiopen - if the value is empty but not required, stop
+          if (!form.required && !viewValue) {
+            return viewValue;
+          }
+
           // Omit TV4 validation
           if (scope.options && scope.options.tv4Validation === false) {
             return viewValue;

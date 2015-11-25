@@ -17,7 +17,7 @@ angular.module('schemaForm').directive('sfShowErrors', [function() {
           }
         }
         if (found) {
-          child.className += ' error';
+          if (child.className.indexOf('error') == -1) child.className += ' error';
           child.innerHTML = error;
         } else {
           console.log('Could not find help-block for this field', element);
