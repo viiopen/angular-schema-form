@@ -5,7 +5,6 @@ angular.module('schemaForm').directive('sfShowErrors', [function() {
     link: function(scope, element, attrs) {
       var child, found = false;
 
-      //scope.$on('vii-asf-error', function(event, uid, error) {
       scope.$on('vii-asf-error', function(event, error) {
         element.addClass('error');
         var children = element.children();

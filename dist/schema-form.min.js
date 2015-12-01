@@ -667,7 +667,8 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                     );
 
                     // set the unique ID
-                    var uid = (key + scope.field.id).replace(/\W+/g, '-').replace(/^-+/, '');
+                    var fid = scope.field.id ? scope.field.id : scope.field.elid;
+                    var uid = (key + fid).replace(/\W+/g, '-').replace(/^-+/, '');
                     template = template.replace(/\$\$uid\$\$/g, uid);
                     //template = template.replace(/\$\$uid\$\$/g, (key + scope.field.id).replace(/\W+/g, '-'));
 
@@ -3177,7 +3178,6 @@ angular.module('schemaForm').directive('sfShowErrors', [function() {
     link: function(scope, element, attrs) {
       var child, found = false;
 
-      //scope.$on('vii-asf-error', function(event, uid, error) {
       scope.$on('vii-asf-error', function(event, error) {
         element.addClass('error');
         var children = element.children();
