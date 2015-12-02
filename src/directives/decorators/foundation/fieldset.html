@@ -1,5 +1,5 @@
 <fieldset ng-disabled="form.readonly" class="schema-form-fieldset {{form.htmlClass}}">
   <legend ng-class="{'show-for-sr': !showTitle() }">{{ form.title }}</legend>
-  <div class="" ng-show="form.description" ng-bind-html="form.description"></div>
+  <div class="" ng-show="false && form.description" ng-bind-html="form.description"></div>
   <sf-decorator ng-repeat="item in form.items" form="item"></sf-decorator>
 </fieldset>

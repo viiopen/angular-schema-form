@@ -3,7 +3,7 @@
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
   <label class=" {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <div ng-if="form.description" ng-bind-html="form.description" class="description"></div>
-  <div ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
+  <div ng-attr-id="{{f_id}}">
     <label class="radio" ng-repeat="item in form.titleMap track by $index" for="{{f_id}}-{{$index}}">
       <input type="radio"
              id="{{f_id}}-{{$index}}"
@@ -22,12 +22,12 @@
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name + '-' + fieldId }}"
+      target="#{{ f_id }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"
-      model="model"
-      attr="ngModel.$name"
+      model="$$rplModel$$"
+      attr="'$$rplAttr$$'"
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>

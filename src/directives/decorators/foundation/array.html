@@ -1,7 +1,8 @@
 <div sf-array="form" class="schema-form-array {{form.htmlClass}}"
-     ng-model="$$value$$" ng-model-options="form.ngModelOptions">
+    ng-model="$$value$$" ng-model-options="form.ngModelOptions"
+    ng-init="f_id = '$$uid$$'">
   <label class="" ng-show="showTitle()">{{ form.title }}</label>
-  <span ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
+  <span ng-attr-id="{{ f_id }}">
     <ol class="" ng-model="modelArray" ui-sortable>
       <li class="{{form.fieldHtmlClass}}"
           ng-repeat="item in modelArray track by $index" style="clear: right">
@@ -33,12 +34,12 @@
   </span>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name + '-' + fieldId }}"
+      target="#{{ f_id }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"
-      model="model"
-      attr="ngModel.$name"
+      model="$$rplModel$$"
+      attr="'$$rplAttr$$'"
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>

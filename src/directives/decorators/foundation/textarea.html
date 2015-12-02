@@ -43,12 +43,12 @@
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name + '-' + fieldId }}"
+      target="#{{ f_id }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"
-      model="model"
-      attr="ngModel.$name"
+      model="$$rplModel$$"
+      attr="'$$rplAttr$$'"
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>

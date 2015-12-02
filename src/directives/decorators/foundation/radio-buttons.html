@@ -1,9 +1,10 @@
 <div class="schema-form-radiobuttons {{form.htmlClass}}"
-     ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+    ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
+    ng-init="f_id = '$$uid$$'">
   <div>
     <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   </div>
-  <div class="btn-group" ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
+  <div class="btn-group" ng-attr-id="{{ f_id }}">
     <label class="btn {{ (item.value === $$value$$) ? form.style.selected || '' : form.style.unselected || ''; }}"
            ng-class="{ active: item.value === $$value$$ }"
            ng-repeat="item in form.titleMap">
@@ -26,12 +27,12 @@
   <fb-validation-error error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name + '-' + fieldId }}"
+      target="#{{ f_id }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"
-      model="model"
-      attr="ngModel.$name"
+      model="$$rplModel$$"
+      attr="'$$rplAttr$$'"
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>

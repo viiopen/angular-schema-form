@@ -1,4 +1,4 @@
-<div>
+<div ng-init="f_id = '$$uid$$'">
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <vii-slider
     model="$$value$$"
@@ -6,7 +6,7 @@
     field="form"
     on-na="deleteProperty(path)"
     schema-validate="form"
-    ng-attr-id="sld$$uid$$-{{fieldId}}">
+    ng-attr-id="{{f_id}}">
   </vii-slider>
   <p ng-if="form.description"><small>
     <span ng-bind-html="form.description"></span>
@@ -16,12 +16,12 @@
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name + '-' + fieldId }}"
+      target="#{{ f_id }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"
-      model="model"
-      attr="ngModel.$name"
+      model="$$rplModel$$"
+      attr="'$$rplAttr$$'"
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>

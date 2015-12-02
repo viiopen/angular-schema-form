@@ -227,6 +227,10 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                     }
 
                     template = template.replace(/ng-model=('|")/g, 'ng-model-parent="'+parent+'" ng-model='+"$1");
+
+                    // for replacement fields, we need the model path to the attribute, and the attribute
+                    template = template.replace(/\$\$rplModel\$\$/g, parent);
+                    template = template.replace(/\$\$rplAttr\$\$/g, prpty);
                   }
                   element.html(template);
 

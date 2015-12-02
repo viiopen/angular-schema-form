@@ -48,6 +48,19 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             return viewValue;
           }
 
+          // don't re-set dirtiness / view value / etc when field replacement
+          // is being used, see validator.js
+          if (angular.isString(ngModel.$modelValue) && ngModel.$modelValue.match && ngModel.$modelValue.match(/^@field/)) {
+            /* viiopen - skip for now
+            ngModel.$setValidity('tv4-302', true);
+            ngModel.$setValidity('schemaForm', true);
+            return true;
+            */
+            // since schema fields validate onBlur, remove any errors from clicking the replacement button
+            scope.$emit('vii-remove-asf-error');
+            return viewValue
+          }
+
           var result =  sfValidator.validate(form, viewValue);
           //console.log('result is', result)
           // Since we might have different tv4 errors we must clear all
@@ -153,15 +166,16 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           is $broadcast()ed, but scope.validate() is called on blur.
 
           Just use scope.validate(). If it's good enough for blur, it's good enough for broadcast.
-          */
 
           // don't re-set dirtiness / view value / etc when field replacement
           // is being used, see validator.js
+
           if (angular.isString(ngModel.$modelValue) && ngModel.$modelValue.match && ngModel.$modelValue.match(/^@field/)) {
             ngModel.$setValidity('tv4-302', true);
             ngModel.$setValidity('schemaForm', true);
             return true;
           }
+          */
 
           // BB - This is so we can support not-validation-validation of custom fields 09/18/15
           ///// viiopen - skip for now

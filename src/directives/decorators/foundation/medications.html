@@ -1,19 +1,19 @@
-<div>
+<div ng-init="f_id = '$$uid$$'">
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <vii-medications
     model="$$value$$"
     form="form"
     field="field"
     is-mobile="isMobile"
-    ng-attr-id="meds$$uid$$-{{fieldId}}"></vii-medications>
+    ng-attr-id="{{ f_id }}"></vii-medications>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name + '-' + fieldId }}"
+      target="#{{ f_id }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"
-      model="model"
-      attr="ngModel.$name"
+      model="$$rplModel$$"
+      attr="'$$rplAttr$$'"
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
