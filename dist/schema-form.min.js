@@ -2744,6 +2744,8 @@ angular.module('schemaForm')
           }
           return that.lookup;
         };
+
+        if (!$scope.field.settings.replacing) $scope.field.settings.replacing = {};
       }],
       replace: false,
       restrict: 'A',
@@ -2868,6 +2870,18 @@ angular.module('schemaForm')
           }
 
           scope.$emit('sf-render-finished', element);
+
+          scope.$on('vii-asf-field-replace', function(event, target) {
+            // When true, the replacement input field is added to the DOM
+            // while the schema-conforming input field is omitted.
+            scope.field.settings.replacing[target] = true;
+          });
+
+          scope.$on('vii-asf-field-unreplace', function(event, target) {
+            // When false, the schema-confirming input field is added to the DOM
+            // while the replacement  input field is omitted.
+            scope.field.settings.replacing[target] = false;
+          });
         };
 
         var defaultForm = ['*'];
@@ -2979,14 +2993,12 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           // don't re-set dirtiness / view value / etc when field replacement
           // is being used, see validator.js
           if (angular.isString(ngModel.$modelValue) && ngModel.$modelValue.match && ngModel.$modelValue.match(/^@field/)) {
-            /* viiopen - skip for now
+            // since schema fields validate onBlur, remove any errors from clicking the replacement button
+            scope.$emit('vii-remove-asf-error');
             ngModel.$setValidity('tv4-302', true);
             ngModel.$setValidity('schemaForm', true);
             return true;
-            */
-            // since schema fields validate onBlur, remove any errors from clicking the replacement button
-            scope.$emit('vii-remove-asf-error');
-            return viewValue
+            //return viewValue
           }
 
           var result =  sfValidator.validate(form, viewValue);
@@ -3139,7 +3151,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             // 1.2 support.
             /////////if (schema && schema.type.indexOf('array') !== -1) {
             // viiopen - Just call it.
-              validate(ngModel.$modelValue, inDigest);
+            return validate(ngModel.$modelValue, inDigest);
             /////////}
 
             // We set the viewValue to trigger parsers,

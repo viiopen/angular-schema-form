@@ -6,9 +6,25 @@
     {{form.title}} {{form.$id}} {{form.id}} {{form.$$id}}
   </label>
 
-    <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
+    <input ng-if="!field.settings.replacing[f_id] && !form.fieldAddonLeft && !form.fieldAddonRight"
            ng-show="form.key"
            type="{{form.type}}"
+           step="any"
+           sf-changed="form"
+           placeholder="{{form.placeholder}}"
+           class="{{form.fieldHtmlClass}}"
+           ng-attr-id="{{f_id}}"
+           ng-model-options="form.ngModelOptions"
+           ng-model="$$value$$"
+           ng-disabled="form.readonly"
+           schema-validate="form"
+           name="{{f_id}}"
+           ng-attr-title="{{form.description}}"
+           aria-describedby="{{f_id}} Status">
+
+    <input ng-if="field.settings.replacing[f_id] && !form.fieldAddonLeft && !form.fieldAddonRight"
+           style="display:none"
+           type="text"
            step="any"
            sf-changed="form"
            placeholder="{{form.placeholder}}"

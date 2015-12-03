@@ -32,6 +32,8 @@ angular.module('schemaForm')
           }
           return that.lookup;
         };
+
+        if (!$scope.field.settings.replacing) $scope.field.settings.replacing = {};
       }],
       replace: false,
       restrict: 'A',
@@ -156,6 +158,18 @@ angular.module('schemaForm')
           }
 
           scope.$emit('sf-render-finished', element);
+
+          scope.$on('vii-asf-field-replace', function(event, target) {
+            // When true, the replacement input field is added to the DOM
+            // while the schema-conforming input field is omitted.
+            scope.field.settings.replacing[target] = true;
+          });
+
+          scope.$on('vii-asf-field-unreplace', function(event, target) {
+            // When false, the schema-confirming input field is added to the DOM
+            // while the replacement  input field is omitted.
+            scope.field.settings.replacing[target] = false;
+          });
         };
 
         var defaultForm = ['*'];
