@@ -1,7 +1,7 @@
 <div sf-array="form" class="schema-form-array {{form.htmlClass}}"
     ng-model="$$value$$" ng-model-options="form.ngModelOptions"
     ng-init="f_id = '$$uid$$'">
-  <label class="" ng-show="showTitle()">{{ form.title }}</label>
+  <label class="" ng-show="showTitle()" title="{{ form.description }}">{{ form.title }}</label>
   <span ng-attr-id="{{ f_id }}">
     <ol class="" ng-model="modelArray" ui-sortable>
       <li class="{{form.fieldHtmlClass}}"
@@ -24,13 +24,16 @@
         {{ form.add || 'Add'}}
       </button>
     </div>
-    <p ng-if="form.description"><small>
-      <span class="help-block" ng-bind-html="form.description"></span>
-    </small></p>
+    <div class="help-block" ng-if="form.description && form.showDescription"><small>
+      <span ng-bind-html="form.description"></span>
+    </small></div>
+    <div class="error-msg" ng-class="{error: hasError()}"></div>
+    <!--
     <div class=""
          ng-class="{'error': hasError()}"
          ng-show="(hasError() && errorMessage(schemaError())) || form.description"
          ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div>
+    -->
   </span>
   <div ng-if="controls">
     <fb-replace-with-field

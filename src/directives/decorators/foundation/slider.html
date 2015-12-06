@@ -1,5 +1,7 @@
 <div ng-init="f_id = '$$uid$$'">
-  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  <label class="{{form.labelHtmlClass}}"
+    title="{{form.description}}"
+    ng-show="showTitle()">{{form.title}}</label>
   <vii-slider
     model="$$value$$"
     ng-model="$$value$$"
@@ -8,12 +10,15 @@
     schema-validate="form"
     ng-attr-id="{{f_id}}">
   </vii-slider>
-  <p ng-if="form.description"><small>
+  <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
-  </small></p>
+  </small></div>
+  <div class="error-msg" ng-class="{error: hasError()}"></div>
+  <!--
   <fb-validation-error
     ng-if="field.errorModel[field.errorAttr]"
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  -->
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"

@@ -20,13 +20,12 @@
     ng-attr-title="{{form.description}}"
     aria-describedby="{{f_id}} Status"></vii-weight>
 
-  <p ng-if="form.description"><small>
-    <span ng-bind-html="form.description"></span>
-  </small></p>
-  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description">yyyy</div>
+  <div class="error-msg" ng-class="{error: hasError()}"></div>
+  <!--
   <fb-validation-error
     ng-if="field.errorModel[field.errorAttr]"
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  -->
   <span ng-if="form.feedback"
      class="form-control-feedback"
      ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"

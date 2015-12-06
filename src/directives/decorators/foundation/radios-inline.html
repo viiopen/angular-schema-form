@@ -1,7 +1,9 @@
 <div class="schema-form-radios-inline {{form.htmlClass}}"
   ng-init="f_id = '$$uid$$'"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
-  <label class=" {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  <label class=" {{form.labelHtmlClass}}"
+    title="{{form.description}}"
+    ng-show="showTitle()">{{form.title}}</label>
   <div ng-if="form.description" ng-bind-html="form.description" class="description"></div>
   <div ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
     <label class="radio-inline" ng-repeat="item in form.titleMap track by $index" for="{{f_id}}-{{$index}}">
@@ -16,10 +18,15 @@
       <span ng-bind-html="item.name"></span>
     </label>
   </div>
-  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
+  <div class="help-block" ng-if="form.description && form.showDescription"><small>
+    <span ng-bind-html="form.description"></span>
+  </small></div>
+  <div class="error-msg" ng-class="{error: hasError()}"></div>
+  <!--
   <fb-validation-error
     ng-if="field.errorModel[field.errorAttr]"
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  -->
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ ngModel.$name + '-' + fieldId }}"

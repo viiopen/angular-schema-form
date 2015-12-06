@@ -1,7 +1,9 @@
 <div class="{{form.htmlClass}} schema-form-select"
   ng-init="f_id = '$$uid$$'"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
-  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">
+  <label class="{{form.labelHtmlClass}}"
+    title="{{form.description}}"
+    ng-show="showTitle()">
     {{form.title}}
   </label>
   <select ng-model="$$value$$"
@@ -14,10 +16,10 @@
           ng-attr-id="{{f_id}}"
           name="{{f_id}}">
   </select>
-  <p ng-if="form.description"><small>
+  <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
-  </small></p>
-  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
+  </small></div>
+  <div class="error-msg" ng-class="{error: hasError()}"></div>
   <fb-validation-error
     ng-if="field.errorModel[field.errorAttr]"
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
@@ -33,3 +35,10 @@
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>
+<!--
+<style>
+  .schema-form-select select {
+    margin-bottom: 0;
+  }
+</style>
+-->

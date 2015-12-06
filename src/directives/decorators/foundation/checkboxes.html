@@ -15,12 +15,15 @@
       <label ng-attr-for="{{f_id}}-{{$index}}"></label>
       <span ng-bind-html="form.titleMap[$index].name"></span>
     </div>
-    <p ng-if="form.description"><small>
-      <span class="help-block" ng-bind-html="form.description"></span>
-    </small></p>
+    <div class="help-block" ng-if="form.description && form.showDescription"><small>
+      <span ng-bind-html="form.description"></span>
+    </small></div>
+    <div class="error-msg" ng-class="{error: hasError()}"></div>
+    <!--
     <fb-validation-error
       ng-if="field.errorModel[field.errorAttr]"
       error="field.errorModel[field.errorAttr]"></fb-validation-error>
+    -->
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"

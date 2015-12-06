@@ -1,7 +1,7 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
   ng-init="f_id = '$uid$$'"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
-  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}"
+  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" title="{{ form.description }}"
     ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
     {{form.title}}
   </label>
@@ -17,13 +17,15 @@
          name="{{f_id}}"
          ng-attr-title="{{form.description}}"
          aria-describedby="{{f_id}} Status" />
-  <p ng-if="form.description"><small>
+  <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
-  </small></p>
-  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
+  </small></div>
+  <div class="error-msg" ng-class="{error: hasError()}"></div>
+  <!--
   <fb-validation-error
     ng-if="field.errorModel[field.errorAttr]"
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  -->
   <span ng-if="form.feedback !== false"
     class="form-control-feedback"
     ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"

@@ -17,6 +17,7 @@
            name="{{f_id}}"
            ng-attr-title="{{form.description}}"
            aria-describedby="{{f_id}} Status" />
+  <div class="error-msg" ng-class="{error: hasError()}"></div>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"
@@ -28,10 +29,11 @@
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
-  <div class="help-block" ng-class="{error: hasError()}" sf-message="form.description"></div>
+  <!--
   <fb-validation-error
     ng-if="field.errorModel[field.errorAttr]"
     error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  -->
   <span ng-if="form.feedback"
     class="form-control-feedback"
     ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"
