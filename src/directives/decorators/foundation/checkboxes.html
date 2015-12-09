@@ -4,26 +4,41 @@
      class="schema-form-checkboxes {{form.htmlClass}}"
      ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-    <div class="switch tiny" ng-repeat="val in titleMapValues track by $index" >
-      <input type="checkbox"
-        ng-disabled="form.readonly"
-        sf-changed="form"
-        class="{{form.fieldHtmlClass}}"
-        ng-attr-id="{{f_id}}-{{$index}}"
-        name="{{f_id}}-{{$index}}"
-        ng-model="titleMapValues[$index]">
-      <label ng-attr-for="{{f_id}}-{{$index}}"></label>
-      <span ng-bind-html="form.titleMap[$index].name"></span>
-    </div>
-    <div class="help-block" ng-if="form.description && form.showDescription"><small>
-      <span ng-bind-html="form.description"></span>
-    </small></div>
-    <div class="error-msg" ng-class="{error: hasError()}"></div>
-    <!--
-    <fb-validation-error
-      ng-if="field.errorModel[field.errorAttr]"
-      error="field.errorModel[field.errorAttr]"></fb-validation-error>
-    -->
+  <!--
+  <div class="switch tiny" ng-repeat="val in titleMapValues track by $index" >
+    <input type="checkbox"
+      ng-disabled="form.readonly"
+      sf-changed="form"
+      class="{{form.fieldHtmlClass}}"
+      ng-attr-id="{{f_id}}-{{$index}}"
+      name="{{f_id}}-{{$index}}"
+      ng-model="titleMapValues[$index]">
+    <label ng-attr-for="{{f_id}}-{{$index}}"></label>
+    <span ng-bind-html="form.titleMap[$index].name"></span>
+  </div>
+  -->
+  <div class="checkbox" ng-repeat="val in titleMapValues track by $index">
+    <span><input type="checkbox"
+      ng-disabled="form.readonly"
+      sf-changed="form"
+      class="{{form.fieldHtmlClass}}"
+      ng-attr-id="{{f_id}}-{{$index}}"
+      name="{{f_id}}-{{$index}}"
+      ng-model="titleMapValues[$index]"
+    ></span>
+    <span>
+      <label ng-attr-for="{{f_id}}-{{$index}}" ng-bind-html="form.titleMap[$index].name"></label>
+    </span>
+  </div>
+  <div class="help-block" ng-if="form.description && form.showDescription"><small>
+    <span ng-bind-html="form.description"></span>
+  </small></div>
+  <div class="error-msg" ng-class="{error: hasError()}"></div>
+  <!--
+  <fb-validation-error
+    ng-if="field.errorModel[field.errorAttr]"
+    error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  -->
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"
