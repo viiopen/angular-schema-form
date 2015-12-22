@@ -1,0 +1,100 @@
+<div class="{{form.htmlClass}} schema-form-date-time"
+  ng-init="f_id = '$$uid$$'; dt = {d:null, t: null, dt: null}"
+  ng-class="{'error': form.disableErrorState !== true && hasError()}"
+  date-model="$$value$$"
+  sf-datepicker-mobile-set-date
+  sf-show-errors >
+  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" title="{{form.description}}"
+    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
+    {{form.title}}
+  </label>
+
+  <div ng-if="!isMobile">
+    <quick-datepicker ng-if="form.type == 'date-time'"
+      icon-class="fa fa-clock-o"
+      ng-model="$$value$$"></quick-datepicker>
+    <quick-datepicker ng-if="form.type != 'date-time'"
+      icon-class="fa fa-calendar"
+      disable-timepicker="true"
+      ng-model="$$value$$"></quick-datepicker>
+  </div>
+
+  <div ng-if="isMobile">
+    <div class="sf-datepicker-mobile">
+      <div>
+        <span>
+          <i class="fa fa-calendar"></i>
+        </span>
+        <span>
+          <input id="{{f_id}}-d"
+            ng-model="dt.d"
+            type="date"
+            title="Choose date"
+            ng-blur="mobileSetDate()"
+            placeholder="Choose date"></input>
+        </span>
+        <span ng-if="form.type == 'date-time'">
+          <i class="fa fa-clock-o"></i>
+        </span>
+        <span ng-if="form.type == 'date-time'">
+          <input id="{{f_id}}-t"
+            ng-model="dt.t"
+            type="time"
+            title="Choose time"
+            ng-blur="mobileSetDate()"
+            placeholder="Choose time"></input>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.ngdialog-content {
+  min-width: 300px;
+}
+
+.ngdialog.ngdialog-mobile .ngdialog-content {
+  width: 320px !important;
+}
+
+.quickdate {
+  position: static;
+}
+
+.quickdate-popup {
+  box-shadow: 0 0 20px rgba(25,25,25,.35) !important;
+}
+
+.quickdate-popup.open {
+  right: auto;
+  bottom: 2rem;
+}
+
+.sf-datepicker-mobile {
+  margin-bottom: 1rem;
+}
+
+.sf-datepicker-mobile div {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: .25rem;
+}
+
+.sf-datepicker-mobile input {
+  margin: 0;
+}
+
+.sf-datepicker-mobile i {
+  display: inline-block;
+  position: relative;
+  top: .4rem;
+  width: 20px;
+}
+
+.sf-datepicker-mobile i.fa-clock-o {
+  margin-left: 1rem;
+}
+</style>

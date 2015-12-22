@@ -34,6 +34,8 @@ angular.module('schemaForm')
         };
 
         if (!$scope.field.settings.replacing) $scope.field.settings.replacing = {};
+
+        $scope.scope = $scope;
       }],
       replace: false,
       restrict: 'A',
