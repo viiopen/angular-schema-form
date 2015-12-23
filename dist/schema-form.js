@@ -3248,6 +3248,7 @@ angular.module('schemaForm').directive('sfShowErrors', [function() {
       var child, found = false;
 
       scope.$on('vii-asf-error', function(event, error) {
+        found = false;
         element.addClass('error');
         var children = element.children();
         for (var i = 0; i < children.length; i++) {
@@ -3260,12 +3261,11 @@ angular.module('schemaForm').directive('sfShowErrors', [function() {
         if (found) {
           child.className += ' error';
           child.innerHTML = error;
-        } else {
-          console.log('Could not find error-msg for this field', element);
         }
       });
 
       scope.$on('vii-remove-asf-error', function() {
+        found = false;
         element.removeClass('error');
         var children = element.children();
         for (var i = 0; i < children.length; i++) {
@@ -3278,8 +3278,6 @@ angular.module('schemaForm').directive('sfShowErrors', [function() {
         if (found) {
           child.className = child.className.replace(/\berror\b/gi, '').trim();
           child.innerHTML = '';
-        } else {
-          console.log('Could not find error-msg for this field', element);
         }
       });
 
