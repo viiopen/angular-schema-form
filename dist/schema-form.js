@@ -3330,10 +3330,10 @@ angular.module('schemaForm').directive('sfSortHealthHistoryColumns', [function()
         $scope.form.schema.properties.limited.title
       ];
 
-      var getPropName = function(v) {
-        if (/Do you have the problem/.test(v)) return "problem";
-        if (/Do you receive treatment/.test(v)) return "treatment";
-        return "limited";
+      var getPropName = function(v, properties) {
+        for (p in properties) {
+          if (v == properties[p].title) return p;
+        }
       }
 
       $scope.sortedForm = t.map(function(v) {
@@ -3347,7 +3347,7 @@ angular.module('schemaForm').directive('sfSortHealthHistoryColumns', [function()
         }
 
         return {
-          prop: getPropName(v),
+          prop: getPropName(v, $scope.form.schema.properties),
           form: item
         };
 
