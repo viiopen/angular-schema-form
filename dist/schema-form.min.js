@@ -3038,7 +3038,17 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             //return viewValue
           }
 
-          var result =  sfValidator.validate(form, viewValue);
+          var _form = form;
+
+          // viiopen - if this is a problem/treated/limited response from the Health History schema,
+          // the form passed to sfValidator.validate() needs to be an integer property. Since
+          // problem/treated/limited are all of type integer, any one will do.
+
+          if (typeof viewValue != 'undefined' && form.type == 'aos-health-history' && form.schema.type == 'object') {
+            _form = form.schema.properties.problem;  // could have used treated or limited
+          }
+
+          var result =  sfValidator.validate(_form, viewValue);
           //console.log('result is', result)
           // Since we might have different tv4 errors we must clear all
           // errors that start with tv4-
@@ -3048,7 +3058,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
 
           // viiopen
-          if (form.required && !viewValue) {
+          if (form.required && angular.isUndefinedOrNull(viewValue)) {
             error = 'Required';
           }
 
@@ -3056,14 +3066,15 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           if (triggeredByBroadcast) {
             if (result.error) {
               if (error != 'Required') error = result.error.message;
-              form.showingError = true;
+              //form.showingError = true;
               scope.$emit('vii-asf-error', error);
             }
           }
 
           // viiopen if there was no error but the field still looks invalid, clean it
-          if (!result.error && form.showingError) {
-            form.showingError = false;
+          //if (!result.error && form.showingError) {
+          if (!result.error) {
+            //form.showingError = false;
             scope.$emit('vii-remove-asf-error');
           }
 
@@ -3081,7 +3092,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
               error = result.error;
             }
             ngModel.$setValidity('tv4-' + code, false);
-            form.showingError = true;
+            //form.showingError = true;
             scope.$emit('vii-asf-error', error);
 
             // In Angular 1.3+ return the viewValue, otherwise we inadvertenly
@@ -3240,26 +3251,36 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
     }
   }]);
 
-angular.module('schemaForm').directive('sfShowErrors', [function() {
+angular.module('schemaForm')
+
+.directive('sfShowErrors', [function() {
 
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
       var child, found = false;
 
+      var getErrorMsgElement = function(parent) {
+        var children = $(parent).children();
+        if (children.length > 0) {
+          for (var i = 0; i < children.length; i++) {
+            child = getErrorMsgElement(children[i]);
+            if (child) {
+              break;
+            }
+          }
+          return child;
+        } else {
+          return parent.className.indexOf('error_msg') !== -1 ? parent : false;
+        }
+      }
+
       scope.$on('vii-asf-error', function(event, error) {
         found = false;
         element.addClass('error');
-        var children = element.children();
-        for (var i = 0; i < children.length; i++) {
-          child = children[i];
-          if (child.className.indexOf('error-msg') !== -1) {
-            found = true;
-            break;
-          }
-        }
-        if (found) {
-          child.className += ' error';
+        child = getErrorMsgElement(element);
+        if (child) {
+          if (child.className.indexOf(' error') == -1) child.className += ' error';
           child.innerHTML = error;
         }
       });
@@ -3267,21 +3288,71 @@ angular.module('schemaForm').directive('sfShowErrors', [function() {
       scope.$on('vii-remove-asf-error', function() {
         found = false;
         element.removeClass('error');
-        var children = element.children();
-        for (var i = 0; i < children.length; i++) {
-          child = children[i];
-          if (child.className.indexOf('error-msg') !== -1) {
-            found = true;
-            break;
-          }
-        }
-        if (found) {
+        child = getErrorMsgElement(element);
+        if (child) {
           child.className = child.className.replace(/\berror\b/gi, '').trim();
           child.innerHTML = '';
         }
       });
 
     }
+  };
+
+}])
+
+.directive('sfShowHealthHistoryErrors', [function() {
+
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      scope.$on('vii-asf-error', function() {
+        element.addClass('hh-error');
+      });
+      scope.$on('vii-remove-asf-error', function() {
+        if ($(element).find('.error').length == 0) element.removeClass('hh-error');
+      });
+    }
+  };
+
+}])
+
+;
+
+angular.module('schemaForm').directive('sfSortHealthHistoryColumns', [function() {
+
+  return {
+    restrict: 'A',
+    controller: ['$scope', function($scope) {
+      // TODO: make this order array configurable from formbuidler
+      var t = [
+        $scope.form.schema.properties.problem.title,
+        $scope.form.schema.properties.treated.title,
+        $scope.form.schema.properties.limited.title
+      ];
+
+      var getPropName = function(v) {
+        if (/Do you have the problem/.test(v)) return "problem";
+        if (/Do you receive treatment/.test(v)) return "treatment";
+        return "limited";
+      }
+
+      $scope.sortedForm = t.map(function(v) {
+        var item;
+
+        for (var i = 0; i < $scope.form.items.length; i++) {
+          if ($scope.form.items[i].title == v) {
+            item = $scope.form.items[i];
+            break;
+          }
+        }
+
+        return {
+          prop: getPropName(v),
+          form: item
+        };
+
+      });
+    }]
   };
 
 }]);

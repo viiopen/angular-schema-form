@@ -1,0 +1,63 @@
+<div class="schema-form-aos-health-history {{form.htmlClass}}"
+  ng-init="f_id = '$$uid$$'"
+  ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
+  sf-show-health-history-errors
+  sf-sort-health-history-columns>
+<label class=" {{form.labelHtmlClass}}" title="{{form.description}}">{{form.title}}</label>
+<ul>
+  <li ng-repeat="s in sortedForm" sf-show-errors>
+    <span>{{ s.form.title }}</span>
+    <span>
+      <span ng-repeat="tm in s.form.titleMap">
+        <input type="radio"
+          id="{{f_id}}-{{$parent.$index}}-{{$index}}"
+          sf-changed="form"
+          schema-validate="form"
+          ng-disabled="form.readonly"
+          ng-model="$$value$$[s.prop]"
+          ng-value="tm.value">
+        <label for="{{f_id}}-{{$parent.$index}}-{{$index}}">{{ tm.name }}</label><br/>
+      </span>
+    </span>
+    <span class="error_msg" ng-class="{error: hasError()}"></span>
+  </li>
+</ul>
+</div>
+<style type="text/css">
+  .schema-form-aos-health-history ul {
+    display: flex;
+    margin: 0 0 0 1.25rem;
+    padding: 0;
+    color: #4d4d4d;
+  }
+  .schema-form-aos-health-history ul li {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 .5rem;
+  }
+  .schema-form-aos-health-history ul li:first-child {
+    padding: 0;
+  }
+  .schema-form-aos-health-history ul li span input,
+  .schema-form-aos-health-history ul li span input ~ label {
+    margin: 0;
+    font-size: 1rem;
+  }
+  .schema-form-aos-health-history ul li span input ~ label {
+    position: relative;
+    top: 1px;
+  }
+  .schema-form-aos-health-history ul li span:first-child {
+    display: block;
+    font-size: smaller
+  }
+  .schema-form-aos-health-history ul li span.error_msg {
+    display: block;
+  }
+  .schema-form-aos-health-history ul li span.error_msg.error {
+    margin: 0;
+    padding: 0;
+    background: none;
+    font-style: normal;
+  }
+</style>

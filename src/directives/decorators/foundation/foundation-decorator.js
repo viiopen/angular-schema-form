@@ -3,6 +3,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
 
   decoratorsProvider.defineDecorator('foundationDecorator', {
     'actions': {template: base + 'actions.html', replace: false},
+    'aos-health-history': {template: base + 'aos-health-history.html', replace: false},
     'array': {template: base + 'array.html', replace: false},
     'button': {template: base + 'submit.html', replace: false},
     'category': {template: base + 'category.html', replace: false},
@@ -51,6 +52,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
 
   //manual use directives
   decoratorsProvider.createDirectives({
+    'aos-health-history': base + 'aos-health-history.html',
     'button': base + 'submit.html',
     'category': base + 'category.html',
     'checkbox': base + 'checkbox.html',

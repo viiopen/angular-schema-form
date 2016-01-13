@@ -59,7 +59,17 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             //return viewValue
           }
 
-          var result =  sfValidator.validate(form, viewValue);
+          var _form = form;
+
+          // viiopen - if this is a problem/treated/limited response from the Health History schema,
+          // the form passed to sfValidator.validate() needs to be an integer property. Since
+          // problem/treated/limited are all of type integer, any one will do.
+
+          if (typeof viewValue != 'undefined' && form.type == 'aos-health-history' && form.schema.type == 'object') {
+            _form = form.schema.properties.problem;  // could have used treated or limited
+          }
+
+          var result =  sfValidator.validate(_form, viewValue);
           //console.log('result is', result)
           // Since we might have different tv4 errors we must clear all
           // errors that start with tv4-
@@ -69,7 +79,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
 
           // viiopen
-          if (form.required && !viewValue) {
+          if (form.required && angular.isUndefinedOrNull(viewValue)) {
             error = 'Required';
           }
 
@@ -77,14 +87,15 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           if (triggeredByBroadcast) {
             if (result.error) {
               if (error != 'Required') error = result.error.message;
-              form.showingError = true;
+              //form.showingError = true;
               scope.$emit('vii-asf-error', error);
             }
           }
 
           // viiopen if there was no error but the field still looks invalid, clean it
-          if (!result.error && form.showingError) {
-            form.showingError = false;
+          //if (!result.error && form.showingError) {
+          if (!result.error) {
+            //form.showingError = false;
             scope.$emit('vii-remove-asf-error');
           }
 
@@ -102,7 +113,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
               error = result.error;
             }
             ngModel.$setValidity('tv4-' + code, false);
-            form.showingError = true;
+            //form.showingError = true;
             scope.$emit('vii-asf-error', error);
 
             // In Angular 1.3+ return the viewValue, otherwise we inadvertenly
