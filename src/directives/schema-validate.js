@@ -79,7 +79,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
 
           // viiopen
-          if (form.required && angular.isUndefinedOrNull(viewValue)) {
+          if (form.required && (angular.isUndefined(viewValue) || viewValue === null)) {
             error = 'Required';
           }
 
