@@ -3022,6 +3022,12 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             return viewValue;
           }
 
+          // viiopen - some validation should only occur on viiform submission
+          if (form.schema.validateOnSubmit && !triggeredByBroadcast) {
+            scope.$emit('vii-remove-asf-error'); // JIC
+            return viewValue;
+          }
+
           // Omit TV4 validation
           if (scope.options && scope.options.tv4Validation === false) {
             return viewValue;

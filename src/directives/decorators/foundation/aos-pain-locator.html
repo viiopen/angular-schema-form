@@ -1,0 +1,14 @@
+<div class="schema-form-aos-pain-locator {{form.htmlClass}}"
+  ng-init="f_id = '$$uid$$'"
+  ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
+  sf-show--errors
+>
+  <label class=" {{form.labelHtmlClass}}" title="{{form.description}}">{{form.title}}</label>
+  <vii-pain-locator
+    model="$$value$$"
+    ng-model="$$value$$"
+    form="form"
+    field="field"
+    schema-validate="form"
+  ></vii-pain-locator>
+</div>
