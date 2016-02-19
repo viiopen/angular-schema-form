@@ -6,4 +6,14 @@ angular.module('vii.filters', [])
   }
 })
 
+.filter('trimmed', function() {
+  return function(val) {
+    if (val) {
+      return val.replace(/\s+/g, ' ').trim();
+    } else {
+      return "";
+    }
+  }
+})
+
 ; // end of filters

@@ -54,7 +54,7 @@ angular.module('schemaForm').provider('schemaFormDecorators',
 
             //Keep error prone logic from the template
             scope.showTitle = function() {
-              return scope.form && scope.form.notitle !== true && scope.form.title;
+              return scope.form && scope.form.notitle !== true && scope.form.title && scope.form.title.trim().length > 0;
             };
 
             scope.listToCheckboxValues = function(list) {

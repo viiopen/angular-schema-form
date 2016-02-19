@@ -519,7 +519,7 @@ angular.module('schemaForm').provider('schemaFormDecorators',
 
             //Keep error prone logic from the template
             scope.showTitle = function() {
-              return scope.form && scope.form.notitle !== true && scope.form.title;
+              return scope.form && scope.form.notitle !== true && scope.form.title && scope.form.title.trim().length > 0;
             };
 
             scope.listToCheckboxValues = function(list) {
@@ -2139,7 +2139,7 @@ angular.module('schemaForm').directive('sfField',
           post: function(scope, element, attrs, sfSchema) {
             //Keep error prone logic from the template
             scope.showTitle = function() {
-              return scope.form && scope.form.notitle !== true && scope.form.title;
+              return scope.form && scope.form.notitle !== true && scope.form.title && scope.form.title.trim().length > 0;
             };
 
             scope.castValue = function(option) {
@@ -3368,6 +3368,16 @@ angular.module('vii.filters', [])
 .filter('trustAsHtml', function($sce) {
   return function(val) {
     return $sce.trustAsHtml(val);
+  }
+})
+
+.filter('trimmed', function() {
+  return function(val) {
+    if (val) {
+      return val.replace(/\s+/g, ' ').trim();
+    } else {
+      return "";
+    }
   }
 })
 
