@@ -12,11 +12,17 @@ var module, angular;
   ['sfPathProvider', function(sfPathProvider) {
 
   //Creates an default titleMap list from an enum, i.e. a list of strings.
-  var enumToTitleMap = function(enm) {
+  var enumToTitleMap = function(enm, opts) {
     var titleMap = []; //canonical titleMap format is a list.
-    enm.forEach(function(name) {
-      titleMap.push({name: name, value: name});
-    });
+    if (opts && opts.titles) {
+      for (var i in opts.titles) {
+        titleMap.push({name: opts.titles[i], value: enm[i]});
+      }
+    } else {
+      enm.forEach(function(name) {
+        titleMap.push({name: name, value: name});
+      });
+    }
     return titleMap;
   };
 
@@ -147,7 +153,7 @@ var module, angular;
       if (!f.titleMap && schema['options'] && schema['options']['titles']) {
         f.titleMap = optionsToTitleMap(schema.options.titles, schema.enum);
       } else if (!f.titleMap) {
-        f.titleMap = enumToTitleMap(schema.items['enum']);
+        f.titleMap = enumToTitleMap(schema.items['enum'], schema.items['options']);
       }
       options.lookup[sfPathProvider.stringify(options.path)] = f;
       return f;

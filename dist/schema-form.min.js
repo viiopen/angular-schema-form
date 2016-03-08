@@ -1159,11 +1159,17 @@ var module, angular;
   ['sfPathProvider', function(sfPathProvider) {
 
   //Creates an default titleMap list from an enum, i.e. a list of strings.
-  var enumToTitleMap = function(enm) {
+  var enumToTitleMap = function(enm, opts) {
     var titleMap = []; //canonical titleMap format is a list.
-    enm.forEach(function(name) {
-      titleMap.push({name: name, value: name});
-    });
+    if (opts && opts.titles) {
+      for (var i in opts.titles) {
+        titleMap.push({name: opts.titles[i], value: enm[i]});
+      }
+    } else {
+      enm.forEach(function(name) {
+        titleMap.push({name: name, value: name});
+      });
+    }
     return titleMap;
   };
 
@@ -1294,7 +1300,7 @@ var module, angular;
       if (!f.titleMap && schema['options'] && schema['options']['titles']) {
         f.titleMap = optionsToTitleMap(schema.options.titles, schema.enum);
       } else if (!f.titleMap) {
-        f.titleMap = enumToTitleMap(schema.items['enum']);
+        f.titleMap = enumToTitleMap(schema.items['enum'], schema.items['options']);
       }
       options.lookup[sfPathProvider.stringify(options.path)] = f;
       return f;
@@ -2040,6 +2046,9 @@ angular.module('schemaForm').directive('sfArray', ['sfSelect', 'schemaForm', 'sf
                 ngModel.$setViewValue(scope.modelArray);
                 error = result.error;
                 ngModel.$setValidity('tv4-' + result.error.code, false);
+                scope.$emit('vii-asf-error', error.code == 302 ? 'Required' : error.code.message);
+              } else {
+                scope.$emit('vii-remove-asf-error');
               }
             };
 
@@ -2089,7 +2098,7 @@ angular.module('schemaForm').directive('sfArray', ['sfSelect', 'schemaForm', 'sf
  * Takes the form definition as argument.
  * If the form definition has a "onChange" defined as either a function or
  */
-angular.module('schemaForm').directive('sfChanged', function() {
+angular.module('schemaForm').directive('sfChanged', ['$timeout', function($timeout) {
   return {
     require: 'ngModel',
     restrict: 'AC',
@@ -2098,18 +2107,37 @@ angular.module('schemaForm').directive('sfChanged', function() {
       var form = scope.$eval(attrs.sfChanged);
       //"form" is really guaranteed to be here since the decorator directive
       //waits for it. But best be sure.
-      if (form && form.onChange) {
-        ctrl.$viewChangeListeners.push(function() {
-          if (angular.isFunction(form.onChange)) {
-            form.onChange(ctrl.$modelValue, form);
-          } else {
-            scope.evalExpr(form.onChange, {'modelValue': ctrl.$modelValue, form: form});
-          }
-        });
+      if (form) {
+        var clearValue = form.clearValue || (form.schema && form.schema.clearValue ? form.schema.clearValue : undefined);
+
+        if (form.onChange) {
+          ctrl.$viewChangeListeners.push(function() {
+            if (angular.isFunction(form.onChange)) {
+              form.onChange(ctrl.$modelValue, form);
+            } else {
+              scope.evalExpr(form.onChange, {'modelValue': ctrl.$modelValue, form: form});
+            }
+          });
+        } else if (angular.isDefined(clearValue)) {  // because clearValue can = 0
+          ctrl.$viewChangeListeners.push(function() {
+            $timeout(function() {
+              var ptr = scope.model;
+
+              for (k in form.key) {
+                ptr = ptr[form.key[k]]
+              }
+
+              if (ptr.indexOf(0) > -1) {
+                var key = "['" + form.key.join("']['") + "']";
+                eval("scope.model" + key + " = [0]");
+              }
+            });
+          });
+        }
       }
     }
   };
-});
+}]);
 
 angular.module('schemaForm').directive('sfField',
     ['$parse', '$compile', '$http', '$templateCache', '$interpolate', '$q', 'sfErrorMessage',
