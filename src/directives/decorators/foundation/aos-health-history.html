@@ -12,7 +12,7 @@
         <div>
           <div ng-repeat="tm in s.form.titleMap">
             <input type="radio"
-              id="{{f_id}}-{{$parent.$index}}-{{$index}}"
+              ng-attr-id="{{f_id}}-{{$parent.$index}}-{{$index}}"
               sf-changed="form"
               schema-validate="form"
               ng-disabled="form.readonly"

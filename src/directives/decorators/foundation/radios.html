@@ -6,7 +6,8 @@
     ng-show="showTitle()">{{form.title}}</label>
   <div class="radio" ng-repeat="item in form.titleMap track by $index">
     <span><input type="radio"
-      id="{{f_id}}-{{$index}}"
+      ng-attr-id="$$uid$$-{{$index}}"
+      ng-attr-name="$$uid$$-{{$index}}"
       class="{{form.fieldHtmlClass}}"
       sf-changed="form"
       ng-disabled="form.readonly"
@@ -15,7 +16,7 @@
       ng-value="item.value"
     ></span>
     <span>
-      <label ng-attr-for="{{f_id}}-{{$index}}" ng-bind-html="item.name"></label>
+      <label ng-attr-for="$$uid$$-{{$index}}" ng-bind-html="item.name"></label>
     </span>
   </div>
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
@@ -30,7 +31,7 @@
       field-elid="{{ field.elid }}"
       model="$$rplModel$$"
       attr="'$$rplAttr$$'"
-      name="{{ ngModel.$name }}"
+      ng-attr-name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>

@@ -26,7 +26,8 @@
           <i class="fa fa-calendar"></i>
         </span>
         <span>
-          <input id="{{f_id}}-d"
+          <input
+            ng-attr-id="{{f_id}}-d"
             ng-model="dt.d"
             type="date"
             title="Choose date"
@@ -37,7 +38,8 @@
           <i class="fa fa-clock-o"></i>
         </span>
         <span ng-if="form.type == 'date-time'">
-          <input id="{{f_id}}-t"
+          <input
+            ng-attr-id="{{f_id}}-t"
             ng-model="dt.t"
             type="time"
             title="Choose time"

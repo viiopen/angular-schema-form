@@ -21,28 +21,28 @@
 
   <textarea ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
             class="{{form.fieldHtmlClass}}"
-            id="{{f_id}}"
+            ng-attr-id="{{f_id}}"
             sf-changed="form"
             placeholder="{{form.placeholder}}"
             ng-disabled="form.readonly"
             ng-model="$$value$$"
             ng-model-options="form.ngModelOptions"
             schema-validate="form"
-            name="{{f_id}}"></textarea>
+            ng-attr-name="{{f_id}}"></textarea>
 
   <div ng-if="form.fieldAddonLeft || form.fieldAddonRight">
     <span ng-if="form.fieldAddonLeft"
           class="prefix"
           ng-bind-html="form.fieldAddonLeft"></span>
     <textarea class="{{form.fieldHtmlClass}}"
-              id="{{f_id}}"
+              ng-attr-id="{{f_id}}"
               sf-changed="form"
               placeholder="{{form.placeholder}}"
               ng-disabled="form.readonly"
               ng-model="$$value$$"
               ng-model-options="form.ngModelOptions"
               schema-validate="form"
-              name="{{f_id}}"></textarea>
+              ng-attr-name="{{f_id}}"></textarea>
     <span ng-if="form.fieldAddonRight"
           class="postfix"
           ng-bind-html="form.fieldAddonRight"></span>
@@ -64,7 +64,7 @@
       field-elid="{{ field.elid }}"
       model="$$rplModel$$"
       attr="'$$rplAttr$$'"
-      name="{{ ngModel.$name }}"
+      ng-attr-name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>

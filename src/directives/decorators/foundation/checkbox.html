@@ -1,28 +1,27 @@
 <div class="schema-form-checkbox {{form.htmlClass}}"
   ng-init="f_id = '$$uid$$'"
-  ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
-  <div class="switch tiny">
-    <input type="checkbox"
-           id="{{f_id}}"
-           sf-changed="form"
-           ng-disabled="form.readonly"
-           ng-model="$$value$$"
-           ng-model-options="form.ngModelOptions"
-           schema-validate="form"
-           name="{{f_id}}"
-           class="{{form.fieldHtmlClass}}" />
-    <label for="{{f_id}}"></label>
-    <span ng-bind-html="form.title"></span>
+  ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
+
+  <div class="checkbox">
+    <span><input type="checkbox"
+      ng-disabled="form.readonly"
+      sf-changed="form"
+      schema-validate="form"
+      class="{{form.fieldHtmlClass}}"
+      ng-attr-id="{{f_id}}"
+      ng-attr-name="{{f_id}}"
+      ng-model="$$value$$"
+    ></span>
+    <span>
+      <label ng-attr-for="{{f_id}}" ng-bind-html="form.title"></label>
+    </span>
   </div>
+
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
   </small></div>
   <div class="error_msg" ng-class="{error: hasError()}"></div>
-  <!--
-  <fb-validation-error
-    ng-if="field.errorModel[field.errorAttr]"
-    error="field.errorModel[field.errorAttr]"></fb-validation-error>
-  -->
+
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"
@@ -31,7 +30,7 @@
       field-elid="{{ field.elid }}"
       model="$$rplModel$$"
       attr="'$$rplAttr$$'"
-      name="{{ ngModel.$name }}"
+      ng-attr-name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>

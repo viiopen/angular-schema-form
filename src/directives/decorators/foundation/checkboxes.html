@@ -1,8 +1,8 @@
-<div sf-field-model="sf-new-array"
-     ng-init="f_id = '$$uid$$'"
-     sf-new-array="$$value$$"
-     class="schema-form-checkboxes {{form.htmlClass}}"
-     ng-class="{'error': form.disableErrorState !== true &&  hasError()}">
+<div sf-array="form"
+  ng-init="f_id = '$$uid$$'"
+  ng-model="$$value$$"
+  class="schema-form-checkboxes {{form.htmlClass}}"
+  ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <div class="checkbox" ng-repeat="val in titleMapValues track by $index">
     <span><input type="checkbox"
@@ -20,7 +20,7 @@
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
   </small></div>
-  <div class="error_msg" ng-class="{error: hasError()}"></div>
+  <div class="error_msg" ng-class="{error: hasError()}">&nbsp;</div>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"
@@ -29,7 +29,7 @@
       field-elid="{{ field.elid }}"
       model="$$rplModel$$"
       attr="'$$rplAttr$$'"
-      name="{{ ngModel.$name }}"
+      ng-attr-name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>
