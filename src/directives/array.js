@@ -234,6 +234,9 @@ angular.module('schemaForm').directive('sfArray', ['sfSelect', 'schemaForm', 'sf
                 ngModel.$setViewValue(scope.modelArray);
                 error = result.error;
                 ngModel.$setValidity('tv4-' + result.error.code, false);
+                scope.$emit('vii-asf-error', error.code == 302 ? 'Required' : error.code.message);
+              } else {
+                scope.$emit('vii-remove-asf-error');
               }
             };
 
