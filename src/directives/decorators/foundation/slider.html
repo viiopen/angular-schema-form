@@ -1,8 +1,8 @@
-<div ng-init="f_id = '$$uid$$'">
+<div ng-init="f_id = '$$uid$$'" sf-show-errors>
   <label class="{{form.labelHtmlClass}}"
     title="{{form.description}}"
     ng-show="showTitle()">{{form.title}}</label>
-  <vii-slider
+  <vii-alt-slider
     model="$$value$$"
     ng-model="$$value$$"
     form="form"
@@ -10,7 +10,7 @@
     on-na="deleteProperty(path)"
     schema-validate="form"
     ng-attr-id="{{f_id}}">
-  </vii-slider>
+  </vii-alt-slider>
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
   </small></div>
