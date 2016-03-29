@@ -23,7 +23,7 @@
           <a href="#"
             ng-hide="form.readonly || form.remove === null"
             class="fa fa-close"
-            ng-click="deleteFromArray($index)">&nbsp;</a>
+            ng-click="$event.preventDefault() || deleteFromArray($index)">&nbsp;</a>
         </div>
         <sf-decorator ng-init="arrayIndex = $index" form="copyWithIndex($index)"></sf-decorator>
       </div>

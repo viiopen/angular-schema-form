@@ -28,7 +28,7 @@
 
 
            <button ng-hide="form.readonly"
-                   ng-click="selected.tab = deleteFromArray($index).length - 1"
+                   ng-click="$event.preventDefault() || (selected.tab = deleteFromArray($index).length - 1)"
                    type="button"
                    class="btn {{ form.style.remove || 'btn-default' }} pull-right">
              <i class="glyphicon glyphicon-trash"></i>
