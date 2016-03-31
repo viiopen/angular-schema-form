@@ -41,7 +41,6 @@ angular.module('schemaForm').factory('sfValidator', [function() {
 
     // Skip validation if this is a replacement value
     if (value && value.match && value.match(/^@field/)) {
-      //console.debug('skipping validation of a replacement value', form, value);
       return {value: true};
     }
 

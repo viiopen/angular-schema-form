@@ -53,7 +53,6 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     */
   }, [
     function(form) {
-      console.debug(form, 'www');
     }
   ]);
 

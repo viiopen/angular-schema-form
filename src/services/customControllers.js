@@ -7,12 +7,6 @@ angular.module('schemaForm').directive('sfUploader', [
       controller: ['$scope', function($scope) {
         $scope.multiple = true;
 
-        $scope.$watch('files', function(newVal) {
-          if (newVal) {
-            console.debug('files updated', $scope.files);
-          }
-        });
-
         $scope.callbacks = {
           onUploadComplete: function(files) {
             if (typeof $scope.files == 'undefined' ||
