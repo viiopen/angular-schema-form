@@ -437,12 +437,6 @@ angular.module('schemaForm').directive('sfUploader', [
       controller: ['$scope', function($scope) {
         $scope.multiple = true;
 
-        $scope.$watch('files', function(newVal) {
-          if (newVal) {
-            console.debug('files updated', $scope.files);
-          }
-        });
-
         $scope.callbacks = {
           onUploadComplete: function(files) {
             if (typeof $scope.files == 'undefined' ||
@@ -1785,7 +1779,6 @@ angular.module('schemaForm').factory('sfValidator', [function() {
 
     // Skip validation if this is a replacement value
     if (value && value.match && value.match(/^@field/)) {
-      //console.debug('skipping validation of a replacement value', form, value);
       return {value: true};
     }
 
