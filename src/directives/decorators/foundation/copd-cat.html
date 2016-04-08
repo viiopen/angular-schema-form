@@ -9,9 +9,13 @@
     {{form.title}}
   </label>
 
-  <vii-date-time-picker
-    raw-data="{canEditTime: true, format: 'YYYY-MM-DDTHH:mm:ssZ'}"
-    ng-model="$$value$$"></vii-date-time-picker>
+  <copd-cat
+    model="$$value$$"
+    schema="schema"
+    form="form"
+    field="field"
+    is-mobile="isMobile"
+    ng-attr-id="{{ f_id }}"></copd-cat>
   <div ng-if="controls">
     <!-- TODO: replace fields for custom tempates (O BOY...) -->
     <fb-replace-with-field

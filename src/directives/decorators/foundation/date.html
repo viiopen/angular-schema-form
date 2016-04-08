@@ -12,4 +12,25 @@
   <vii-date-time-picker
     raw-data="{format: 'YYYY-MM-DDTHH:mm:ssZ'}"
     ng-model="$$value$$"></vii-date-time-picker>
+  <div ng-if="controls">
+    <!-- TODO: replace fields for custom tempates (O BOY...) -->
+    <fb-replace-with-field
+      target="#{{ f_id }}"
+      controls="controls"
+      enabled="true"
+      field-elid="{{ field.elid }}"
+      model="$$rplModel$$"
+      attr="'$$rplAttr$$'"
+      name="{{ ngModel.$name }}"
+      lookup-fields="field.lookupFields"></fb-replace-with-field>
+  </div>
+  <div class="error_msg" ng-class="{error: hasError()}"></div>
+  <!--
+  <fb-validation-error
+    ng-if="field.errorModel[field.errorAttr]"
+    error="field.errorModel[field.errorAttr]"></fb-validation-error>
+  -->
+  <p ng-if="form.description"><small>
+    <span ng-bind-html="form.description"></span>
+  </small></p>
 </div>
