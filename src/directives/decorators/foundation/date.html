@@ -1,4 +1,4 @@
-<div class="{{form.htmlClass}} schema-form-date-time"
+<div class="{{form.htmlClass}} schema-form-date"
   ng-init="f_id = '$$uid$$'; dt = {d:null, t: null, dt: null}"
   ng-class="{'error': form.disableErrorState !== true && hasError()}"
   date-model="$$value$$"
@@ -10,6 +10,6 @@
   </label>
 
   <vii-date-time-picker
-    raw-data="{canEditTime: true, format: 'YYYY-MM-DDTHH:mm:ssZ'}"
+    raw-data="{format: 'YYYY-MM-DDTHH:mm:ssZ'}"
     ng-model="$$value$$"></vii-date-time-picker>
 </div>
