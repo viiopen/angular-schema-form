@@ -15,6 +15,7 @@
     form="form"
     field="field"
     is-mobile="isMobile"
+    ng-class="{'sr-only': !showTitle()}"
     ng-attr-id="{{ f_id }}"></copd-cat>
   <div ng-if="controls">
     <!-- TODO: replace fields for custom tempates (O BOY...) -->
