@@ -21,11 +21,6 @@
     <span ng-bind-html="form.description"></span>
   </small></div>
   <div class="error_msg" ng-class="{error: hasError()}"></div>
-  <!--
-  <fb-validation-error
-    ng-if="field.errorModel[field.errorAttr]"
-    error="field.errorModel[field.errorAttr]"></fb-validation-error>
-  -->
   <span ng-if="form.feedback !== false"
     class="form-control-feedback"
     ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"

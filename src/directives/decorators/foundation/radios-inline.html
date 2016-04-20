@@ -22,11 +22,6 @@
     <span ng-bind-html="form.description"></span>
   </small></div>
   <div class="error_msg" ng-class="{error: hasError()}"></div>
-  <!--
-  <fb-validation-error
-    ng-if="field.errorModel[field.errorAttr]"
-    error="field.errorModel[field.errorAttr]"></fb-validation-error>
-  -->
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ ngModel.$name + '-' + fieldId }}"

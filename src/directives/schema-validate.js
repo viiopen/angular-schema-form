@@ -1,5 +1,5 @@
-angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse', 'sfSelect',
-  function(sfValidator, $parse, sfSelect) {
+angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse', 'sfSelect', 'customValidators',
+  function(sfValidator, $parse, sfSelect, customValidators) {
 
     return {
       restrict: 'A',
@@ -27,9 +27,20 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
         };
 
 
+        var getElementId = function(path) {
+          var paths = path.split('/');
+          var element_id = paths.pop();
+          if (!isNaN(parseInt(paths.last()))) {
+            element_id = paths.pop() + '-' + element_id;
+          }
+          return element_id;
+        }
+
         // Validate against the schema.
 
         var validate = function(viewValue, triggeredByBroadcast) {
+          scope.$broadcast('vii-remove-asf-error');
+
           error = null; // viiopen
 
           //console.log('validate called', viewValue)
@@ -38,8 +49,14 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             return viewValue;
           }
 
+          if (form.initial && !triggeredByBroadcast) {
+            return viewValue;
+          }
+
+          form.initial = false;
+
           // viiopen - if the value is empty but not required, stop
-          if (!form.required && !viewValue) {
+          if (!viewValue && !form.required) {
             return viewValue;
           }
 
@@ -75,25 +92,30 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             _form = form.schema.properties.problem;  // could have used treated or limited
           }
 
-          var result =  sfValidator.validate(_form, viewValue);
-          //console.log('result is', result)
+          // viiopen - perform custom validation, otherwise validate as usual
+          var result;
+
+          if (form.validationFunction) {
+            result = customValidators[ form.validationFunction ](viewValue, form.fieldId);
+          } else {
+            result = sfValidator.validate(_form, viewValue);
+          }
+
           // Since we might have different tv4 errors we must clear all
           // errors that start with tv4-
           Object.keys(ngModel.$error)
               .filter(function(k) { return k.indexOf('tv4-') === 0; })
               .forEach(function(k) { ngModel.$setValidity(k, true); });
 
-
           // viiopen
-          if (form.required && (angular.isUndefined(viewValue) || viewValue === null)) {
+          if (form.required && (angular.isUndefined(viewValue) || viewValue === null || viewValue === '')) {
             error = 'Required';
           }
 
           // viiopen send message back if necessary
           if (triggeredByBroadcast) {
-            if (result.error) {
+            if (!result.custom && result.error) {
               if (error != 'Required') error = result.error.message;
-              //form.showingError = true;
               scope.$emit('vii-asf-error', error);
             }
           }
@@ -102,25 +124,111 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           //if (!result.error && form.showingError) {
           if (!result.error) {
             //form.showingError = false;
+            scope.$broadcast('vii-remove-asf-error');
             scope.$emit('vii-remove-asf-error');
           }
 
+          var requiredProperty = function(err, schema) {
+            var required = (schema.items && schema.items.required) || schema.required;
+
+            if (!required) {
+              console.log("Could not find required property on", schema, new Date());
+              return false;
+            }
+
+            //var prop = err.dataPath.split('/').last();
+            return required.indexOf(err.dataPath.split('/').last()) > -1;
+          }
+
           if (!result.valid) {
+
+            /*
+            viiopen - an error code of 0 is a typical issue right now because certain
+            properties are defaulted to null; none of our schemas use oneOf or anyOf
+            to allow nulls because ASF doesn't know how to render such schemas. So,
+            ignore an invalid result if the property is null but NOT required.
+
+            The same check earlier only works when form.required exists and is true.
+            ASF processes Some formdefs (like /schemas/decide/priorities_styles.json)
+            in a way that form.required is missing, so get the requirement here.
+            */
+
+            if (viewValue == null && !requiredProperty(result.error, form.schema)) {
+              return viewValue;
+            }
+
             // it is invalid, return undefined (no model update)
             /* viiopen
             ngModel.$setValidity('tv4-' + result.error.code, false);
             error = result.error;
             */
-            // viiopen
+
+            /*
+            viiopen - explain...
+            */
             var code = result.error.code;
-            if (error == 'Required') {
-              code = '302';
+            var element_id;
+
+            // TODO: re-think / re-factor the whole emit/broadcast to errors approach
+
+            if (result.custom) {
+              error = form.validationMessage ? form.validationMessage[code] : 'Error';
+
+              ngModel.$setValidity('tv4-' + code, false);
+              if (result.custom && angular.isArray(result.element_id)) {
+                scope.$broadcast('vii-asf-error', {error: error, element_id: result.element_id});
+                scope.$emit('vii-asf-error', {error: error, element_id: result.element_id});
+              }
+
             } else {
-              error = result.error;
+              if (error == 'Required') {
+                code = '302';
+              } else {
+                //error = (form.validationMessage && form.validationMessage[code]) || result.error;
+                if (form.validationMessage) {
+                  if (form.validationMessage[code]) {
+                    if (angular.isObject(form.validationMessage[code])) {
+                      for (var p in form.validationMessage[code]) {
+                        if (result.error.dataPath.indexOf(p) > -1) {
+                          //error = form.validationMessage[code][p];
+                          element_id = 'field' + form.fieldId + '-' + getElementId(result.error.dataPath);
+                          error = {
+                            error: form.validationMessage[code][p],
+                            element_id: element_id
+                          }
+                          break;
+                        }
+                      }
+                    } else {
+                      error = form.validationMessage[code];
+                    }
+                  }
+                } else {
+                  error = result.error;
+                }
+              }
+              ngModel.$setValidity('tv4-' + code, false);
+              scope.$broadcast('vii-asf-error', error);
+              scope.$emit('vii-asf-error', error);
             }
+
+/*
+            viiopen - for now...
+
             ngModel.$setValidity('tv4-' + code, false);
             //form.showingError = true;
+            scope.$broadcast('vii-asf-error', error);
             scope.$emit('vii-asf-error', error);
+*/
+
+/*
+            for now
+            // viiopen
+            if (result.custom && angular.isArray(result.element_id)) {
+              scope.$broadcast('vii-asf-error', {error: '', element_id: result.element_id});
+             scope.$emit('vii-asf-error', {error: '', element_id: result.element_id});
+            }
+*/
 
             // In Angular 1.3+ return the viewValue, otherwise we inadvertenly
             // will trigger a 'parse' error.

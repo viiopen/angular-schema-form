@@ -23,6 +23,20 @@ angular.module('schemaForm')
       }
 
       scope.$on('vii-asf-error', function(event, error) {
+        // TODO: explain
+        if (angular.isObject(error)) {
+          if (angular.isArray(error.element_id)) {
+            if (error.element_id.indexOf(element.attr("id")) < 0) {
+              return;
+            }
+          } else {
+            if (element.attr("id") != error.element_id) {
+              return;
+            }
+          }
+          error = error.error;
+        }
+
         found = false;
         element.addClass('error');
         child = getErrorMsgElement(element);

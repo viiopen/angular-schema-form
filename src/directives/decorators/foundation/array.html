@@ -11,14 +11,6 @@
     <div class="" ng-model="modelArray" ui-sortable>
       <div class="{{form.fieldHtmlClass}}" xstyle="padding:1rem; border:1px solid #e0e0e0"
           ng-repeat="item in modelArray track by $index">
-<!--
-        <button ng-hide="form.readonly || form.remove === null"
-                ng-click="deleteFromArray($index)"
-                style="position: relative; z-index: 20; float: right"
-                type="button" class="button small">
-                <span aria-hidden="true">&times;</span><span class="sr-only" style="display: none">Close</span>
-        </button>
--->
         <div style="text-align:right; margin-top:5px">
           <a href="#"
             ng-hide="form.readonly || form.remove === null"
@@ -28,17 +20,6 @@
         <sf-decorator ng-init="arrayIndex = $index" form="copyWithIndex($index)"></sf-decorator>
       </div>
     </div>
-<!--
-    <div class="clearfix" style="padding: 15px;">
-      <button ng-hide="form.readonly || form.add === null"
-              ng-click="appendToArray()"
-              type="button"
-              class="button {{ form.style.add }} small">
-        <i class="fa fa-lg plus"></i>
-        {{ form.add || 'Add'}}
-      </button>
-    </div>
--->
     <div style="text-align:right; padding:15px 0px 0px 0px;">
       <button ng-hide="form.readonly || form.add === null"
               ng-click="appendToArray()"
@@ -52,12 +33,6 @@
       <span ng-bind-html="form.description"></span>
     </small></div>
     <div class="error_msg" ng-class="{error: hasError()}"></div>
-    <!--
-    <div class=""
-         ng-class="{'error': hasError()}"
-         ng-show="(hasError() && errorMessage(schemaError())) || form.description"
-         ng-bind-html="(hasError() && errorMessage(schemaError())) || form.description"></div>
-    -->
   </span>
   <div ng-if="controls">
     <fb-replace-with-field

@@ -76,11 +76,6 @@
     <span ng-bind-html="form.description"></span>
   </small></div>
   <div class="error_msg" ng-class="{error: hasError()}"></div>
-  <!--
-  <fb-validation-error
-    ng-if="field.errorModel[field.errorAttr]"
-    error="field.errorModel[field.errorAttr]"></fb-validation-error>
-  -->
   <span ng-if="form.feedback"
     class="form-control-feedback"
     ng-class="evalInScope(form.feedback) || {'fa': true, 'fa-lg': true, 'check-circle': hasSuccess(), 'success-color': hasSuccess(), 'exclamation-circle': hasError(), 'alert-color': hasError() }"
@@ -96,16 +91,4 @@
       name="{{ ngModel.$name }}"
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
-  <!-- This section exists for screen readers, skipping for now
-  <span ng-show="hasError()"
-        id="{{form.key.slice(-1)[0] + 'Status'}}"
-        ng-class="evalInScope(form.feedback) || {'error': hasError() }"
-        class="show-for-sr">{{ hasSuccess() ? '(success)' : '(error)' }}</span> -->
 </div>
-<!--
-<style>
-  .schema-form-text input[type="text"] {
-    margin-bottom: 0;
-  }
-</style>
--->
