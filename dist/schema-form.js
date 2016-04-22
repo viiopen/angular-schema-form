@@ -3253,9 +3253,13 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
               error = form.validationMessage ? form.validationMessage[code] : 'Error';
 
               ngModel.$setValidity('tv4-' + code, false);
-              if (result.custom && angular.isArray(result.element_id)) {
+              if (angular.isArray(result.element_id)) {
                 scope.$broadcast('vii-asf-error', {error: error, element_id: result.element_id});
                 scope.$emit('vii-asf-error', {error: error, element_id: result.element_id});
+              } else {
+                error = form.validationMessage[code];
+                scope.$broadcast('vii-asf-error', error);
+                scope.$emit('vii-asf-error', error);
               }
 
             } else {
