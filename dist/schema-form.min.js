@@ -3121,8 +3121,6 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
           error = null; // viiopen
 
-          //console.log('validate called', viewValue)
-          //Still might be undefined
           if (!form) {
             return viewValue;
           }
@@ -3231,7 +3229,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             in a way that form.required is missing, so get the requirement here.
             */
 
-            if (viewValue == null && !requiredProperty(result.error, form.schema)) {
+            if (angular.isUndefined(form.required) && viewValue == null && !requiredProperty(result.error, form.schema)) {
               return viewValue;
             }
 
