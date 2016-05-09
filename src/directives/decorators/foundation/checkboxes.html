@@ -2,7 +2,9 @@
   ng-init="f_id = '$$uid$$'"
   ng-model="$$value$$"
   class="schema-form-checkboxes {{form.htmlClass}}"
-  ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
+  ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
+  schema-validate="form"
+  sf-show-errors>
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <div class="checkbox" ng-repeat="val in titleMapValues track by $index">
     <span><input type="checkbox"
@@ -20,7 +22,7 @@
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
   </small></div>
-  <div class="error_msg" ng-class="{error: hasError()}">&nbsp;</div>
+  <div class="error_msg" ng-class="{error: hasError()}"></div>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"
@@ -33,4 +35,8 @@
       lookup-fields="field.lookupFields"></fb-replace-with-field>
   </div>
 </div>
-
+<style>
+fb-action-type-dynamicdata .schema-form-checkboxes .checkbox ~ [ng-if="controls"] {
+  margin-top: 1rem;
+}
+</style>
