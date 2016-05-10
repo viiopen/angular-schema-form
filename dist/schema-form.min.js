@@ -564,14 +564,12 @@ angular.module('schemaForm').service('customValidators', [
         var good_value = false;
 
         for (var i in viewValue) {
-
           if (viewValue[i] != null) {
             all_null = false;
             if (viewValue[i] != "" && /\S/.test(viewValue[i])) {
               good_value = true;
             }
           }
-
         }
 
         if (all_null) {
