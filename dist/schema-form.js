@@ -460,9 +460,9 @@ angular.module('schemaForm').directive('sfUploader', [
 angular.module('schemaForm').service('customValidators', [
   function() {
     return {
-      validateDECIDETactics: function(viewValue) {
+      validateDecideTactics: function(viewValue) {
         if (!viewValue) {
-          console.log("validateDECIDETactics(): no value provided");
+          console.log("validateDecideTactics(): no value provided");
           return;
         }
 
@@ -494,9 +494,9 @@ angular.module('schemaForm').service('customValidators', [
       },
 
 
-      validateDECIDEGoalsList: function(viewValue, form) {
+      validateDecideGoalsList: function(viewValue, form) {
         if (!viewValue) {
-          console.log("validateDECIDEGoalsList(): no value provided");
+          console.log("validateDecideGoalsList(): no value provided");
           return;
         }
 
@@ -537,6 +537,53 @@ angular.module('schemaForm').service('customValidators', [
             }
           }
 
+        }
+
+        return {valid:true};
+      },
+
+
+      validateDecideFtrReason: function(viewValue, form) {
+        if (!viewValue) {
+          console.log("validateDecideFtrReason(): no value provided");
+          return;
+        }
+
+        //
+        // Error Codes:
+        //   5000: Minimum number of options missing
+        //   5001: Option is null or blank
+        //
+        if (viewValue.length < 1) {
+          return {
+            custom: true, valid: false, error: { code: 5000 }
+          }
+        }
+
+        var all_null = true;
+        var good_value = false;
+
+        for (var i in viewValue) {
+
+          if (viewValue[i] != null) {
+            all_null = false;
+            if (viewValue[i] != "" && /\S/.test(viewValue[i])) {
+              good_value = true;
+            }
+          }
+
+        }
+
+        if (all_null) {
+          return {
+            custom: true, valid: false, error: { code: 5000 }
+          }
+        }
+
+        if (!good_value) {
+          return {
+            custom: true, valid: false, error: { code: 5001 }
+          }
         }
 
         return {valid:true};
@@ -3259,9 +3306,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           }
 
           // viiopen if there was no error but the field still looks invalid, clean it
-          //if (!result.error && form.showingError) {
           if (!result.error) {
-            //form.showingError = false;
             scope.$broadcast('vii-remove-asf-error');
             scope.$emit('vii-remove-asf-error');
           }
@@ -3270,7 +3315,6 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             var required = (schema.items && schema.items.required) || schema.required;
 
             if (!required) {
-              ////console.log("Could not find required property on", schema, new Date());
               return false;
             }
 
@@ -3557,11 +3601,7 @@ angular.module('schemaForm')
       scope.$on('vii-remove-asf-error', function() {
         found = false;
         element.removeClass('error');
-        child = getErrorMsgElement(element);
-        if (child) {
-          child.className = child.className.replace(/\berror\b/gi, '').trim();
-          child.innerHTML = '';
-        }
+        $(element).children('.error').html('').removeClass('error');
       });
 
     }

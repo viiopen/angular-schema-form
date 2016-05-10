@@ -130,9 +130,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           }
 
           // viiopen if there was no error but the field still looks invalid, clean it
-          //if (!result.error && form.showingError) {
           if (!result.error) {
-            //form.showingError = false;
             scope.$broadcast('vii-remove-asf-error');
             scope.$emit('vii-remove-asf-error');
           }
@@ -141,7 +139,6 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             var required = (schema.items && schema.items.required) || schema.required;
 
             if (!required) {
-              ////console.log("Could not find required property on", schema, new Date());
               return false;
             }
 

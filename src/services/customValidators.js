@@ -1,9 +1,9 @@
 angular.module('schemaForm').service('customValidators', [
   function() {
     return {
-      validateDECIDETactics: function(viewValue) {
+      validateDecideTactics: function(viewValue) {
         if (!viewValue) {
-          console.log("validateDECIDETactics(): no value provided");
+          console.log("validateDecideTactics(): no value provided");
           return;
         }
 
@@ -35,9 +35,9 @@ angular.module('schemaForm').service('customValidators', [
       },
 
 
-      validateDECIDEGoalsList: function(viewValue, form) {
+      validateDecideGoalsList: function(viewValue, form) {
         if (!viewValue) {
-          console.log("validateDECIDEGoalsList(): no value provided");
+          console.log("validateDecideGoalsList(): no value provided");
           return;
         }
 
@@ -78,6 +78,51 @@ angular.module('schemaForm').service('customValidators', [
             }
           }
 
+        }
+
+        return {valid:true};
+      },
+
+
+      validateDecideFtrReason: function(viewValue, form) {
+        if (!viewValue) {
+          console.log("validateDecideFtrReason(): no value provided");
+          return;
+        }
+
+        //
+        // Error Codes:
+        //   5000: Minimum number of options missing
+        //   5001: Option is null or blank
+        //
+        if (viewValue.length < 1) {
+          return {
+            custom: true, valid: false, error: { code: 5000 }
+          }
+        }
+
+        var all_null = true;
+        var good_value = false;
+
+        for (var i in viewValue) {
+          if (viewValue[i] != null) {
+            all_null = false;
+            if (viewValue[i] != "" && /\S/.test(viewValue[i])) {
+              good_value = true;
+            }
+          }
+        }
+
+        if (all_null) {
+          return {
+            custom: true, valid: false, error: { code: 5000 }
+          }
+        }
+
+        if (!good_value) {
+          return {
+            custom: true, valid: false, error: { code: 5001 }
+          }
         }
 
         return {valid:true};

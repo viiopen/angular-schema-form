@@ -53,11 +53,7 @@ angular.module('schemaForm')
       scope.$on('vii-remove-asf-error', function() {
         found = false;
         element.removeClass('error');
-        child = getErrorMsgElement(element);
-        if (child) {
-          child.className = child.className.replace(/\berror\b/gi, '').trim();
-          child.innerHTML = '';
-        }
+        $(element).children('.error').html('').removeClass('error');
       });
 
     }
