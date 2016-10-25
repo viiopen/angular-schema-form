@@ -4,6 +4,9 @@
   date-model="$$value$$"
   sf-datepicker-mobile-set-date
   sf-show-errors >
+
+  <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
+
   <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" title="{{form.description}}"
     ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
     {{form.title}}

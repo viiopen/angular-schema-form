@@ -1,4 +1,5 @@
 <div class="schema-form-slider {{form.htmlClass}}" ng-init="f_id = '$$uid$$'" sf-show-errors>
+  <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
   <label class="{{form.labelHtmlClass}}"
     title="{{form.description}}"
     ng-show="showTitle()">{{form.title}}</label>

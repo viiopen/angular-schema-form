@@ -1,6 +1,7 @@
 <div sf-array="form" class="schema-form-array {{form.htmlClass}}"
     ng-model="$$value$$" ng-model-options="form.ngModelOptions"
     ng-init="f_id = '$$uid$$'">
+  <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
   <label class="" ng-show="showTitle() && !form.schema.html_title"
     title="{{ form.description }}">{{ form.title }}</label>
   <label ng-show="showTitle() && form.schema.html_title"

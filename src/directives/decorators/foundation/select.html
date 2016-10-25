@@ -1,6 +1,9 @@
 <div class="{{form.htmlClass}} schema-form-select"
   ng-init="f_id = '$$uid$$'"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
+
+  <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
+
   <label class="{{form.labelHtmlClass}}"
     title="{{form.description}}"
     ng-show="showTitle()">

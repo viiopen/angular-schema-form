@@ -2,6 +2,8 @@
   ng-init="f_id = '$$uid$$'"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
 
+  <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
+
   <label ng-show="showTitle() && !form.schema.html_title"
     class="{{form.labelHtmlClass}}" title="{{ form.description }}"
     ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">

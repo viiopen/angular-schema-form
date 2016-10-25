@@ -5,6 +5,7 @@
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
   schema-validate="form"
   sf-show-errors>
+  <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
   <div class="checkbox" ng-repeat="val in titleMapValues track by $index">
     <span><input type="checkbox"
