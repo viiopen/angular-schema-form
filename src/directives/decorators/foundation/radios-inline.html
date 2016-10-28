@@ -1,22 +1,26 @@
 <div class="schema-form-radios-inline {{form.htmlClass}}"
   ng-init="f_id = '$$uid$$'"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
+  <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
   <label class=" {{form.labelHtmlClass}}"
     title="{{form.description}}"
     ng-show="showTitle()">{{form.title}}</label>
-  <div ng-if="form.description" ng-bind-html="form.description" class="description"></div>
-  <div ng-attr-id="{{form.key.slice(-1)[0] + '-' + fieldId}}">
-    <label class="radio-inline" ng-repeat="item in form.titleMap track by $index" for="{{f_id}}-{{$index}}">
-      <input type="radio"
-             ng-attr-id="{{f_id}}-{{$index}}"
-             class="{{form.fieldHtmlClass}}"
-             sf-changed="form"
-             ng-disabled="form.readonly"
-             ng-model="$$value$$"
-             schema-validate="form"
-             ng-value="item.value">
-      <span ng-bind-html="item.name"></span>
-    </label>
+  <div class="radios-inline-container">
+    <div class="radio" ng-repeat="item in form.titleMap track by $index">
+      <span><input type="radio"
+        ng-attr-id="$$uid$$-{{$index}}"
+        ng-attr-name="$$uid$$-{{$index}}"
+        class="{{form.fieldHtmlClass}}"
+        sf-changed="form"
+        ng-disabled="form.readonly"
+        ng-model="$$value$$"
+        schema-validate="form"
+        ng-value="item.value"
+      ><span></span></span>
+      <span>
+        <label ng-attr-for="$$uid$$-{{$index}}" ng-bind-html="item.name"></label>
+      </span>
+    </div>
   </div>
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
@@ -24,7 +28,7 @@
   <div class="error_msg" ng-class="{error: hasError()}"></div>
   <div ng-if="controls">
     <fb-replace-with-field
-      target="#{{ ngModel.$name + '-' + fieldId }}"
+      target="#{{ f_id }}"
       controls="controls"
       enabled="true"
       field-elid="{{ field.elid }}"

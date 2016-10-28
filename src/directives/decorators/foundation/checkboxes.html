@@ -7,7 +7,7 @@
   sf-show-errors>
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
   <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
-  <div class="checkbox" ng-repeat="val in titleMapValues track by $index">
+  <div class="checkbox" ng-class="{first: $index==0}" ng-repeat="val in titleMapValues track by $index">
     <span><input type="checkbox"
       ng-disabled="form.readonly"
       sf-changed="form"
@@ -15,7 +15,7 @@
       ng-attr-id="{{f_id}}-{{$index}}"
       name="{{f_id}}-{{$index}}"
       ng-model="titleMapValues[$index]"
-    ></span>
+    ><span></span></span>
     <span>
       <label ng-attr-for="{{f_id}}-{{$index}}" ng-bind-html="form.titleMap[$index].name"></label>
     </span>
