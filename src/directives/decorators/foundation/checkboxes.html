@@ -15,7 +15,7 @@
       ng-attr-id="{{f_id}}-{{$index}}"
       name="{{f_id}}-{{$index}}"
       ng-model="titleMapValues[$index]"
-    ><span></span></span>
+    ><span ng-click="titleMapValues[$index] = !titleMapValues[$index]"></span></span>
     <span>
       <label ng-attr-for="{{f_id}}-{{$index}}" ng-bind-html="form.titleMap[$index].name"></label>
     </span>

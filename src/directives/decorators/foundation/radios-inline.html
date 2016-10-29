@@ -16,7 +16,7 @@
         ng-model="$$value$$"
         schema-validate="form"
         ng-value="item.value"
-      ><span></span></span>
+      ><span ng-click="$$value$$ = item.value"></span></span>
       <span>
         <label ng-attr-for="$$uid$$-{{$index}}" ng-bind-html="item.name"></label>
       </span>
