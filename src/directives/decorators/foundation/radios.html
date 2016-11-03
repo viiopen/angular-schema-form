@@ -21,18 +21,9 @@
     </span>
   </div>
   <div ng-if="form.clearOption" class="radio clear">
-    <span><input type="radio" style="visibility:hidden"
-      ng-attr-id="$$uid$$-clear"
-      ng-attr-name="$$uid$$-clear"
-      class="{{form.fieldHtmlClass}}"
-      sf-changed="form"
-      ng-disabled="form.readonly"
-      ng-model="clear$$uid$$"
-      schema-validate="form"
-      ng-click="$$value$$ = null"
-    ><span ng-click="$$value$$ = null"></span></span>
+    <span></span>
     <span>
-      <label for="$$uid$$-clear" ng-click="$$value$$ = null">{{ form.clearOption }}</label>
+      <label ng-click="$$value$$ = null">{{ form.clearOption }}</label>
     </span>
   </div>
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
