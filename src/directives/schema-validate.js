@@ -53,13 +53,13 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
           form.initial = false;
 
-          // viiopen - if the value is empty but not required, stop
-          if (!viewValue && !form.required) {
+          // viiopen - if the value is empty but not required (and has no custom validation), stop
+          if (!viewValue && !form.required && !form.validationFunction) {
             return viewValue;
           }
 
           // viiopen - some validation should only occur on viiform submission
-          if (form.schema.validateOnSubmit && !triggeredByBroadcast) {
+          if (form.schema && form.schema.validateOnSubmit && !triggeredByBroadcast) {
             scope.$emit('vii-remove-asf-error'); // JIC
             return viewValue;
           }
@@ -94,7 +94,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           var result;
 
           if (form.validationFunction) {
-            result = customValidators[ form.validationFunction ](viewValue, form);
+            result = customValidators[ form.validationFunction ](viewValue, form, scope.model);
           } else {
             result = sfValidator.validate(_form, viewValue);
           }
@@ -157,11 +157,15 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             The same check earlier only works when form.required exists and is true.
             ASF processes Some formdefs (like /schemas/decide/priorities_styles.json)
             in a way that form.required is missing, so get the requirement here.
+
+            UPDATE: ignore UNLESS there's a custom validation result.
             */
 
-            if (angular.isUndefined(form.required)) {
-              if (viewValue == null && !requiredProperty(result.error, form.schema)) {
-                return viewValue;
+            if (!result.custom) {
+              if (angular.isUndefined(form.required)) {
+                if (viewValue == null && !requiredProperty(result.error, form.schema)) {
+                  return viewValue;
+                }
               }
             }
 

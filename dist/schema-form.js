@@ -459,7 +459,7 @@ angular.module('schemaForm').directive('sfUploader', [
 
 angular.module('schemaForm').service('customValidators', [
   function() {
-    return {
+    return {  // customValidators
       validateDecideTactics: function(viewValue) {
         if (!viewValue) {
           console.log("validateDecideTactics(): no value provided");
@@ -656,10 +656,426 @@ angular.module('schemaForm').service('customValidators', [
         }
 
         return {valid:true};
+      },
+
+
+      validateCnsaDiagnosis: function(viewValue, form, model) {
+        if (!(
+          model.structural_nerve ||
+          model.structural_spine ||
+          model.clinical_manifestation ||
+          model.toggle_deformity ||
+          model.toggle_revision
+        )) {
+          return { custom: true, valid: false, error: { code: 0 } }
+        }
+
+        if (model.structural_nerve) {
+          if (model.toggle_compression) {
+            if (!(
+              model.toggle_sn_t4 ||
+              model.toggle_sn_t5 ||
+              model.toggle_sn_t6 ||
+              model.toggle_sn_t7 ||
+              model.toggle_sn_t8 ||
+              model.toggle_sn_t9 ||
+              model.toggle_sn_t10 ||
+              model.toggle_sn_t11 ||
+              model.toggle_sn_t12 ||
+              model.toggle_sn_l1 ||
+              model.toggle_sn_l2 ||
+              model.toggle_sn_l3 ||
+              model.toggle_sn_l4 ||
+              model.toggle_sn_l5 ||
+              model.toggle_sn_s1
+            )) {
+              return { custom: true, valid: false, error: { code: 'sn_level' } }
+            }
+          } else {
+            return { custom: true, valid: false, error: { code: 'sn_comp' } }
+          }
+
+          var levels = [
+            't4',
+            't5',
+            't6',
+            't7',
+            't8',
+            't9',
+            't10',
+            't11',
+            't12',
+            'l1',
+            'l2',
+            'l3',
+            'l4',
+            'l5',
+            's1'
+          ];
+
+          for (var i in levels) {
+            if (model['toggle_sn_' + levels[i]]) {
+              if (model['sn_' + levels[i] + '_side'] == null) {
+                return { custom: true, valid: false, error: { code: 'sn_side' } }
+              }
+              if (model['sn_' + levels[i] + '_type'] == null) {
+                return { custom: true, valid: false, error: { code: 'sn_type' } }
+              }
+            }
+          }
+        } else {
+          return { custom: true, valid: false, error: { code: 'sn' } }
+        }
+
+        if (model.structural_spine) {
+          if (!(
+            model.toggle_ss_t4t5 ||
+            model.toggle_ss_t5t6 ||
+            model.toggle_ss_t6t7 ||
+            model.toggle_ss_t7t8 ||
+            model.toggle_ss_t8t9 ||
+            model.toggle_ss_t9t10 ||
+            model.toggle_ss_t10t11 ||
+            model.toggle_ss_t11t12 ||
+            model.toggle_ss_t12l1 ||
+            model.toggle_ss_l1l2 ||
+            model.toggle_ss_l2l3 ||
+            model.toggle_ss_l3l4 ||
+            model.toggle_ss_l4l5 ||
+            model.toggle_ss_l5s1 ||
+            model.toggle_ss_s1p
+          )) {
+            return { custom: true, valid: false, error: { code: 'ss_seg' } }
+          }
+
+          levels = [
+            't4t5',
+            't5t6',
+            't6t7',
+            't7t8',
+            't8t9',
+            't9t10',
+            't10t11',
+            't11t12',
+            't12l1',
+            'l1l2',
+            'l2l3',
+            'l3l4',
+            'l4l5',
+            'l5s1',
+            's1p'
+          ];
+
+          for (var i in levels) {
+            if (model['toggle_ss_' + levels[i]]) {
+              if (!(
+                model['toggle_ss_' + levels[i] + '_listhesis'] ||
+                model['ss_' + levels[i] + '_mecDiscColl'] != null ||
+                model['toggle_ss_' + levels[i] + '_signFacDis']
+              )) {
+                return { custom: true, valid: false, error: { code: 'ss_seg_data' } }
+              }
+
+              if (!model['toggle_ss_' + levels[i] + '_listhesis']) {
+                return { custom: true, valid: false, error: { code: 'ss_listh' } }
+              } else {
+                if (model['ss_' + levels[i] + '_listh_stable_dynamic'] == null) {
+                  return { custom: true, valid: false, error: { code: 'ss_listh_sd' } }
+                }
+                if (model['ss_' + levels[i] + '_listh_isthmic_degen'] == null) {
+                  return { custom: true, valid: false, error: { code: 'ss_listh_id' } }
+                }
+                if (model['ss_' + levels[i] + '_listh_MaxGrade'] == null) {
+                  return { custom: true, valid: false, error: { code: 'ss_listh_max' } }
+                }
+              }
+              if (model['ss_' + levels[i] + '_mecDiscColl'] == null) {
+                return { custom: true, valid: false, error: { code: 'ss_disc' } }
+              }
+
+
+
+            }
+          }
+        } else {
+          return { custom: true, valid: false, error: { code: 'ss' } }
+        }
+
+        if (model.clinical_manifestation) {
+          if (!(
+            model.toggle_cm_radiculopathy ||
+            model.toggle_cm_neuroClaud ||
+            model.toggle_cm_myelopathy ||
+            model.toggle_cm_neuroBowelBladd ||
+            model.clinical_manifestation_lowest_motor ||
+            model.toggle_cm_backPain
+          )) {
+            return { custom: true, valid: false, error: { code: 'cmdata' } }
+          }
+
+          if (model.clinical_manifestation_lowest_motor) {
+            if (model.cm_lowestMotor == null) {
+              return { custom: true, valid: false, error: { code: 'lmotor' } }
+            }
+          }
+
+          if (model.toggle_cm_backPain) {
+            if (model.cm_backPain_mechanical == null) {
+              return { custom: true, valid: false, error: { code: 'mech' } }
+            }
+            if (model.cm_back_pain_generator == null || model.cm_back_pain_generator.length < 1) {
+              return { custom: true, valid: false, error: { code: 'pg' } }
+            }
+          }
+        } else {
+          return { custom: true, valid: false, error: { code: 'cm' } }
+        }
+
+
+        if (model.toggle_deformity) {
+          /*
+          if (model.def_sva == null) {
+            return { custom: true, valid: false, error: { code: 'sva' } }
+          }
+          if (model.def_ci == null) {
+            return { custom: true, valid: false, error: { code: 'ci' } }
+          }
+          if (model.def_ll_pi == null && model.def_ll == null && model.def_pi == null) {
+            return { custom: true, valid: false, error: { code: 'llpi' } }
+          } else {
+            if (model.def_ll != null && model.def_pi == null) {
+              return { custom: true, valid: false, error: { code: 'pi' } }
+            } else if (model.def_ll == null && model.def_pi != null) {
+              return { custom: true, valid: false, error: { code: 'll' } }
+            }
+          }
+          if (model.def_max_thor_coronalCurve == null) {
+            return { custom: true, valid: false, error: { code: 'tcc' } }
+          }
+          if (model.def_max_lumb_coronalCurve == null) {
+            return { custom: true, valid: false, error: { code: 'lcc' } }
+          }
+          */
+          if (model.def_ll != null && model.def_pi == null) {
+            return { custom: true, valid: false, error: { code: 'pi' } }
+          } else if (model.def_ll == null && model.def_pi != null) {
+            return { custom: true, valid: false, error: { code: 'll' } }
+          }
+        } else {
+          return { custom: true, valid: false, error: { code: 'def' } }
+        }
+
+
+        if (model.toggle_revision) {
+          if (!(
+            model.toggle_revision_reason_deg ||
+            model.toggle_revision_reason_sls ||
+            model.toggle_revision_reason_pseudo ||
+            model.toggle_revision_reason_pjk ||
+            model.toggle_revision_reason_djk ||
+            model.toggle_revision_reason_instFail ||
+            model.toggle_revision_reason_slrhnp
+          )) {
+            return { custom: true, valid: false, error: { code: 'reasons' } }
+          }
+          if (model.toggle_revision_reason_instFail && model.rev_instFail_months == null) {
+            return { custom: true, valid: false, error: { code: 'inst' } }
+          }
+          if (model.toggle_revision_reason_slrhnp && model.rev_recurrentHNP == null) {
+            return { custom: true, valid: false, error: { code: 'hnp' } }
+          }
+        } else {
+          return { custom: true, valid: false, error: { code: 'revision' } }
+        }
+
+        return {valid:true}
+      },
+
+
+      validateCnsaTreatment: function(viewValue, form, model) {
+        if (!(
+          model.toggle_neural_decomp ||
+          model.arthrodesis ||
+          model.toggle_research_pt
+        )) {
+          return { custom: true, valid: false, error: { code: 0 } }
+        }
+
+        if (model.toggle_neural_decomp) {
+          if (model.nd_open == null) {
+            return { custom: true, valid: false, error: { code: 'nd_open' } }
+          }
+
+          if (!(
+            model.toggle_nd_t4 ||
+            model.toggle_nd_t5 ||
+            model.toggle_nd_t6 ||
+            model.toggle_nd_t7 ||
+            model.toggle_nd_t8 ||
+            model.toggle_nd_t9 ||
+            model.toggle_nd_t10 ||
+            model.toggle_nd_t11 ||
+            model.toggle_nd_t12 ||
+            model.toggle_nd_l1 ||
+            model.toggle_nd_l2 ||
+            model.toggle_nd_l3 ||
+            model.toggle_nd_l4 ||
+            model.toggle_nd_l5 ||
+            model.toggle_nd_s1
+          )) {
+            return { custom: true, valid: false, error: { code: 'nd_levels' } }
+          }
+
+          var levels = [
+            't4',
+            't5',
+            't6',
+            't7',
+            't8',
+            't9',
+            't10',
+            't11',
+            't12',
+            'l1',
+            'l2',
+            'l3',
+            'l4',
+            'l5',
+            's1'
+          ];
+
+          for (var i in levels) {
+            if (model['toggle_nd_' + levels[i]]) {
+              if (model['nd_' + levels[i] + '_side'] == null) {
+                return { custom: true, valid: false, error: { code: 'nd_side' } }
+              }
+            }
+          }
+
+        } else {
+          return { custom: true, valid: false, error: { code: 'nd' } }
+        }
+
+        if (model.arthrodesis) {
+          if (!(model.toggle_post_arthrod || model.toggle_ant_arthrod)) {
+            return { custom: true, valid: false, error: { code: 'arth_post_ant' } }
+          }
+
+          if (model.toggle_post_arthrod && !(
+            model.pa_open != null ||
+            model.pa_fixationSystem != null ||
+            model.pa_interbodyGraft != null ||
+            model.toggle_pa_t4t5 ||
+            model.toggle_pa_t5t6 ||
+            model.toggle_pa_t6t7 ||
+            model.toggle_pa_t7t8 ||
+            model.toggle_pa_t8t9 ||
+            model.toggle_pa_t9t10 ||
+            model.toggle_pa_t10t11 ||
+            model.toggle_pa_t11t12 ||
+            model.toggle_pa_t12l1 ||
+            model.toggle_pa_l1l2 ||
+            model.toggle_pa_l2l3 ||
+            model.toggle_pa_l3l4 ||
+            model.toggle_pa_l4l5 ||
+            model.toggle_pa_l5s1 ||
+            model.toggle_pa_s1p
+          )) {
+            return { custom: true, valid: false, error: { code: 'pa' } }
+          }
+
+          levels = [
+            't4t5',
+            't5t6',
+            't6t7',
+            't7t8',
+            't8t9',
+            't9t10',
+            't10t11',
+            't11t12',
+            't12l1',
+            'l1l2',
+            'l2l3',
+            'l3l4',
+            'l4l5',
+            'l5s1',
+            's1p'
+          ];
+
+          for (var i in levels) {
+            if (model['toggle_pa_' + levels[i]]) {
+              if (!model['toggle_posa_' + levels[i] + '_spacer']) {
+                return { custom: true, valid: false, error: { code: 'pa_spacer' } }
+              } else {
+                if (model['pa_' + levels[i] + '_spacer'] == null) {
+                  return { custom: true, valid: false, error: { code: 'pa_spacer_level' } }
+                }
+                if (model['pa_' + levels[i] + 'pa_t4t5_spacer_staticExpand'] == null) {
+                  return { custom: true, valid: false, error: { code: 'pa_static_exp' } }
+                }
+              }
+            }
+          }
+
+          if (model.toggle_ant_arthrod && !(
+            model.aa_interbodyGraft != null ||
+            model.toggle_pa_t4t5 ||
+            model.toggle_pa_t5t6 ||
+            model.toggle_pa_t6t7 ||
+            model.toggle_pa_t7t8 ||
+            model.toggle_pa_t8t9 ||
+            model.toggle_pa_t9t10 ||
+            model.toggle_pa_t10t11 ||
+            model.toggle_pa_t11t12 ||
+            model.toggle_pa_t12l1 ||
+            model.toggle_pa_l1l2 ||
+            model.toggle_pa_l2l3 ||
+            model.toggle_pa_l3l4 ||
+            model.toggle_pa_l4l5 ||
+            model.toggle_pa_l5s1 ||
+            model.toggle_pa_s1p
+          )) {
+            return { custom: true, valid: false, error: { code: 'aa' } }
+          }
+
+          levels = [
+            't4t5',
+            't5t6',
+            't6t7',
+            't7t8',
+            't8t9',
+            't9t10',
+            't10t11',
+            't11t12',
+            't12l1',
+            'l1l2',
+            'l2l3',
+            'l3l4',
+            'l4l5',
+            'l5s1',
+            's1p'
+          ];
+
+          for (var i in levels) {
+            if (model['toggle_aa_' + levels[i]]) {
+              if (model['aa_' + levels[i] + '_approach'] == null) {
+                return { custom: true, valid: false, error: { code: 'aa_approach' } }
+              }
+              if (model['aa_' + levels[i] + 'open'] == null) {
+                return { custom: true, valid: false, error: { code: 'aa_open' } }
+              }
+            }
+          }
+
+        } else {
+          return { custom: true, valid: false, error: { code: 'arth' } }
+        }
+
+        return {valid:true}
       }
 
 
-    } // return
+    } // end customValidators
   }
 ]);
 
@@ -3259,13 +3675,13 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
 
           form.initial = false;
 
-          // viiopen - if the value is empty but not required, stop
-          if (!viewValue && !form.required) {
+          // viiopen - if the value is empty but not required (and has no custom validation), stop
+          if (!viewValue && !form.required && !form.validationFunction) {
             return viewValue;
           }
 
           // viiopen - some validation should only occur on viiform submission
-          if (form.schema.validateOnSubmit && !triggeredByBroadcast) {
+          if (form.schema && form.schema.validateOnSubmit && !triggeredByBroadcast) {
             scope.$emit('vii-remove-asf-error'); // JIC
             return viewValue;
           }
@@ -3300,7 +3716,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           var result;
 
           if (form.validationFunction) {
-            result = customValidators[ form.validationFunction ](viewValue, form);
+            result = customValidators[ form.validationFunction ](viewValue, form, scope.model);
           } else {
             result = sfValidator.validate(_form, viewValue);
           }
@@ -3363,11 +3779,15 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             The same check earlier only works when form.required exists and is true.
             ASF processes Some formdefs (like /schemas/decide/priorities_styles.json)
             in a way that form.required is missing, so get the requirement here.
+
+            UPDATE: ignore UNLESS there's a custom validation result.
             */
 
-            if (angular.isUndefined(form.required)) {
-              if (viewValue == null && !requiredProperty(result.error, form.schema)) {
-                return viewValue;
+            if (!result.custom) {
+              if (angular.isUndefined(form.required)) {
+                if (viewValue == null && !requiredProperty(result.error, form.schema)) {
+                  return viewValue;
+                }
               }
             }
 

@@ -45,6 +45,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     'tabarray': {template: base + 'tabarray.html', replace: false},
     'tabs': {template: base + 'tabs.html', replace: false},
     'textarea': {template: base + 'textarea.html', replace: false},
+    'validator': {template: base + 'validator.html', replace: false},
     'weight': {template: base + 'weight.html', replace: false}
     /*
     'fieldset': {template: base + 'fieldset.html', replace: true, builder: function(args) {
@@ -97,6 +98,7 @@ angular.module('schemaForm').config(['schemaFormDecoratorsProvider', function(de
     'submit': base + 'submit.html',
     'text': base + 'default.html',
     'textarea': base + 'textarea.html',
+    'validator': {template: base + 'validator.html', replace: false},
     'weight': {template: base + 'weight.html', replace: false}
     /*
     'radiobuttons': base + 'radio-buttons.html',
