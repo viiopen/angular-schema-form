@@ -724,7 +724,7 @@ angular.module('schemaForm').service('customValidators', [
             }
           }
         } else {
-          return { custom: true, valid: false, error: { code: 'sn' } }
+          /////return { custom: true, valid: false, error: { code: 'sn' } }
         }
 
         if (model.structural_spine) {
@@ -798,7 +798,7 @@ angular.module('schemaForm').service('customValidators', [
             }
           }
         } else {
-          return { custom: true, valid: false, error: { code: 'ss' } }
+          ///////return { custom: true, valid: false, error: { code: 'ss' } }
         }
 
         if (model.clinical_manifestation) {
@@ -828,7 +828,7 @@ angular.module('schemaForm').service('customValidators', [
             }
           }
         } else {
-          return { custom: true, valid: false, error: { code: 'cm' } }
+          /////////return { custom: true, valid: false, error: { code: 'cm' } }
         }
 
 
@@ -862,7 +862,7 @@ angular.module('schemaForm').service('customValidators', [
             return { custom: true, valid: false, error: { code: 'll' } }
           }
         } else {
-          return { custom: true, valid: false, error: { code: 'def' } }
+          ///////return { custom: true, valid: false, error: { code: 'def' } }
         }
 
 
@@ -885,7 +885,7 @@ angular.module('schemaForm').service('customValidators', [
             return { custom: true, valid: false, error: { code: 'hnp' } }
           }
         } else {
-          return { custom: true, valid: false, error: { code: 'revision' } }
+          ///////return { custom: true, valid: false, error: { code: 'revision' } }
         }
 
         return {valid:true}
@@ -953,7 +953,7 @@ angular.module('schemaForm').service('customValidators', [
           }
 
         } else {
-          return { custom: true, valid: false, error: { code: 'nd' } }
+          ///////return { custom: true, valid: false, error: { code: 'nd' } }
         }
 
         if (model.arthrodesis) {
@@ -1068,7 +1068,7 @@ angular.module('schemaForm').service('customValidators', [
           }
 
         } else {
-          return { custom: true, valid: false, error: { code: 'arth' } }
+          ///////return { custom: true, valid: false, error: { code: 'arth' } }
         }
 
         return {valid:true}
