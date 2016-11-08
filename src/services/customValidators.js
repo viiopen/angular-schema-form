@@ -551,7 +551,7 @@ angular.module('schemaForm').service('customValidators', [
                 if (model['pa_' + levels[i] + '_spacer'] == null) {
                   return { custom: true, valid: false, error: { code: 'pa_spacer_level' } }
                 }
-                if (model['pa_' + levels[i] + 'pa_t4t5_spacer_staticExpand'] == null) {
+                if (model['pa_' + levels[i] + '_spacer_staticExpand'] == null) {
                   return { custom: true, valid: false, error: { code: 'pa_static_exp' } }
                 }
               }
