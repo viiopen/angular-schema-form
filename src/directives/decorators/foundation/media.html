@@ -1,5 +1,6 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
-     ng-class="{'error': form.disableErrorState !== true && hasError()}">
+    id="field-$$uid$$"
+    ng-class="{'error': form.disableErrorState !== true && hasError()}">
   <label ng-show="showTitle()"
     class="{{form.labelHtmlClass}}"
     ng-class="{'sr-only': !showTitle()}"

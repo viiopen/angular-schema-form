@@ -8,7 +8,7 @@ gulp.task('minify', function() {
   gulp.src([
     './src/module.js',
     './src/sfPath.js',
-    './src/services/*.js',
+    './src/services/**/*.js',
     './src/directives/*.js',
     './src/filters/*.js'
     ])

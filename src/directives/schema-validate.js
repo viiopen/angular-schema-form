@@ -1,5 +1,20 @@
-angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse', 'sfSelect', 'customValidators',
-  function(sfValidator, $parse, sfSelect, customValidators) {
+angular.module('schemaForm').directive('schemaValidate', [
+
+  'sfValidator',
+  '$parse',
+  'sfSelect',
+  'customValidators',
+  '$rootScope',
+
+  function(
+
+    sfValidator,
+    $parse,
+    sfSelect,
+    customValidators,
+    $rootScope
+
+  ) {
 
     return {
       restrict: 'A',
@@ -36,6 +51,9 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           return element_id;
         }
 
+        // viiopen - this could come in handy
+        scope.element = element;
+
         // Validate against the schema.
 
         var validate = function(viewValue, triggeredByBroadcast) {
@@ -54,7 +72,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
           form.initial = false;
 
           // viiopen - if the value is empty but not required (and has no custom validation), stop
-          if (!viewValue && !form.required && !form.validationFunction) {
+          if (_isEmpty(viewValue) && !form.required && !form.validationFunction) {
             return viewValue;
           }
 
@@ -80,23 +98,30 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             //return viewValue
           }
 
+/*
           var _form = form;
 
           // viiopen - if this is a problem/treated/limited response from the Health History schema,
           // the form passed to sfValidator.validate() needs to be an integer property. Since
           // problem/treated/limited are all of type integer, any one will do.
 
-          if (typeof viewValue != 'undefined' && form.type == 'aos-health-history' && form.schema.type == 'object') {
+          if (_isEmpty(viewValue) && form.type == 'aos-health-history' && form.schema.type == 'object') {
             _form = form.schema.properties.problem;  // could have used treated or limited
           }
+*/
 
           // viiopen - perform custom validation, otherwise validate as usual
           var result;
 
           if (form.validationFunction) {
-            result = customValidators[ form.validationFunction ](viewValue, form, scope.model);
+            result = customValidators[ form.validationFunction ](
+              viewValue,
+              form,
+              scope.model,
+              $(scope.element)[0].id
+            );
           } else {
-            result = sfValidator.validate(_form, viewValue);
+            result = sfValidator.validate(form, viewValue);
           }
 
           // Since we might have different tv4 errors we must clear all
@@ -106,7 +131,7 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
               .forEach(function(k) { ngModel.$setValidity(k, true); });
 
           // viiopen
-          if (form.required && (angular.isUndefined(viewValue) || viewValue === null || viewValue === '')) {
+          if (form.required && _isEmpty(viewValue)) {
             error = 'Required';
           } else if (
             form.required &&
@@ -174,11 +199,13 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             */
             var code = result.error.code;
             var element_id;
+            var params = {};
 
             if (result.custom) {
               error = form.validationMessage ? form.validationMessage[code] : 'Error';
 
               ngModel.$setValidity('tv4-' + code, false);
+/*
               if (angular.isArray(result.element_id)) {
                 scope.$broadcast('vii-asf-error', {error: error, element_id: result.element_id});
                 scope.$emit('vii-asf-error', {error: error, element_id: result.element_id});
@@ -187,6 +214,18 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
                 scope.$broadcast('vii-asf-error', error);
                 scope.$emit('vii-asf-error', error);
               }
+*/
+              params.error = error;
+              params.element_ids = result.error.element_ids;
+              params.noMsg = result.error.noMsg;
+
+              if (result.rootScopeBroadCast) {
+                $rootScope.$broadcast('vii-asf-error', params);
+              } else {
+                scope.$broadcast('vii-asf-error', params);
+                scope.$emit('vii-asf-error', params);
+              }
+
 
             } else {
               if (error == 'Required') {
@@ -228,6 +267,13 @@ angular.module('schemaForm').directive('schemaValidate', ['sfValidator', '$parse
             // Angular 1.2 on the other hand lacks $validators and don't add a 'parse' error.
             return undefined;
           }
+
+          if (result.clear) {
+            for (var i in result.clear) {
+              $('#' + result.clear[i]).removeClass('error');
+            }
+          }
+
           return viewValue;
         };
 

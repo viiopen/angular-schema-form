@@ -1,11 +1,12 @@
 <div class="schema-form-radios {{form.htmlClass}}"
+  id="field-$$uid$$"
   ng-init="f_id = '$$uid$$'"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
   <label class="{{form.labelHtmlClass}}"
     title="{{form.description}}"
     ng-show="showTitle()">{{form.title}}</label>
-  <div class="radio" ng-class="{first: $index==0}" ng-repeat="item in form.titleMap track by $index">
+  <div class="vii-radio-field" ng-class="{first: $index==0}" ng-repeat="item in form.titleMap track by $index">
     <span><input type="radio"
       ng-attr-id="$$uid$$-{{$index}}"
       ng-attr-name="$$uid$$-{{$index}}"

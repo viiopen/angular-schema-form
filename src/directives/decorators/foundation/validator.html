@@ -1,0 +1,12 @@
+<div class="schema-form-validator {{form.htmlClass}}"
+  ng-attr-id="{{ form.id && (form.id + '-' + form.fieldId) }}"
+  ng-init="f_id = '$$uid$$'"
+  ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors><input type="hidden"
+    sf-changed="form"
+    ng-disabled="form.readonly"
+    ng-init="$$value$$ = $$value$$ || form.defaultValue || form.options.default"
+    ng-model="$$value$$"
+    ng-model-options="form.ngModelOptions"
+    schema-validate="form"
+    ng-attr-id="hidden$$uid$$-{{fieldId}}"
+    name="hidden$$uid$$-{{fieldId}}" /><div class="error_msg" ng-class="{error: hasError()}"></div></div>

@@ -1,49 +1,40 @@
 <div class="schema-form-aos-health-history {{form.htmlClass}}"
+  id="field-$$uid$$"
   ng-init="f_id = '$$uid$$'"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
-  sf-show-health-history-errors
   sf-sort-health-history-columns
+  ng-model="ignore"
+  schema-validate="form"
 >
-  <label class=" {{form.labelHtmlClass}}" title="{{form.description}}">{{form.title}}</label>
-  <div class="sortedForm">
-    <div>
-      <div class="col" ng-repeat="s in sortedForm" sf-show-errors>
-        <div>{{ s.form.title }}</div>
-        <div>
-          <div ng-repeat="tm in s.form.titleMap">
-            <input type="radio"
-              ng-attr-id="{{f_id}}-{{$parent.$index}}-{{$index}}"
-              sf-changed="form"
-              schema-validate="form"
-              ng-disabled="form.readonly"
-              ng-model="$$value$$[s.prop]"
-              ng-value="tm.value">
-            <label for="{{f_id}}-{{$parent.$index}}-{{$index}}">{{ tm.name }}</label>
-          </div>
-        </div>
+  <label id="label-$$uid$$" sf-show-errors class="{{form.labelHtmlClass}}" title="{{form.description}}">
+    {{form.title}}
+  </label>
+
+  <div>
+    <div ng-repeat="s in sortedForm" id="field-$$uid$$-{{s.prop}}" sf-show-errors>
+      <label>{{ s.form.title }}</label>
+      <div class="vii-radio-field">
+        <span><input type="radio" ng-attr-id="{{f_id}}-{{s.prop}}-1"
+          sf-changed="form"
+          ng-disabled="form.readonly"
+          ng-model="$$value$$[s.prop]"
+          ng-value="1"
+          ng-click="$emit('vii-remove-asf-error')"></span>
+        <span><label for="{{f_id}}-{{s.prop}}-1"
+          ng-click="$emit('vii-remove-asf-error')">Yes</span>
       </div>
+      <div class="vii-radio-field">
+        <span><input type="radio" ng-attr-id="{{f_id}}-{{s.prop}}-0"
+          sf-changed="form"
+          ng-disabled="form.readonly"
+          ng-model="$$value$$[s.prop]"
+          ng-value="0"
+          ng-click="$emit('vii-remove-asf-error')"></span>
+        <span><label for="{{f_id}}-{{s.prop}}-0"
+          ng-click="$emit('vii-remove-asf-error')">No</span>
+      </div>
+      <div class="error_msg" ng-class="{error: hasError()}"></div>
     </div>
   </div>
+
 </div>
-<style type="text/css">
-  .sortedForm > div {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-  }
-  .sortedForm .col {
-    width: 33%;
-    padding-left: 1.25rem;
-  }
-  .sortedForm .col > div:first-child {
-    font-size: smaller;
-  }
-  .sortedForm .col input,
-  .sortedForm .col input ~ label {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-  }
-</style>

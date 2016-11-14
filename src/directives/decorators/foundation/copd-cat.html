@@ -1,4 +1,4 @@
-<div ng-init="f_id = '$$uid$$'" ng-attr-id="{{'field' + field.id + '-cat'}}" sf-show-errors>
+<div id="field-$$uid$$" ng-init="f_id = '$$uid$$'" ng-attr-id="{{'field' + field.id + '-cat'}}" sf-show-errors>
   <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" title="{{form.description}}"
     ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
     {{form.title}}

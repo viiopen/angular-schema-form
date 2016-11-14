@@ -1,19 +1,15 @@
 <div class="{{form.htmlClass}} schema-form-textarea"
-  ng-init="f_id = '$$uid$$'"
+  id="field-$$uid$$"
+  ng-init="f_id = '$$uid$$'; _title = form.schema.html_title || form.title"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
 
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
 
-  <label ng-show="showTitle() && !form.schema.html_title"
+  <label ng-show="showTitle()"
     class="{{form.labelHtmlClass}}" title="{{ form.description }}"
-    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
-    {{form.title}} {{form.$id}} {{form.id}} {{form.$$id}}
-  </label>
-  <label ng-show="showTitle() && form.schema.html_title"
-    class="{{form.labelHtmlClass}}" title="{{ form.description }}"
-    ng-bind-html="form.schema.html_title + ' ' + form.$id + ' ' + form.id + ' ' + form.$$id | trimmed | trustAsHtml"
-    for="{{f_id}}">
-  </label>
+    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}"
+    ng-bind-html="_title + ' ' + form.$id + ' ' + form.id + ' ' + form.$$id | trimmed | trustAsHtml"
+  ></label>
 
   <textarea ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
             class="{{form.fieldHtmlClass}}"

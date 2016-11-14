@@ -27,3 +27,9 @@ try {
 
 var schemaForm = angular.module('schemaForm', deps);
 
+// SLJ - custom validations are getting hard to manage in one file,
+// so declare here and define in as many files as you want.
+var customValidators = {};
+
+// SLJ - adding a useful function for checking empty values
+var _isEmpty = function(v) { return !angular.isDefined(v) || v === null || v === '' }

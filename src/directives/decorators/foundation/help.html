@@ -1,1 +1,6 @@
-<div class="schema-form-helpvalue {{form.htmlClass}}" ng-bind-html="form.helpvalue | trustAsHtml"></div>
+<div
+  ng-attr-id="{{ form.id && (form.id + '-' + form.fieldId) }}"
+  class="schema-form-helpvalue {{form.htmlClass}}"
+  ng-bind-html="form.helpvalue | trustAsHtml"
+  sf-show-errors
+></div>
