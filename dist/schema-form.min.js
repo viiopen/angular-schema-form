@@ -1177,7 +1177,9 @@ var module, angular;
   var optionsToTitleMap = function(titleMap, originalEnum) {
     var canonical = [];
     angular.forEach(originalEnum, function(value, index) {
-      canonical.push({name: titleMap[index], value: value});
+      if (angular.isDefined(titleMap[index])) { // viiopen
+        canonical.push({name: titleMap[index], value: value});
+      }
     });
     return canonical;
   };
