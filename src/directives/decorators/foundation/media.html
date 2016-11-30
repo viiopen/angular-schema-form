@@ -1,13 +1,14 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
     id="field-$$uid$$"
+    ng-init="_title = getTitle(form)"
     ng-class="{'error': form.disableErrorState !== true && hasError()}">
   <label ng-show="showTitle()"
     class="{{form.labelHtmlClass}}"
     ng-class="{'sr-only': !showTitle()}"
     title="{{form.description}}"
-    for="{{form.key.slice(-1)[0]}}">
-    {{form.title}}
-  </label>
+    for="{{form.key.slice(-1)[0]}}"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
 
   <vii-file-uploader sf-uploader multiple="multiple" callbacks="callbacks"></vii-file-uploader>
   <vii-file-pen files="files" model="$$value$$"></vii-file-pen>

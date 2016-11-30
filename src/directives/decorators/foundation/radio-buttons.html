@@ -1,10 +1,12 @@
 <div class="schema-form-radiobuttons {{form.htmlClass}}"
     ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
-    ng-init="f_id = '$$uid$$'">
+    ng-init="f_id = '$$uid$$'; _title = getTitle(form)">
   <div>
     <label class="{{form.labelHtmlClass}}"
       title="{{form.description}}"
-      ng-show="showTitle()">{{form.title}}</label>
+      ng-show="showTitle()"
+      ng-bind-html="_title | trimmed | trustAsHtml"
+    ></label>
   </div>
   <div class="btn-group" ng-attr-id="{{ f_id }}">
     <label class="btn {{ (item.value === $$value$$) ? form.style.selected || '' : form.style.unselected || ''; }}"

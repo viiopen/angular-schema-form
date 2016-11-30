@@ -1,8 +1,14 @@
-<div id="field-$$uid$$" class="schema-form-slider {{form.htmlClass}}" ng-init="f_id = '$$uid$$'" sf-show-errors>
+<div
+  id="field-$$uid$$"
+  class="schema-form-slider {{form.htmlClass}}"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)" sf-show-errors>
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
-  <label class="{{form.labelHtmlClass}}"
+  <label
+    class="{{form.labelHtmlClass}}"
     title="{{form.description}}"
-    ng-show="showTitle()">{{form.title}}</label>
+    ng-show="showTitle()"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
   <vii-alt-slider
     model="$$value$$"
     ng-model="$$value$$"

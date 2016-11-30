@@ -1,18 +1,13 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
   id="field-$$uid$$"
-  ng-init="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
-  <label ng-show="showTitle() && !form.schema.html_title"
+  <label
+    ng-show="showTitle()" for="{{f_id}}"
     class="{{form.labelHtmlClass}}" title="{{ form.description }}"
-    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
-    {{form.title}} {{form.$id}} {{form.id}} {{form.$$id}}
-  </label>
-  <label ng-show="showTitle() && form.schema.html_title"
-    class="{{form.labelHtmlClass}}" title="{{ form.description }}"
-    ng-bind-html="form.schema.html_title + ' ' + form.$id + ' ' + form.id + ' ' + form.$$id | trimmed | trustAsHtml"
-    for="{{f_id}}">
-  </label>
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
 
     <input ng-if="!field.settings.replacing[f_id] && !form.fieldAddonLeft && !form.fieldAddonRight"
            ng-show="form.key"

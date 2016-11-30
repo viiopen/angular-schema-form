@@ -1,23 +1,26 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
   id="field-$$uid$$"
-  ng-init="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
-  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}"
-    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
-    {{form.title}}
-  </label>
-    <schema-editor-category ng-show="form.key"
-           sf-changed="form"
-           ng-attr-placeholder="{{form.placeholder}}"
-           class="{{form.fieldHtmlClass}}"
-           ng-attr-id="{{f_id}}"
-           ng-model-options="form.ngModelOptions"
-           ng-model="$$value$$"
-           ng-disabled="form.readonly"
-           schema-validate="form"
-           name="{{f_id}}"
-           ng-attr-title="{{form.description}}"
-           aria-describedby="{{f_id}} Status" />
+  <label
+    ng-show="showTitle()"
+    class="{{form.labelHtmlClass}}"
+    ng-class="{'sr-only': !showTitle()}"
+    for="{{f_id}}"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
+  <schema-editor-category ng-show="form.key"
+    sf-changed="form"
+    ng-attr-placeholder="{{form.placeholder}}"
+    class="{{form.fieldHtmlClass}}"
+    ng-attr-id="{{f_id}}"
+    ng-model-options="form.ngModelOptions"
+    ng-model="$$value$$"
+    ng-disabled="form.readonly"
+    schema-validate="form"
+    name="{{f_id}}"
+    ng-attr-title="{{form.description}}"
+    aria-describedby="{{f_id}} Status" />
   <div class="error_msg" ng-class="{error: hasError()}"></div>
   <div ng-if="controls">
     <fb-replace-with-field

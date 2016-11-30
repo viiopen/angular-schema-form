@@ -1,13 +1,13 @@
 <div sf-array="form"
   id="field-$$uid$$"
-  ng-init="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
   ng-model="$$value$$"
   class="schema-form-checkboxes {{form.htmlClass}}"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
   schema-validate="form"
   sf-show-errors>
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
-  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()" ng-bind-html="_title | trimmed | trustAsHtml"></label>
   <div class="vii-checkbox-field" ng-class="{first: $index==0}" ng-repeat="val in titleMapValues track by $index">
     <span><input type="checkbox"
       ng-disabled="form.readonly"

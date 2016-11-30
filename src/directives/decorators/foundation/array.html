@@ -1,13 +1,14 @@
 <div sf-array="form" class="schema-form-array {{form.htmlClass}}"
     id="field-$$uid$$"
     ng-model="$$value$$" ng-model-options="form.ngModelOptions"
-    ng-init="f_id = '$$uid$$'">
+    ng-init="f_id = '$$uid$$'; _title = getTitle(form)">
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
-  <label class="" ng-show="showTitle() && !form.schema.html_title"
-    title="{{ form.description }}">{{ form.title }}</label>
-  <label ng-show="showTitle() && form.schema.html_title"
+  <label
+    class="{{form.labelHtmlClass}}"
+    ng-show="showTitle() && form.schema.html_title"
     title="{{ form.description }}"
-    ng-bind-html="form.schema.html_title | trimmed | trustAsHtml"></label>
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
 
   <span ng-attr-id="{{ f_id }}">
     <div class="" ng-model="modelArray" ui-sortable>

@@ -1,11 +1,14 @@
 <div class="schema-form-radios-inline {{form.htmlClass}}"
   id="field-$$uid$$"
-  ng-init="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
-  <label class=" {{form.labelHtmlClass}}"
+  <label
+    class="{{form.labelHtmlClass}}"
     title="{{form.description}}"
-    ng-show="showTitle()">{{form.title}}</label>
+    ng-show="showTitle()"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
   <div class="radios-inline-container">
     <div class="vii-radio-field" ng-repeat="item in form.titleMap track by $index">
       <span><input type="radio"
@@ -17,17 +20,30 @@
         ng-model="$$value$$"
         schema-validate="form"
         ng-value="item.value"
-      ><span ng-click="$$value$$ = item.value"></span></span>
+      ><span ng-click="$$value$$ = item.value; uncheckClearOption('$$uid$$-clear')"></span></span>
       <span>
-        <label ng-attr-for="$$uid$$-{{$index}}" ng-bind-html="item.name"></label>
+        <label
+          ng-attr-for="$$uid$$-{{$index}}"
+          ng-click="uncheckClearOption('$$uid$$-clear')">{{ item.name }}</label>
       </span>
     </div>
-  </div>
-  <div ng-if="form.clearOption" class="radio clear">
-    <span></span>
-    <span>
-      <label ng-click="$$value$$ = null">{{ form.clearOption }}</label>
-    </span>
+    <div ng-if="form.clearOption" class="vii-radio-field">
+      <span><input type="radio"
+        id="$$uid$$-clear"
+        name="$$uid$$-clear"
+        class="{{form.fieldHtmlClass}}"
+      ><span ng-click="$$value$$ = null"></span></span>
+      <span>
+        <label for="$$uid$$-clear" ng-click="$$value$$ = null">{{ form.clearOption }}</label>
+      </span>
+    </div>
+    <div ng-if="form.clearButton" class="radio clearButton">
+      <span>
+      </span>
+      <span>
+        <label ng-click="$$value$$ = null">{{ form.clearButton }}</label>
+      </span>
+    </div>
   </div>
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>

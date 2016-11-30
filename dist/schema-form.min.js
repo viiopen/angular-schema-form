@@ -1872,25 +1872,60 @@ if (!customValidators) {
     // make sure the model is current
     model[form.key[0]] = viewValue
 
-    if (
-      !model.toggle_complication_reason_1 &&
-      !model.toggle_complication_reason_2 &&
-      !model.toggle_complication_reason_3
-    ) {
+    var reasons = [
+      "toggle_complication_reason_dvt",
+      "toggle_complication_reason_pe",
+      "toggle_complication_reason_mi",
+      "toggle_complication_reason_uti",
+      "toggle_complication_reason_neuro",
+      "toggle_complication_reason_ssi",
+      "toggle_complication_reason_hematoma",
+      "toggle_complication_reason_cva",
+      "toggle_complication_reason_pneum",
+      "toggle_complication_reason_seroma",
+      "toggle_complication_reason_instFail",
+      "toggle_complication_reason_other"
+    ];
 
-      for (var i=1; i < 4; i++) {
-        id = 'field-toggle_complication_reason_' + i + '-' + fieldId;
+    var noneSelected = true;
 
-        element_ids.push(id);
+    for (var i=0; i < reasons.length; i++) {
+      /* uncomment this to highlight all the checkboxes if none are selected
 
-        // this element doesn't need a specific error message, so...
-        noMsg[id] = true;
-      }
+      id = 'field-' + reasons[i] + '-' + fieldId;
+      element_ids.push(id);
+
+      // this element doesn't need a specific error message, so...
+      noMsg[id] = true;
+
+      */
+      // check if reason exists
+      noneSelected = noneSelected && !model[reasons[i]];
+    }
+
+    if (noneSelected) {
 
       // in the form, the help decorator looks like a field label, so...
       element_ids.push('help-reasons-for-complication-' + fieldId);
 
       // in order for the error message to appear in the validator element...
+      element_ids.push('val-reasons-for-complication-' + fieldId);
+
+      return {
+        custom: true,
+        valid: false,
+        error: { code: 0, element_ids: element_ids, noMsg: noMsg },
+        rootScopeBroadCast: true
+      }
+
+    } else if (model['toggle_complication_reason_other'] && _isEmpty(model['complication_reason_other_specify'])) {
+
+      // basically the same as the above block, sans comments
+      element_ids = [];
+      id = 'field-complication_reason_other_specify-' + fieldId;
+      element_ids.push(id);
+      noMsg[id] = true;
+      element_ids.push('help-reasons-for-complication-' + fieldId);
       element_ids.push('val-reasons-for-complication-' + fieldId);
 
       return {
@@ -4001,6 +4036,15 @@ angular.module('schemaForm')
         };
 
         if (!$scope.field.settings.replacing) $scope.field.settings.replacing = {};
+
+        $scope.getTitle = function(form) {
+          return form.schema.html_title || form.html_title || form.title;
+        }
+
+        $scope.uncheckClearOption = function(id) {
+          // viiopen - since we use jquery in our build, keep it simple...
+          $('#' + id).attr('checked', false);
+        }
 
         $scope.scope = $scope;
       }],

@@ -1,14 +1,18 @@
 <div class="schema-form-aos-health-history {{form.htmlClass}}"
   id="field-$$uid$$"
-  ng-init="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
   sf-sort-health-history-columns
   ng-model="ignore"
   schema-validate="form"
 >
-  <label id="label-$$uid$$" sf-show-errors class="{{form.labelHtmlClass}}" title="{{form.description}}">
-    {{form.title}}
-  </label>
+  <label
+    id="label-$$uid$$"
+    class="{{form.labelHtmlClass}}"
+    title="{{form.description}}"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+    sf-show-errors
+  ></label>
 
   <div>
     <div ng-repeat="s in sortedForm" id="field-$$uid$$-{{s.prop}}" sf-show-errors>

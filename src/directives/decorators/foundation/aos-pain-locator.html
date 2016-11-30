@@ -1,10 +1,14 @@
 <div class="schema-form-aos-pain-locator {{form.htmlClass}}"
   id="field-$$uid$$"
-  ng-init="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}"
   sf-show--errors
 >
-  <label class=" {{form.labelHtmlClass}}" title="{{form.description}}">{{form.title}}</label>
+  <label
+    class="{{form.labelHtmlClass}}"
+    title="{{form.description}}"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
   <vii-pain-locator
     model="$$value$$"
     ng-model="$$value$$"

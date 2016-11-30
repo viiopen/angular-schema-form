@@ -1,15 +1,16 @@
 <div class="{{form.htmlClass}} schema-form-select"
   id="field-$$uid$$"
-  ng-init="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
 
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
 
-  <label class="{{form.labelHtmlClass}}"
+  <label
+    class="{{form.labelHtmlClass}}"
     title="{{form.description}}"
-    ng-show="showTitle()">
-    {{form.title}}
-  </label>
+    ng-show="showTitle()"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
   <select ng-model="$$value$$"
           ng-model-options="form.ngModelOptions"
           ng-disabled="form.readonly"

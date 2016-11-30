@@ -1,8 +1,17 @@
-<div id="field-$$uid$$" ng-init="f_id = '$$uid$$'" ng-attr-id="{{'field' + field.id + '-cat'}}" sf-show-errors>
-  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" title="{{form.description}}"
-    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
-    {{form.title}}
-  </label>
+<div
+  id="field-$$uid$$"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
+  ng-attr-id="{{'field' + field.id + '-cat'}}"
+  sf-show-errors
+>
+  <label
+    ng-show="showTitle()"
+    class="{{form.labelHtmlClass}}"
+    title="{{form.description}}"
+    ng-class="{'sr-only': !showTitle()}"
+    for="{{f_id}}"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
 
   <copd-cat
     model="$$value$$"

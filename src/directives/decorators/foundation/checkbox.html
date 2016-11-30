@@ -1,6 +1,6 @@
 <div class="schema-form-checkbox {{form.htmlClass}}"
   id="field-$$uid$$"
-  ng-init="f_id = '$$uid$$'"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)"
   ng-class="{'error': form.disableErrorState !== true &&  hasError()}" sf-show-errors>
 
   <div ng-if="form.cnsaSectionTitle" class="cnsa-section-title">{{ form.cnsaSectionTitle }}</div>
@@ -16,7 +16,7 @@
       ng-model="$$value$$"
     ><span ng-click="$$value$$ = !$$value$$"></span></span>
     <span>
-      <label ng-attr-for="{{f_id}}" ng-bind-html="form.title"></label>
+      <label ng-attr-for="{{f_id}}" ng-bind-html="_title | trimmed | trustAsHtml"></label>
     </span>
   </div>
 

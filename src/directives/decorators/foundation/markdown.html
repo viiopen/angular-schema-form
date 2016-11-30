@@ -1,11 +1,14 @@
 <div class="schema-form-{{form.type}} {{form.htmlClass}}"
   id="field-$$uid$$"
-  ng-init="f_id = '$uid$$'"
+  ng-init="f_id = '$uid$$'; _title = getTitle(form)"
   ng-class="{'error': form.disableErrorState !== true && hasError()}" sf-show-errors>
-  <label ng-show="showTitle()" class="{{form.labelHtmlClass}}" title="{{ form.description }}"
-    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}">
-    {{form.title}}
-  </label>
+  <label
+    ng-show="showTitle()"
+    class="{{form.labelHtmlClass}}"
+    title="{{ form.description }}"
+    ng-class="{'sr-only': !showTitle()}" for="{{f_id}}"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
   <vii-markdown-editor ng-show="form.key"
          sf-changed="form"
          ng-attr-placeholder="{{form.placeholder}}"

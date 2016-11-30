@@ -1,5 +1,10 @@
-<div id="field-$$uid$$" ng-init="f_id = '$$uid$$'">
-  <label class="{{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+<div id="field-$$uid$$"
+  ng-init="f_id = '$$uid$$'; _title = getTitle(form)">
+  <label
+    class="{{form.labelHtmlClass}}"
+    ng-show="showTitle()"
+    ng-bind-html="_title | trimmed | trustAsHtml"
+  ></label>
   <vii-medications
     model="$$value$$"
     form="form"

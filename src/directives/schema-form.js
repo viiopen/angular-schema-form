@@ -35,6 +35,15 @@ angular.module('schemaForm')
 
         if (!$scope.field.settings.replacing) $scope.field.settings.replacing = {};
 
+        $scope.getTitle = function(form) {
+          return form.schema.html_title || form.html_title || form.title;
+        }
+
+        $scope.uncheckClearOption = function(id) {
+          // viiopen - since we use jquery in our build, keep it simple...
+          $('#' + id).attr('checked', false);
+        }
+
         $scope.scope = $scope;
       }],
       replace: false,
