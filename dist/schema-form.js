@@ -2204,6 +2204,17 @@ if (!customValidators) {
           rootScopeBroadCast: true
         }
       }
+      else if ((model.def_sva == null) && (model.def_ci == null) && (model.def_ll_pi == null) && (model.def_ll == null) && (model.def_pi == null) && (model.def_max_thor_coronalCurve == null) && (model.def_max_lumb_coronalCurve == null)) {
+        return {
+          custom: true,
+          valid: false,
+          error: {
+            code: 0,
+            element_ids: [ 'field-toggle_deformity-' + fieldId ]
+          },
+          rootScopeBroadCast: true
+        }
+      }
     }
 
 
