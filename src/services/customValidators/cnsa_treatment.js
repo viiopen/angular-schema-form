@@ -10,7 +10,7 @@ if (!customValidators) {
 
     if (!(
       model.toggle_neural_decomp ||
-      model.arthrodesis ||
+      model.toggle_arthrodesis ||
       model.toggle_research_pt
     )) {
       return { custom: true, valid: false, error: { code: 0 } }
