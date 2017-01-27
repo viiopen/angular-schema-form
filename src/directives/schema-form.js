@@ -36,7 +36,7 @@ angular.module('schemaForm')
         if (!$scope.field.settings.replacing) $scope.field.settings.replacing = {};
 
         $scope.getTitle = function(form) {
-          return form.schema ? form.schema.html_title : form.html_title || form.title;
+          return form.schema.html_title || form.html_title || form.title;
         }
 
         $scope.uncheckClearOption = function(id) {
