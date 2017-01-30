@@ -214,7 +214,7 @@ if (!customValidators) {
         model.toggle_cm_neuroClaud ||
         model.toggle_cm_myelopathy ||
         model.toggle_cm_neuroBowelBladd ||
-        model.clinical_manifestation_lowest_motor ||
+        model.toggle_cm_lowestMotor ||
         model.toggle_cm_backPain
       )) {
         return {
@@ -228,7 +228,7 @@ if (!customValidators) {
         }
       }
 
-      if (model.clinical_manifestation_lowest_motor) {
+      if (model.toggle_cm_lowestMotor) {
         if (model.cm_lowestMotor == null) {
           return {
             custom: true,
@@ -288,16 +288,15 @@ if (!customValidators) {
       }
     }
 
-
     if (model.toggle_revision) {
       if (!(
         model.toggle_revision_reason_deg ||
-        model.toggle_revision_reason_sls ||
-        model.toggle_revision_reason_pseudo ||
+        model.toggle_revision_reason_sameLevelStenosis ||
+        model.toggle_revision_reason_pseudoarthrosis ||
         model.toggle_revision_reason_pjk ||
         model.toggle_revision_reason_djk ||
         model.toggle_revision_reason_instFail ||
-        model.toggle_revision_reason_slrhnp
+        model.toggle_revision_reason_recurrHNP
       )) {
         return {
           custom: true,
