@@ -280,7 +280,7 @@ if (!customValidators) {
           valid: false,
           error: {
             code: 'reasons',
-            element_ids: [ 'field-toggle_revision_reason_deg-' + fieldId ]
+            element_ids: [ 'field-toggle_revision-' + fieldId ]
           },
           rootScopeBroadCast: true
         }
