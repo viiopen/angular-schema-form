@@ -4,6 +4,10 @@ if (!customValidators) {
 
 } else {
 
+  debugger;
+
+  // hellooooo fromt eh schemas repo
+
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
     var fieldId = form.fieldId;
     var element_ids;
