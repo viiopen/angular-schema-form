@@ -26,7 +26,11 @@ if (!customValidators) {
     }
 
     if (model.toggle_thoraco_lumbar) {
+
+
       if (model.toggle_compression) {
+
+
         if (!(
           model.toggle_sn_t4 ||
           model.toggle_sn_t5 ||
@@ -44,6 +48,7 @@ if (!customValidators) {
           model.toggle_sn_l5 ||
           model.toggle_sn_s1
         )) {
+          debugger;
           return {
             custom: true,
             valid: false,
@@ -56,6 +61,10 @@ if (!customValidators) {
             rootScopeBroadCast: true
           }
         }
+
+        debugger;
+        // good
+
       }
       else {
         return {
@@ -71,9 +80,11 @@ if (!customValidators) {
         }
       }
 
+      debugger;
+
       var levels = [
         't4',
-          't5',
+        't5',
         't6',
         't7',
         't8',
