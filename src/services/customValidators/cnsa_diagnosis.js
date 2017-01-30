@@ -198,7 +198,7 @@ if (!customValidators) {
           valid: false,
           error: {
             code: 'cm',
-            element_ids: [ 'field-toggle_cm_radiculopathy-' + fieldId ]
+            element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
           },
           rootScopeBroadCast: true
         }
