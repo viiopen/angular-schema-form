@@ -1976,7 +1976,7 @@ if (!customValidators) {
       return { custom: true, valid: false, error: { code: 0 } }
     }
 
-    if (model.thoraco_lumbar) {
+    if (model.toggle_thoraco_lumbar) {
       if (model.toggle_compression) {
         if (!(
           model.toggle_sn_t4 ||
@@ -2001,7 +2001,7 @@ if (!customValidators) {
             error: {
               code: 'sn_level',
               element_ids: [
-                'field-toggle_sn_t4-' + fieldId
+                'field-toggle_compression-' + fieldId
               ]
             },
             rootScopeBroadCast: true
