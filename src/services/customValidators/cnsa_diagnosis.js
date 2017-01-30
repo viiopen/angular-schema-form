@@ -6,7 +6,7 @@ if (!customValidators) {
 
   debugger;
 
-  // hellooooo fromt eh schemas repo SYNC SCRIPT WORKS! 123
+  // hellooooo fromt eh schemas repo SYNC SCRIPT WORKS! 1234
 
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
     var fieldId = form.fieldId;
