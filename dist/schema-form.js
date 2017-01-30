@@ -1967,16 +1967,16 @@ if (!customValidators) {
     var element_ids;
 
     if (!(
-      model.structural_nerve ||
-      model.structural_spine ||
+      model.thoraco_lumbar         || // model.structural_nerve ||
+      model.structural_spine       ||
       model.clinical_manifestation ||
-      model.toggle_deformity ||
+      model.toggle_deformity       ||
       model.toggle_revision
     )) {
       return { custom: true, valid: false, error: { code: 0 } }
     }
 
-    if (model.structural_nerve) {
+    if (model.thoraco_lumbar) {
       if (model.toggle_compression) {
         if (!(
           model.toggle_sn_t4 ||
