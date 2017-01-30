@@ -2050,7 +2050,7 @@ if (!customValidators) {
       }
     }
 
-    if (model.structural_spine) {
+    if (model.toggle_structural_spine) {
       if (!(
         model.toggle_ss_t4t5 ||
         model.toggle_ss_t5t6 ||
