@@ -16,9 +16,9 @@ if (!customValidators) {
     var element_ids;
 
     if (!(
-      model.thoraco_lumbar         || // model.structural_nerve ||
-      model.structural_spine       ||
-      model.clinical_manifestation ||
+      model.toggle_thoraco_lumbar         || // model.structural_nerve ||
+      model.toggle_structural_spine       ||
+      model.toggle_clinical_manifestation ||
       model.toggle_deformity       ||
       model.toggle_revision
     )) {
