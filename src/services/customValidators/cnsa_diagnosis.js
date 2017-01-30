@@ -57,6 +57,19 @@ if (!customValidators) {
           }
         }
       }
+      else {
+        return {
+          custom: true,
+          valid: false,
+          error: {
+            code: 'sn_level',
+            element_ids: [
+              'field-toggle_compression-' + fieldId
+            ]
+          },
+          rootScopeBroadCast: true
+        }
+      }
 
       var levels = [
         't4',
