@@ -60,7 +60,7 @@ if (!customValidators) {
 
       var levels = [
         't4',
-        't5',
+          't5',
         't6',
         't7',
         't8',
@@ -123,7 +123,7 @@ if (!customValidators) {
           error: {
             code: 'ss_seg',
             element_ids: [
-              'field-toggle_ss_t4t5-' + fieldId
+              'field-toggle_structural_spine-' + fieldId
             ]
           },
           rootScopeBroadCast: true
@@ -184,7 +184,7 @@ if (!customValidators) {
 
     debugger;
 
-    if (model.clinical_manifestation) {
+    if (model.toggle_clinical_manifestation) {
       if (!(
         model.toggle_cm_radiculopathy ||
         model.toggle_cm_neuroClaud ||
