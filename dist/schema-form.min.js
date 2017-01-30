@@ -1960,6 +1960,9 @@ if (!customValidators) {
   // hellooooo fromt eh schemas repo SYNC SCRIPT WORKS! 1234456456465
 
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
+
+    debugger;
+
     var fieldId = form.fieldId;
     var element_ids;
 
@@ -2129,6 +2132,8 @@ if (!customValidators) {
         }
       }
     }
+
+    debugger;
 
     if (model.clinical_manifestation) {
       if (!(
