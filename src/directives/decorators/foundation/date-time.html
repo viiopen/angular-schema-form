@@ -17,11 +17,10 @@
     ng-bind-html="_title | trimmed | trustAsHtml"
   ></label>
 
-  <vii-date-time-picker
-    raw-data="{canEditTime: true, format: 'YYYY-MM-DDTHH:mm:ssZ'}"
-    defaultToToday="form.defaultToToday"
+  <input
+    type="datetime"
     schema-validate="form"
-    ng-model="$$value$$"></vii-date-time-picker>
+    ng-model="$$value$$"></input>
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"
