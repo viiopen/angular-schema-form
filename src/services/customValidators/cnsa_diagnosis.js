@@ -6,7 +6,7 @@ if (!customValidators) {
 
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
 
-    // new code post test
+    // new code post test 3
     debugger;
 
     var fieldId = form.fieldId;
@@ -16,10 +16,16 @@ if (!customValidators) {
       model.toggle_thoraco_lumbar         || // model.structural_nerve ||
       model.toggle_structural_spine       ||
       model.toggle_clinical_manifestation ||
-      model.toggle_deformity       ||
+      model.toggle_deformity              ||
       model.toggle_revision
     )) {
-      return { custom: true, valid: false, error: { code: 0 } }
+      return {
+        custom: true,
+        valid: false,
+        error: {
+          code: 0
+        }
+      };
     }
 
     if (model.toggle_thoraco_lumbar) {
@@ -285,6 +291,8 @@ if (!customValidators) {
       }
     }
 
+    debugger;
+
     if (model.toggle_revision) {
       if (!(
         model.toggle_revision_reason_deg ||
@@ -325,7 +333,10 @@ if (!customValidators) {
       }
     }
 
-    return {valid:true}
+    return {
+      valid: true
+    };
+
   }
 
 }
