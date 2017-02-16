@@ -1955,12 +1955,9 @@ if (!customValidators) {
 
 } else {
 
-  debugger;
-
-  // hellooooo fromt eh schemas repo SYNC SCRIPT WORKS! 1234456456465
-
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
 
+    // new code post test
     debugger;
 
     var fieldId = form.fieldId;
