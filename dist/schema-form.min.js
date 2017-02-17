@@ -805,7 +805,10 @@ angular.module('schemaForm').provider('schemaFormDecorators',
                 once();
               }
             });
-          }
+          },
+          controller: ['$scope', 'Modernizr', function($scope, Modernizr) {
+            $scope.inputtypes = Modernizr.inputtypes;
+          }]
         };
       }
     ]);

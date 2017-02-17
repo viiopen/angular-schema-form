@@ -17,11 +17,24 @@
     ng-bind-html="_title | trimmed | trustAsHtml"
   ></label>
 
-  <vii-date-time-picker
-    raw-data="{canEditTime: true, format: 'YYYY-MM-DDTHH:mm:ssZ'}"
-    defaultToToday="form.defaultToToday"
+  <input
+    ng-if="inputtypes['datetime-local']"
+    type="datetime-local"
+    sf-changed="form"
+    ng-disabled="form.readonly"
+    ng-model-options="form.ngModelOptions"
+    date-to="timestamp"
     schema-validate="form"
-    ng-model="$$value$$"></vii-date-time-picker>
+    ng-model="$$value$$" />
+  <input
+    ng-if="!inputtypes['datetime-local']"
+    type="text"
+    sf-changed="form"
+    ng-disabled="form.readonly"
+    ng-model-options="form.ngModelOptions"
+    date-to="timestamp"
+    schema-validate="form"
+    ng-model="$$value$$" />
   <div ng-if="controls">
     <fb-replace-with-field
       target="#{{ f_id }}"
