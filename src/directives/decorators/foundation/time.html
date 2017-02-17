@@ -18,8 +18,20 @@
   ></label>
 
   <input
+    ng-if="inputtypes.time"
     type="time"
+    sf-changed="form"
+    ng-disabled="form.readonly"
+    ng-model-options="form.ngModelOptions"
     date-to="time-string"
+    schema-validate="form"
+    ng-model="$$value$$"></input>
+  <input
+    ng-if="!inputtypes.time"
+    type="text"
+    sf-changed="form"
+    ng-disabled="form.readonly"
+    ng-model-options="form.ngModelOptions"
     schema-validate="form"
     ng-model="$$value$$"></input>
   <div ng-if="controls">

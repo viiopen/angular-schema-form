@@ -18,7 +18,20 @@
   ></label>
 
   <input
+    ng-if="inputtypes.date"
     type="date"
+    sf-changed="form"
+    ng-disabled="form.readonly"
+    ng-model-options="form.ngModelOptions"
+    date-to="timestamp"
+    schema-validate="form"
+    ng-model="$$value$$" />
+  <input
+    ng-if="!inputtypes.date"
+    type="text"
+    sf-changed="form"
+    ng-disabled="form.readonly"
+    ng-model-options="form.ngModelOptions"
     date-to="timestamp"
     schema-validate="form"
     ng-model="$$value$$" />
