@@ -70,6 +70,7 @@ if (!customValidators) {
 
       }
       else {
+        debugger;
         return {
           custom: true,
           valid: false,
@@ -209,7 +210,17 @@ if (!customValidators) {
       }
     }
 
-    debugger;
+    if(!model.toggle_clinical_manifestation) {
+      return {
+        custom: true,
+        valid: false,
+        error: {
+          code: 'cm',
+          element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
+        },
+        rootScopeBroadCast: true
+      }
+    }
 
     if (model.toggle_clinical_manifestation) {
       if (!(
