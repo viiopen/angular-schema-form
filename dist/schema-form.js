@@ -1960,7 +1960,8 @@ if (!customValidators) {
 
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
 
-    // new code post test 5
+    // new code post test 6
+    debugger;
 
     var fieldId = form.fieldId;
     var element_ids;
@@ -2162,7 +2163,7 @@ if (!customValidators) {
         custom: true,
         valid: false,
         error: {
-          code: 'cm',
+          code: 'sn_level',
           element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
         },
         rootScopeBroadCast: true
