@@ -12,6 +12,19 @@ if (!customValidators) {
     var fieldId = form.fieldId;
     var element_ids;
 
+    if(!model.toggle_clinical_manifestation) {
+      debugger;
+      return {
+        custom: true,
+        valid: false,
+        error: {
+          code: 'sn_level',
+          element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
+        },
+        rootScopeBroadCast: true
+      }
+    }
+
     if (!(
       model.toggle_thoraco_lumbar         || // model.structural_nerve ||
       model.toggle_structural_spine       ||
