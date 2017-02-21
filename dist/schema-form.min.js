@@ -1960,14 +1960,10 @@ if (!customValidators) {
 
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
 
-    // new code post test 6
-    debugger;
-
     var fieldId = form.fieldId;
     var element_ids;
 
     if(!model.toggle_clinical_manifestation) {
-      debugger;
       return {
         custom: true,
         valid: false,
@@ -2171,7 +2167,6 @@ if (!customValidators) {
 
     // field is required
     if(!model.toggle_clinical_manifestation) {
-      debugger;
       return {
         custom: true,
         valid: false,
