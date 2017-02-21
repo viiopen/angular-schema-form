@@ -2459,15 +2459,30 @@ if (!customValidators) {
       "toggle_periop_complic_ssi",
       "toggle_periop_complic_hematoma",
       "toggle_periop_complic_pain",
-      "toggle_periop_complic_other"
+      "toggle_periop_complic_other",
+
+      "toggle_complications_dvt",
+      "toggle_complications_pe",
+      "toggle_complications_neuro",
+      "toggle_complications_mi",
+      "toggle_complications_uti",
+      "toggle_complications_cva",
+      "toggle_complications_pneum",
+      "toggle_complications_ssi",
+      "toggle_complications_hematoma"
     ];
 
     if (toggles.indexOf(form.key[0]) > -1) {
       // Set value of backend toggle
       var backendKey = form.key[0].replace(/^toggle_/i, '');
 
-      model[backendKey] = viewValue ? 1 : 0;
-      debugger;
+      if (_.has(model, backendKey)) {
+        model[backendKey] = viewValue ? 1 : 0;
+      }
+    }
+
+    return {
+      valid: true
     }
 
   }
