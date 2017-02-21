@@ -1960,8 +1960,7 @@ if (!customValidators) {
 
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
 
-    // new code post test 3
-    debugger;
+    // new code post test 5
 
     var fieldId = form.fieldId;
     var element_ids;
@@ -1983,11 +1982,7 @@ if (!customValidators) {
     }
 
     if (model.toggle_thoraco_lumbar) {
-
-
       if (model.toggle_compression) {
-
-
         if (!(
           model.toggle_sn_t4 ||
           model.toggle_sn_t5 ||
@@ -2005,7 +2000,6 @@ if (!customValidators) {
           model.toggle_sn_l5 ||
           model.toggle_sn_s1
         )) {
-          debugger;
           return {
             custom: true,
             valid: false,
@@ -2019,12 +2013,10 @@ if (!customValidators) {
           }
         }
 
-        debugger;
         // good
 
       }
       else {
-        debugger;
         return {
           custom: true,
           valid: false,
@@ -2038,7 +2030,6 @@ if (!customValidators) {
         }
       }
 
-      debugger;
 
       var levels = [
         't4',
@@ -2164,7 +2155,9 @@ if (!customValidators) {
       }
     }
 
+    // field is required
     if(!model.toggle_clinical_manifestation) {
+      debugger;
       return {
         custom: true,
         valid: false,
@@ -2189,7 +2182,7 @@ if (!customValidators) {
           custom: true,
           valid: false,
           error: {
-            code: 'cm',
+            code: 'sn_level',
             element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
           },
           rootScopeBroadCast: true
@@ -2256,7 +2249,6 @@ if (!customValidators) {
       }
     }
 
-    debugger;
 
     if (model.toggle_revision) {
       if (!(
