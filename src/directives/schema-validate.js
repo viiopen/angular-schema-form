@@ -65,7 +65,7 @@ angular.module('schemaForm').directive('schemaValidate', [
             return viewValue;
           }
 
-          if (form.initial && !triggeredByBroadcast) {
+          if (form.initial && !triggeredByBroadcast && !form.validationFunction) {
             return viewValue;
           }
 
