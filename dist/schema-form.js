@@ -2477,17 +2477,125 @@ if (!customValidators) {
     //   "toggle_maj_surg_knee"
     // ];
 
-    // if (toggles.indexOf(form.key[0]) > -1) {
-      // Set value of backend toggle
-      var backendKey = form.key[0].replace(/^toggle_/i, '');
+    // Set value of backend toggle
+    var backendKey = form.key[0].replace(/^toggle_/i, '');
 
-      // BWB if the model has the same key -{toggle_}
-      // and this validator is on the toggle, then just do this
-      // don't whitelist anymore...
-      if (_.has(model, backendKey)) {
-        model[backendKey] = viewValue ? 1 : 0;
+    // BWB if the model has the same key -{toggle_}
+    // and this validator is on the toggle, then just do this
+    // don't whitelist anymore...
+    if (_.has(model, backendKey)) {
+      model[backendKey] = viewValue ? 1 : 0;
+    }
+
+    // Handle the special case for thoraco lumbar treatment
+    var toggleGroups = {
+      nd_discectomy: {
+        dependsOn: 'toggle_neural_decomp',
+        satisfiedBy: [
+          ["toggle_neural_decomp", "toggle_nd_t4", "toggle_nd_t4_discect"],
+          ["toggle_neural_decomp", "toggle_nd_t5", "toggle_nd_t5_discect"],
+          ["toggle_neural_decomp", "toggle_nd_t6", "toggle_nd_t6_discect"],
+          ["toggle_neural_decomp", "toggle_nd_t7", "toggle_nd_t7_discect"],
+          ["toggle_neural_decomp", "toggle_nd_t8", "toggle_nd_t8_discect"],
+          ["toggle_neural_decomp", "toggle_nd_t9", "toggle_nd_t9_discect"],
+          ["toggle_neural_decomp", "toggle_nd_t10", "toggle_nd_t10_discect"],
+          ["toggle_neural_decomp", "toggle_nd_t11", "toggle_nd_t11_discect"],
+          ["toggle_neural_decomp", "toggle_nd_t12", "toggle_nd_t12_discect"],
+          ["toggle_neural_decomp", "toggle_nd_l1", "toggle_nd_l1_discect"],
+          ["toggle_neural_decomp", "toggle_nd_l2", "toggle_nd_l2_discect"],
+          ["toggle_neural_decomp", "toggle_nd_l3", "toggle_nd_l3_discect"],
+          ["toggle_neural_decomp", "toggle_nd_l4", "toggle_nd_l4_discect"],
+          ["toggle_neural_decomp", "toggle_nd_l5", "toggle_nd_l5_discect"],
+          ["toggle_neural_decomp", "toggle_nd_s1", "toggle_nd_s1_discect"]
+        ]
+      },
+      nd_osteotomy: {
+        dependsOn: 'toggle_neural_decomp',
+        satisfiedBy: [
+          ["toggle_neural_decomp", "toggle_nd_t4", "toggle_nd_t4_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_t5", "toggle_nd_t5_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_t6", "toggle_nd_t6_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_t7", "toggle_nd_t7_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_t8", "toggle_nd_t8_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_t9", "toggle_nd_t9_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_t10", "toggle_nd_t10_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_t11", "toggle_nd_t11_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_t12", "toggle_nd_t12_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_l1", "toggle_nd_l1_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_l2", "toggle_nd_l2_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_l3", "toggle_nd_l3_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_l4", "toggle_nd_l4_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_l5", "toggle_nd_l5_osteot"],
+          ["toggle_neural_decomp", "toggle_nd_s1", "toggle_nd_s1_osteot"]
+        ]
+      },
+      nd_facetectomy: {
+        dependsOn: 'toggle_neural_decomp',
+        satisfiedBy: [
+          ["toggle_neural_decomp", "toggle_nd_t4", "toggle_nd_t4_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_t5", "toggle_nd_t5_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_t6", "toggle_nd_t6_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_t7", "toggle_nd_t7_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_t8", "toggle_nd_t8_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_t9", "toggle_nd_t9_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_t10", "toggle_nd_t10_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_t11", "toggle_nd_t11_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_t12", "toggle_nd_t12_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_l1", "toggle_nd_l1_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_l2", "toggle_nd_l2_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_l3", "toggle_nd_l3_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_l4", "toggle_nd_l4_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_l5", "toggle_nd_l5_facetect"],
+          ["toggle_neural_decomp", "toggle_nd_s1", "toggle_nd_s1_facetect"]
+        ]
+      },
+      pa_spacer: {
+        dependsOn: 'toggle_arthrodesis',
+        satisfiedBy: [
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t4t5", "toggle_pa_t4t5_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t5t6", "toggle_pa_t5t6_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t6t7", "toggle_pa_t6t7_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t7t8", "toggle_pa_t7t8_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t8t9", "toggle_pa_t8t9_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t9t10", "toggle_pa_t9t10_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t10t11", "toggle_pa_t10t11_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t11t12", "toggle_pa_t11t12_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_t12l1", "toggle_pa_t12l1_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_l1l2", "toggle_pa_l1l2_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_l2l3", "toggle_pa_l2l3_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_l3l4", "toggle_pa_l3l4_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_l4l5", "toggle_pa_l4l5_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_l5s1", "toggle_pa_l5s1_spacer"],
+          ["toggle_arthrodesis", "toggle_post_arthrod", "toggle_pa_s1p", "toggle_pa_s1p_spacer"]
+        ]
       }
-    // }
+    };
+
+    // For all grouped toggles
+    for (var property in toggleGroups) {
+      var grouping = toggleGroups[property];
+
+      // If we at least have the first
+      if (model[grouping.dependsOn]) {
+        // Check model value for each toggle in grouping
+        for (var i = 0; i < grouping.satisfiedBy.length; i++) {
+          var satisfyingGroup = grouping.satisfiedBy[i],
+              satisfied = true;
+
+          for (var k = 0; k < satisfyingGroup.length; k++) {
+            if (!model[satisfyingGroup[k]]) {
+              satisfied = false;
+              break;
+            }
+          }
+
+          if (satisfied) {
+            model[property] = 1;
+            break;
+          }
+        }
+      }
+    }
 
     return {
       valid: true
