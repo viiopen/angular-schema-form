@@ -2484,7 +2484,11 @@ if (!customValidators) {
     // and this validator is on the toggle, then just do this
     // don't whitelist anymore...
     if (_.has(model, backendKey)) {
-      model[backendKey] = viewValue ? 1 : 0;
+      if (model[backendKey] != null) {
+        model[backendKey] = viewValue ? 1 : 0;
+      } else {
+        model[backendKey] = viewValue ? 1 : null;
+      }
     }
 
     // Handle the special case for thoraco lumbar treatment
