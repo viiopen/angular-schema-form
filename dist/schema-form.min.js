@@ -4407,7 +4407,16 @@ angular.module('schemaForm')
               var formDefault = null;
               for (var x = 0; x < form.length; x++) {
                 if (angular.equals(form[x].schema, prop)) {
-                  formDefault = form[x].defaultValue;
+                  if (form[x].$defaultIsToday) {
+                    var now = new Date();
+                    if (form[x].schema.type.toLowerCase() == 'number') {
+                      formDefault = now.getTime() / 1000;
+                    } else {
+                      formDefault = now;
+                    }
+                  } else {
+                    formDefault = form[x].defaultValue;
+                  }
                   break;
                 }
               }
