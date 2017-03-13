@@ -1963,33 +1963,33 @@ if (!customValidators) {
     var fieldId = form.fieldId;
     var element_ids;
 
-    if(!model.toggle_clinical_manifestation) {
-      return {
-        custom: true,
-        valid: false,
-        error: {
-          code: 'sn_level',
-          element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
-        },
-        rootScopeBroadCast: true
-      }
-    }
-
-    if (!(
-      model.toggle_thoraco_lumbar         || // model.structural_nerve ||
-      model.toggle_structural_spine       ||
-      model.toggle_clinical_manifestation ||
-      model.toggle_deformity              ||
-      model.toggle_revision
-    )) {
+    if(model.toggle_compression == null) {
       return {
         custom: true,
         valid: false,
         error: {
           code: 0
         }
-      };
+      }
+    } else if (!model.toggle_compression) {
+      if (!(
+        model.toggle_structural_spine       ||
+        model.toggle_clinical_manifestation ||
+        model.toggle_deformity              ||
+        model.toggle_revision
+      )) {
+        return {
+          custom: true,
+          valid: false,
+          error: {
+            code: 'sn_level',
+            element_ids: [ 'field-toggle_compression-' + fieldId ]
+          },
+          rootScopeBroadCast: true
+        };
+      }
     }
+
 
     if (model.toggle_thoraco_lumbar) {
       if (model.toggle_compression) {
@@ -2166,19 +2166,17 @@ if (!customValidators) {
     }
 
     // field is required
-    if(!model.toggle_clinical_manifestation) {
+    if (model.toggle_clinical_manifestation == null) {
       return {
         custom: true,
         valid: false,
         error: {
-          code: 'sn_level',
+          code: '0',
           element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
         },
         rootScopeBroadCast: true
       }
-    }
-
-    if (model.toggle_clinical_manifestation) {
+    } else if (model.toggle_clinical_manifestation) {
       if (!(
         model.toggle_cm_radiculopathy ||
         model.toggle_cm_neuroClaud ||
@@ -2191,7 +2189,7 @@ if (!customValidators) {
           custom: true,
           valid: false,
           error: {
-            code: 'sn_level',
+            code: 'cm',
             element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
           },
           rootScopeBroadCast: true
