@@ -31,7 +31,7 @@ if (!customValidators) {
     var noneSelected = true;
 
     for (var i=0; i < reasons.length; i++) {
-      /* uncomment this to highlight all the checkboxes if none are selected
+      /* uncomment this to highlight all the checkboxes if none are selected */
 
       id = 'field-' + reasons[i] + '-' + fieldId;
       element_ids.push(id);
@@ -39,13 +39,11 @@ if (!customValidators) {
       // this element doesn't need a specific error message, so...
       noMsg[id] = true;
 
-      */
       // check if reason exists
       noneSelected = noneSelected && !model[reasons[i]];
     }
 
     if (noneSelected) {
-
       // in the form, the help decorator looks like a field label, so...
       element_ids.push('help-reasons-for-complication-' + fieldId);
 
