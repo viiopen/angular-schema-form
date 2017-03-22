@@ -41,7 +41,7 @@ if (!customValidators) {
 
       if (!model.toggle_clinical_manifestation) {
         // element_ids: [ 'field-toggle_compression-' + fieldId ]
-        returnVal.element_ids.push('field-toggle_clinical_manifestation-' + fieldId);
+        returnVal.error.element_ids.push('field-toggle_clinical_manifestation-' + fieldId);
       }
 
       return returnVal;
