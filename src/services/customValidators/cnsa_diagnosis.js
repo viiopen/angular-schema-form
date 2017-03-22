@@ -4,11 +4,13 @@ if (!customValidators) {
 
 } else {
 
+  console.log('debugger 111')
   debugger
 
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
 
     debugger
+    console.log('debugger 222')
 
     var fieldId = form.fieldId;
     var element_ids;
