@@ -1956,7 +1956,11 @@ if (!customValidators) {
 
 } else {
 
+  debugger
+
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
+
+    debugger
 
     var fieldId = form.fieldId;
     var element_ids;
