@@ -15,15 +15,38 @@ if (!customValidators) {
     var fieldId = form.fieldId;
     var element_ids;
 
+    // if (model.toggle_clinical_manifestation == null) {
+    //   return {
+    //     custom: true,
+    //     valid: false,
+    //     error: {
+    //       code: '0',
+    //       element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
+    //     },
+    //     rootScopeBroadCast: true
+    //   }
+    // }
+
     if(model.toggle_compression == null) {
-      return {
+      var returnVal = {
         custom: true,
         valid: false,
         error: {
-          code: 0
+          code: 0,
+          element_ids: [
+            'field-toggle_compression-' + fieldId
+          ]
         }
+      };
+
+      if (!model.toggle_clinical_manifestation) {
+        // element_ids: [ 'field-toggle_compression-' + fieldId ]
+        returnVal.element_ids.push('field-toggle_clinical_manifestation-' + fieldId);
       }
+
+      return returnVal;
     }
+
     // else if (!model.toggle_compression) {
     //   if (!(
     //     model.toggle_structural_spine       ||
