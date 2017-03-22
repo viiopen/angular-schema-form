@@ -10,7 +10,7 @@ if (!customValidators) {
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
 
     debugger
-    console.log('debugger 222')
+    console.log('debugger 111')
 
     var fieldId = form.fieldId;
     var element_ids;
@@ -43,8 +43,8 @@ if (!customValidators) {
     }
 
 
-    if (model.toggle_thoraco_lumbar) {
-      if (model.toggle_compression) {
+    if (model.toggle_compression) {
+      // if (model.toggle_compression) {
         if (!(
           model.toggle_sn_t4 ||
           model.toggle_sn_t5 ||
@@ -77,20 +77,20 @@ if (!customValidators) {
 
         // good
 
-      }
-      else {
-        return {
-          custom: true,
-          valid: false,
-          error: {
-            code: 'sn_level',
-            element_ids: [
-              'field-toggle_compression-' + fieldId
-            ]
-          },
-          rootScopeBroadCast: true
-        }
-      }
+      // }
+      // else {
+      //   return {
+      //     custom: true,
+      //     valid: false,
+      //     error: {
+      //       code: 'sn_level',
+      //       element_ids: [
+      //         'field-toggle_compression-' + fieldId
+      //       ]
+      //     },
+      //     rootScopeBroadCast: true
+      //   }
+      // }
 
 
       var levels = [
