@@ -1975,24 +1975,25 @@ if (!customValidators) {
           code: 0
         }
       }
-    } else if (!model.toggle_compression) {
-      if (!(
-        model.toggle_structural_spine       ||
-        model.toggle_clinical_manifestation ||
-        model.toggle_deformity              ||
-        model.toggle_revision
-      )) {
-        return {
-          custom: true,
-          valid: false,
-          error: {
-            code: 'sn_level',
-            element_ids: [ 'field-toggle_compression-' + fieldId ]
-          },
-          rootScopeBroadCast: true
-        };
-      }
     }
+    // else if (!model.toggle_compression) {
+    //   if (!(
+    //     model.toggle_structural_spine       ||
+    //     model.toggle_clinical_manifestation ||
+    //     model.toggle_deformity              ||
+    //     model.toggle_revision
+    //   )) {
+    //     return {
+    //       custom: true,
+    //       valid: false,
+    //       error: {
+    //         code: 'sn_level',
+    //         element_ids: [ 'field-toggle_compression-' + fieldId ]
+    //       },
+    //       rootScopeBroadCast: true
+    //     };
+    //   }
+    // }
 
 
     // EH?
