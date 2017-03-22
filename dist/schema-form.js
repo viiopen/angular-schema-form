@@ -1988,7 +1988,8 @@ if (!customValidators) {
           element_ids: [
             'field-toggle_compression-' + fieldId
           ]
-        }
+        },
+        rootScopeBroadCast: true
       };
 
       if (!model.toggle_clinical_manifestation) {
