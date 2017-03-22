@@ -1995,6 +1995,7 @@ if (!customValidators) {
     }
 
 
+    // EH?
     if (model.toggle_compression) {
       // if (model.toggle_compression) {
         if (!(
