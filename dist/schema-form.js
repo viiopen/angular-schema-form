@@ -1952,32 +1952,11 @@ if (!customValidators) {
 
 if (!customValidators) {
 
-  console.log("Cannot define validator validateCnsaDiagnosis()", new Date());
-
 } else {
-
-  console.log('debugger 111')
-  debugger
-
   customValidators.validateCnsaDiagnosis = function(viewValue, form, model) {
-
-    debugger
-    console.log('debugger 111')
 
     var fieldId = form.fieldId;
     var element_ids;
-
-    // if (model.toggle_clinical_manifestation == null) {
-    //   return {
-    //     custom: true,
-    //     valid: false,
-    //     error: {
-    //       code: '0',
-    //       element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
-    //     },
-    //     rootScopeBroadCast: true
-    //   }
-    // }
 
     if(model.toggle_compression == null) {
       var returnVal = {
@@ -1993,36 +1972,13 @@ if (!customValidators) {
       };
 
       if (!model.toggle_clinical_manifestation) {
-        // element_ids: [ 'field-toggle_compression-' + fieldId ]
         returnVal.error.element_ids.push('field-toggle_clinical_manifestation-' + fieldId);
       }
 
       return returnVal;
     }
 
-    // else if (!model.toggle_compression) {
-    //   if (!(
-    //     model.toggle_structural_spine       ||
-    //     model.toggle_clinical_manifestation ||
-    //     model.toggle_deformity              ||
-    //     model.toggle_revision
-    //   )) {
-    //     return {
-    //       custom: true,
-    //       valid: false,
-    //       error: {
-    //         code: 'sn_level',
-    //         element_ids: [ 'field-toggle_compression-' + fieldId ]
-    //       },
-    //       rootScopeBroadCast: true
-    //     };
-    //   }
-    // }
-
-
-    // EH?
     if (model.toggle_compression) {
-      // if (model.toggle_compression) {
         if (!(
           model.toggle_sn_t4 ||
           model.toggle_sn_t5 ||
@@ -2052,24 +2008,6 @@ if (!customValidators) {
             rootScopeBroadCast: true
           }
         }
-
-        // good
-
-      // }
-      // else {
-      //   return {
-      //     custom: true,
-      //     valid: false,
-      //     error: {
-      //       code: 'sn_level',
-      //       element_ids: [
-      //         'field-toggle_compression-' + fieldId
-      //       ]
-      //     },
-      //     rootScopeBroadCast: true
-      //   }
-      // }
-
 
       var levels = [
         't4',
