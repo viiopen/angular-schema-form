@@ -104,12 +104,7 @@ if (!customValidators) {
               rootScopeBroadCast: true
             }
           }
-          var a = model['toggle_nd_' + levels[i] + '_osteot'];
-          var d = model['nd_' + levels[i] + 'osteot_columns'];
-          var b = model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-0'];
-          var c = model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-1'];
-          debugger;
-          if (model['toggle_nd_' + levels[i] + '_osteot-' + fieldId] && !model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-0'] && !model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-1']) {
+          if (model['toggle_nd_' + levels[i] + '_osteot'] && !model['nd_' + levels[i] + '_osteot_columns']) {
             return {
               custom: true,
               valid: false,
