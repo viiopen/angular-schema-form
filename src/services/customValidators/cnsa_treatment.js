@@ -8,12 +8,26 @@ if (!customValidators) {
     var fieldId = form.fieldId;
     var element_ids;
 
-    if (!(
-      model.toggle_neural_decomp ||
-      model.toggle_arthrodesis ||
-      model.toggle_research_pt
-    )) {
-      return { custom: true, valid: false, error: { code: 0 } }
+    if (!model.toggle_neural_decomp) {
+      return {
+        custom: true,
+        valid: false,
+        error: {
+          code: 'nd',
+          element_ids: [ 'field-toggle_neural_decomp-' + fieldId ]
+        }
+      }
+    }
+
+    if (model.toggle_neural_decomp == 0 && model.toggle_arthrodesis == null) {
+      return {
+        custom: true,
+        valid: false,
+        error: {
+          code: 'arthrodesis',
+          element_ids: [ 'field-toggle_arthrodesis-' + fieldId ]
+        }
+      }
     }
 
     if (model.toggle_neural_decomp) {
@@ -51,7 +65,7 @@ if (!customValidators) {
           valid: false,
           error: {
             code: 'nd_levels',
-            element_ids: [ 'field-toggle_nd_t4-' + fieldId ]
+            element_ids: [ 'field-toggle_neural_decomp-' + fieldId ]
           },
           rootScopeBroadCast: true
         }
@@ -84,6 +98,17 @@ if (!customValidators) {
               error: {
                 code: 0,
                 element_ids: [ 'field-nd_' + levels[i] + '_side-' + fieldId ]
+              },
+              rootScopeBroadCast: true
+            }
+          }
+          if (model['toggle_nd_' + levels[i] + '_osteot-' + fieldId] != null && model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-0'] == null && model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-1'] == null) {
+            return {
+              custom: true,
+              valid: false,
+              error: {
+                code: 0,
+                element_ids: [ 'field-nd_' + levels[i] + '_osteot_columns-' + fieldId ]
               },
               rootScopeBroadCast: true
             }
