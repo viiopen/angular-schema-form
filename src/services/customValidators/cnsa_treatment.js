@@ -8,7 +8,7 @@ if (!customValidators) {
     var fieldId = form.fieldId;
     var element_ids;
 
-    if (!model.toggle_neural_decomp) {
+    if (model.toggle_neural_decomp === null) {
       return {
         custom: true,
         valid: false,
@@ -19,7 +19,7 @@ if (!customValidators) {
       }
     }
 
-    if (model.toggle_neural_decomp == 0 && model.toggle_arthrodesis == null) {
+    if (model.toggle_neural_decomp === 0 && model.toggle_arthrodesis === null) {
       return {
         custom: true,
         valid: false,
@@ -31,7 +31,7 @@ if (!customValidators) {
     }
 
     if (model.toggle_neural_decomp) {
-      if (model.nd_open == null) {
+      if (model.nd_open === null) {
         return {
           custom: true,
           valid: false,
@@ -102,7 +102,7 @@ if (!customValidators) {
               rootScopeBroadCast: true
             }
           }
-          if (model['toggle_nd_' + levels[i] + '_osteot-' + fieldId] != null && model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-0'] == null && model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-1'] == null) {
+          if (model['toggle_nd_' + levels[i] + '_osteot-' + fieldId] != null && !model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-0'] && !model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-1']) {
             return {
               custom: true,
               valid: false,
