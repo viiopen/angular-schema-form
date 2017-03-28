@@ -2680,7 +2680,7 @@ if (!customValidators) {
               rootScopeBroadCast: true
             }
           }
-          if (model['toggle_nd_' + levels[i] + '_osteot-' + fieldId] != null && !model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-0'] && !model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-1']) {
+          if (model['toggle_nd_' + levels[i] + '_osteot-' + fieldId] != null && model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-0'] == null && model['nd_' + levels[i] + '_osteot_columns-' + fieldId + '-1'] == null) {
             return {
               custom: true,
               valid: false,
