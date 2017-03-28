@@ -9,27 +9,26 @@ if (!customValidators) {
     var element_ids;
 
     if (!model.toggle_neural_decomp) {
-      var a = 'field-toggle_neural_decomp-' + fieldId;
-      debugger;
       return {
         custom: true,
         valid: false,
         error: {
-          code: 0,
-          element_ids: [ a ]
+          code: 'nd',
+          element_ids: [ 'field-toggle_neural_decomp-' + fieldId ]
         },
         rootScopeBroadCast: true
       }
     }
 
-    if (model.toggle_neural_decomp === 0 && model.toggle_arthrodesis === null) {
+    if (model.toggle_neural_decomp === 0 && !model.toggle_arthrodesis) {
       return {
         custom: true,
         valid: false,
         error: {
           code: 'arthrodesis',
           element_ids: [ 'field-toggle_arthrodesis-' + fieldId ]
-        }
+        },
+        rootScopeBroadCast: true
       }
     }
 
