@@ -2585,14 +2585,16 @@ if (!customValidators) {
     var element_ids;
 
     if (!model.toggle_neural_decomp) {
+      var a = 'field-toggle_neural_decomp-' + fieldId;
       debugger;
       return {
         custom: true,
         valid: false,
         error: {
           code: 0,
-          element_ids: [ 'field-toggle_neural_decomp-' + fieldId ]
-        }
+          element_ids: [ a ]
+        },
+        rootScopeBroadCast: true
       }
     }
 
