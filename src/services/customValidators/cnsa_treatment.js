@@ -8,7 +8,7 @@ if (!customValidators) {
     var fieldId = form.fieldId;
     var element_ids;
 
-    if (!model.toggle_neural_decomp) {
+    if (model.toggle_neural_decomp === null) {
       return {
         custom: true,
         valid: false,
