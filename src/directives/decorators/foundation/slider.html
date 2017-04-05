@@ -19,6 +19,10 @@
     ng-attr-id="{{f_id}}">
   </vii-alt-slider>
 
+  <pre>
+    {{$$value$$ | json}}
+  </pre>
+
   <select ng-model="$$value$$"
           ng-model-options="form.ngModelOptions"
           ng-disabled="form.readonly"
