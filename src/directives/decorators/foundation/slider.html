@@ -18,9 +18,18 @@
     schema-validate="form"
     ng-attr-id="{{f_id}}">
   </vii-alt-slider>
-  <div>
-    TEST SCHEMA UPDATE
-  </div>
+
+  <select ng-model="$$value$$"
+          ng-model-options="form.ngModelOptions"
+          ng-disabled="form.readonly"
+          sf-changed="form"
+          class="{{form.fieldHtmlClass}}"
+          schema-validate="form"
+          ng-options="item.value as item.name group by item.group for item in form.titleMap"
+          ng-attr-id="{{f_id}}"
+          name="{{f_id}}">
+  </select>
+
   <div class="help-block" ng-if="form.description && form.showDescription"><small>
     <span ng-bind-html="form.description"></span>
   </small></div>
