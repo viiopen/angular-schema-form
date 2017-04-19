@@ -13,6 +13,10 @@ angular.module('schemaForm').service('customValidators', [
 
     functions.validateCAT = customValidators.validateCAT;
 
+    functions.validateCnsaCervicalDiagnosis = customValidators.validateCnsaCervicalDiagnosis;
+
+    functions.validateCnsaCervicalTreatment = customValidators.validateCnsaCervicalTreatment;
+
     functions.validateCnsaDiagnosis = customValidators.validateCnsaDiagnosis;
 
     functions.validateCnsaTreatment = customValidators.validateCnsaTreatment;
