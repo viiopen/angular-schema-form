@@ -1862,6 +1862,456 @@ if (!customValidators) {
 
 if (!customValidators) {
 
+} else {
+    customValidators.validateCnsaCervicalDiagnosis = function(viewValue, form, model) {
+
+        var fieldId = form.fieldId;
+        var element_ids;
+
+        if (model.toggle_compression === null) {
+            var returnVal = {
+                custom: true,
+                valid: false,
+                error: {
+                    code: 0,
+                    element_ids: [
+                        'field-toggle_compression-' + fieldId
+                    ]
+                },
+                rootScopeBroadCast: true
+            };
+
+            if (!model.toggle_clinical_manifestation) {
+                returnVal.error.element_ids.push('field-toggle_clinical_manifestation-' + fieldId);
+            }
+
+            return returnVal;
+        }
+
+        if (model.toggle_compression) {
+            if (!(
+                model.toggle_sn_c2 ||
+                model.toggle_sn_c3 ||
+                model.toggle_sn_c4 ||
+                model.toggle_sn_c5 ||
+                model.toggle_sn_c6 ||
+                model.toggle_sn_c7 ||
+                model.toggle_sn_t1 ||
+                model.toggle_sn_t2 ||
+                model.toggle_sn_t3
+            )) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 'sn_level',
+                        element_ids: [
+                            'field-toggle_compression-' + fieldId
+                        ]
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+
+            var levels = [
+                'c2',
+                'c3',
+                'c4',
+                'c5',
+                'c6',
+                'c7',
+                't1',
+                't2',
+                't3'
+            ];
+
+            element_ids = [];
+
+            for (var i in levels) {
+                if (model['toggle_sn_' + levels[i]]) {
+                    if (model['toggle_sn_' + levels[i] + '_side'] === null) {
+                        element_ids.push('field-sn_' + levels[i] + '_side-' + fieldId);
+                    }
+                    if (model['sn_' + levels[i] + '_type'] === null) {
+                        element_ids.push('field-sn_' + levels[i] + '_type-' + fieldId);
+                    }
+                 }
+            }
+
+            if (element_ids.length > 0) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 0,
+                        element_ids: element_ids
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+        }
+
+        if (model.toggle_structural_spine) {
+            if (!(
+                model.toggle_ss_c1c2 ||
+                model.toggle_ss_c2c3 ||
+                model.toggle_ss_c3c4 ||
+                model.toggle_ss_c4c5 ||
+                model.toggle_ss_c5c6 ||
+                model.toggle_ss_c6c7 ||
+                model.toggle_ss_c7t1 ||
+                model.toggle_ss_t1t2 ||
+                model.toggle_ss_t2t3 ||
+                model.toggle_ss_t3t4
+            )) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 'ss_seg',
+                        element_ids: [
+                            'field-toggle_structural_spine-' + fieldId
+                        ]
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+
+            var levels = [
+                'c1c2',
+                'c2c3',
+                'c3c4',
+                'c4c5',
+                'c5c6',
+                'c6c7',
+                'c7t1',
+                't1t2',
+                't2t3',
+                't3t4'
+            ];
+
+            element_ids = [];
+
+            for (var i in levels) {
+                if (model['toggle_ss_' + levels[i]]) {
+
+                    if (model['toggle_ss_' + levels[i] + '_listhesis']) {
+                        if (model['ss_' + levels[i] + '_listh_MaxGrade'] === null) {
+                            element_ids.push('field-ss_' + levels[i] + '_listh_MaxGrade-' + fieldId);
+                        }
+                    }
+                    if (model['ss_' + levels[i] + '_mecDiscColl'] === null) {
+                        element_ids.push('field-ss_' + levels[i] + '_mecDiscColl-' + fieldId);
+                    }
+
+                }
+            }
+
+            if (element_ids.length > 0) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: { code: 0, element_ids: element_ids },
+                    rootScopeBroadCast: true
+                };
+            }
+        }
+
+        // field is required
+        if (model.toggle_clinical_manifestation === null) {
+            return {
+                custom: true,
+                valid: false,
+                error: {
+                    code: '0',
+                    element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
+                },
+                rootScopeBroadCast: true
+          };
+        } else if (model.toggle_clinical_manifestation) {
+            if (!(
+              model.toggle_cm_radiculopathy ||
+              model.toggle_cm_myelopathy ||
+              model.toggle_cm_neuroBowelBladd ||
+              model.toggle_cm_lowestMotor
+            )) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 'cm',
+                        element_ids: [ 'field-toggle_clinical_manifestation-' + fieldId ]
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+
+            if (model.toggle_cm_lowestMotor) {
+                if (model.cm_lowestMotor === null) {
+                    return {
+                        custom: true,
+                        valid: false,
+                        error: {
+                            code: 0,
+                            element_ids: [ 'field-cm_lowestMotor-' + fieldId ]
+                        },
+                        rootScopeBroadCast: true
+                    };
+                }
+            }
+        }
+
+        if (model.toggle_revision) {
+            if (!(
+                model.toggle_revision_reason_deg ||
+                model.toggle_revision_reason_sameLevelStenosis ||
+                model.toggle_revision_reason_pseudoarthrosis ||
+                model.toggle_revision_reason_pjk ||
+                model.toggle_revision_reason_djk ||
+                model.toggle_revision_reason_instFail
+            )) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 'reasons',
+                        element_ids: [ 'field-toggle_revision-' + fieldId ]
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+
+            element_ids = [];
+
+            if (model.toggle_revision_reason_instFail && model.rev_instFail_months === null) {
+                element_ids.push('field-rev_instFail_months-' + fieldId);
+            }
+
+            if (element_ids.length > 0) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: { code: 0, element_ids: element_ids },
+                    rootScopeBroadCast: true
+                };
+            }
+        }
+
+        return {
+            valid: true
+        };
+    };
+}
+
+if (!customValidators) {
+
+    console.log("Cannot define validator validateCnsaTreatment()", new Date());
+
+} else {
+    customValidators.validateCnsaCervicalTreatment = function(viewValue, form, model) {
+
+        var fieldId = form.fieldId;
+        var element_ids;
+
+        if (model.toggle_neural_decomp === null) {
+            return {
+                custom: true,
+                valid: false,
+                error: {
+                    code: 'nd',
+                    element_ids: [ 'field-toggle_neural_decomp-' + fieldId ]
+                },
+                rootScopeBroadCast: true
+            };
+        }
+
+        if (model.toggle_neural_decomp) {
+            if (!(
+                model.toggle_nd_c2 ||
+                model.toggle_nd_c3 ||
+                model.toggle_nd_c4 ||
+                model.toggle_nd_c5 ||
+                model.toggle_nd_c6 ||
+                model.toggle_nd_c7 ||
+                model.toggle_nd_t1 ||
+                model.toggle_nd_t2 ||
+                model.toggle_nd_t3
+            )) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 'nd_levels',
+                        element_ids: [ 'field-toggle_neural_decomp-' + fieldId ]
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+
+            element_ids = [];
+
+            if (model.nd_open === null) {
+                element_ids.push('field-nd_open-' + fieldId);
+            }
+            if (model.nd_laminoplasty === null) {
+                element_ids.push('field-nd_laminoplasty-' + fieldId);
+            }
+
+            var levels = [
+                'c2',
+                'c3',
+                'c4',
+                'c5',
+                'c6',
+                'c7',
+                't1',
+                't2',
+                't3'
+            ];
+
+            for (var i in levels) {
+                if (model['toggle_nd_' + levels[i]]) {
+                    if (model['nd_' + levels[i] + '_side'] === null) {
+                        element_ids.push('field-nd_' + levels[i] + '_side-' + fieldId);
+                    }
+                }
+            }
+
+            if (element_ids.length > 0) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 0,
+                        element_ids: element_ids
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+        }
+
+        if (model.toggle_arthrodesis) {
+            if (!(
+                model.toggle_pa_c1c2 ||
+                model.toggle_pa_c2c3 ||
+                model.toggle_pa_c3c4 ||
+                model.toggle_pa_c4c5 ||
+                model.toggle_pa_c5c6 ||
+                model.toggle_pa_c6c7 ||
+                model.toggle_pa_c7t1 ||
+                model.toggle_pa_t1t2 ||
+                model.toggle_pa_t2t3 ||
+                model.toggle_pa_t3t4
+            )) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 'pa',
+                        element_ids: [ 'field-toggle_arthrodesis-' + fieldId ]
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+
+            element_ids = [];
+
+            if (model.pa_fixation_co_name === null) {
+                element_ids.push('field-pa_fixation_co_name-' + fieldId);
+            }
+            if (model.pa_fixation_trade_name === null) {
+                element_ids.push('field-pa_fixation_trade_name-' + fieldId);
+            }
+
+            if (element_ids.length > 0) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 0,
+                        element_ids: element_ids
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+        }
+
+        if (model.toggle_anterior_approach) {
+            if (!(
+                model.toggle_aa_c2 ||
+                model.toggle_aa_c3 ||
+                model.toggle_aa_c4 ||
+                model.toggle_aa_c5 ||
+                model.toggle_aa_c6 ||
+                model.toggle_aa_c7 ||
+                model.toggle_aa_t1 ||
+                model.toggle_aa_t2 ||
+                model.toggle_aa_t3
+            )) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 'anterior_approach',
+                        element_ids: [ 'field-toggle_anterior_approach-' + fieldId ]
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+
+            element_ids = [];
+
+            if (model.aa_interbody_tradeName === null) {
+                element_ids.push('field-aa_interbody_tradeName-' + fieldId);
+            }
+            if (model.aa_system_tradeName === null) {
+                element_ids.push('field-aa_system_tradeName-' + fieldId);
+            }
+
+            levels = [
+                'c2',
+                'c3',
+                'c4',
+                'c5',
+                'c6',
+                'c7',
+                't1',
+                't2',
+                't3'
+            ];
+
+            for (var i in levels) {
+                if (model['toggle_aa_' + levels[i]]) {
+                    if (model['aa_' + levels[i] + '_discSpace'] === null) {
+                        element_ids.push('field-aa_' + levels[i] + '_discSpace-' + fieldId);
+                    }
+                    if (model['aa_' + levels[i] + '_material'] === null) {
+                        element_ids.push('field-aa_' + levels[i] + '_material-' + fieldId);
+                    }
+                }
+            }
+
+            if (element_ids.length > 0) {
+                return {
+                    custom: true,
+                    valid: false,
+                    error: {
+                        code: 0,
+                        element_ids: element_ids
+                    },
+                    rootScopeBroadCast: true
+                };
+            }
+        }
+
+        return {
+            valid: true
+        };
+    };
+}
+
+if (!customValidators) {
+
   console.log("Cannot define validator validateCnsaComplications()", new Date());
 
 } else {
@@ -2968,6 +3418,10 @@ angular.module('schemaForm').service('customValidators', [
     functions.validateDecidePrioritiesAndStyles = customValidators.validateDecidePrioritiesAndStyles;
 
     functions.validateCAT = customValidators.validateCAT;
+
+    functions.validateCnsaCervicalDiagnosis = customValidators.validateCnsaCervicalDiagnosis;
+
+    functions.validateCnsaCervicalTreatment = customValidators.validateCnsaCervicalTreatment;
 
     functions.validateCnsaDiagnosis = customValidators.validateCnsaDiagnosis;
 
