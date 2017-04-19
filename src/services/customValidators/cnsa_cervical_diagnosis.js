@@ -191,7 +191,7 @@ if (!customValidators) {
                         valid: false,
                         error: {
                             code: 0,
-                            element_ids: [ 'field-cm_cm_lowestMotorScore-' + fieldId ]
+                            element_ids: [ 'field-cm_lowestMotorScore-' + fieldId ]
                         },
                         rootScopeBroadCast: true
                     };
