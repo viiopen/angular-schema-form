@@ -67,7 +67,7 @@ if (!customValidators) {
 
             for (var i in levels) {
                 if (model['toggle_sn_' + levels[i]]) {
-                    if (model['toggle_sn_' + levels[i] + '_side'] === null) {
+                    if (model['sn_' + levels[i] + '_side'] === null) {
                         element_ids.push('field-sn_' + levels[i] + '_side-' + fieldId);
                     }
                     if (model['sn_' + levels[i] + '_type'] === null) {
@@ -185,13 +185,13 @@ if (!customValidators) {
             }
 
             if (model.toggle_cm_lowestMotor) {
-                if (model.cm_lowestMotor === null) {
+                if (model.cm_lowestMotorScore === null) {
                     return {
                         custom: true,
                         valid: false,
                         error: {
                             code: 0,
-                            element_ids: [ 'field-cm_lowestMotor-' + fieldId ]
+                            element_ids: [ 'field-cm_cm_lowestMotorScore-' + fieldId ]
                         },
                         rootScopeBroadCast: true
                     };
