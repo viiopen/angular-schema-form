@@ -48,8 +48,11 @@ if (!customValidators) {
             if (model.nd_open === null) {
                 element_ids.push('field-nd_open-' + fieldId);
             }
-            if (model.nd_laminoplasty === null) {
-                element_ids.push('field-nd_laminoplasty-' + fieldId);
+            if (model.nd_procedure === null) {
+                element_ids.push('field-nd_procedure-' + fieldId);
+            }
+            if (model.nd_procedure === 3 && model.nd_procedure_foraminotomy_side === null) {
+                element_ids.push('field-nd_procedure_foraminotomy_side-' + fieldId);
             }
 
             var levels = [

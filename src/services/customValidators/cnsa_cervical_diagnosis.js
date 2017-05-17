@@ -168,10 +168,11 @@ if (!customValidators) {
           };
         } else if (model.toggle_clinical_manifestation) {
             if (!(
-              model.toggle_cm_radiculopathy ||
-              model.toggle_cm_myelopathy ||
-              model.toggle_cm_neuroBowelBladd ||
-              model.toggle_cm_lowestMotor
+                model.toggle_cm_radiculopathy ||
+                model.toggle_cm_myelopathy ||
+                model.toggle_mechanicalInstability ||
+                model.toggle_cm_neuroBowelBladd ||
+                model.toggle_cm_lowestMotor
             )) {
                 return {
                     custom: true,
