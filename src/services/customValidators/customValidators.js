@@ -21,6 +21,8 @@ angular.module('schemaForm').service('customValidators', [
 
     functions.validateCnsaTreatment = customValidators.validateCnsaTreatment;
 
+    functions.validateCnsaCervicalComplications = customValidators.validateCnsaCervicalComplications;
+
     functions.validateCnsaComplications = customValidators.validateCnsaComplications;
 
     functions.validateCnsaReadmissionReasons = customValidators.validateCnsaReadmissionReasons;
