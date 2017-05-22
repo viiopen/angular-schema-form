@@ -1,6 +1,6 @@
 if (!customValidators) {
 
-  console.log("Cannot define validator validateCnsaComplications()", new Date());
+  console.log("Cannot define validator validateCnsaCervicalComplications()", new Date());
 
 } else {
 
