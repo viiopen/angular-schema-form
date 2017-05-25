@@ -24,7 +24,7 @@ if (!customValidators) {
       "toggle_complication_reason_cva",
       "toggle_complication_reason_pneum",
       "toggle_complication_reason_seroma",
-      "toggle_complication_reason_instFail",
+      "toggle_complication_reason_wound_dehiscence",
       "toggle_complication_reason_dysphagia_tube",
       "toggle_complication_reason_dysphagia_no_tube",
       "toggle_complication_reason_vocal_cord_paralysis",
