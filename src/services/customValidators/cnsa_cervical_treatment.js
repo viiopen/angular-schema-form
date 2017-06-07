@@ -79,15 +79,15 @@ if (!customValidators) {
                   if (model['aa_acdf_' + level + '_type'] === null) {
                     missingElementIds.push('field-aa_acdf_' + level + '_type-' + fieldId);
                   }
-                  if (model['aa_acdf_' + level + '_companyName'] === null) {
+                  if (model['aa_acdf_' + level + '_companyName'] === null || model['aa_acdf_' + level + '_companyName'] == '') {
                     missingElementIds.push('field-aa_acdf_' + level + '_companyName-' + fieldId);
                   }
-                  if (model['aa_acdf_' + level + '_tradeName'] === null) {
+                  if (model['aa_acdf_' + level + '_tradeName'] === null || model['aa_acdf_' + level + '_tradeName'] == '') {
                     missingElementIds.push('field-aa_acdf_' + level + '_tradeName-' + fieldId);
                   }
                 } else if (model['aa_discectomy_' + level + '_procedure'] == 2) {
                   // Arthroplasty procedure was selected
-                  if (model['aa_arthroplasty_' + level] === null) {
+                  if (model['aa_arthroplasty_' + level] === null || model['aa_arthroplasty_' + level] == '') {
                     missingElementIds.push('field-aa_arthroplasty_' + level + '-' + fieldId);
                   }
                 }
@@ -122,7 +122,7 @@ if (!customValidators) {
                 valid: false,
                 error: {
                   code: 'aa_corp_levels',
-                  element_ids: ['field-aa_toggle_corpectomy-' + fieldId]
+                  element_ids: ['field-toggle_aa_corpectomy-' + fieldId]
                 },
                 rootScopeBroadCast: true
               }
@@ -150,10 +150,10 @@ if (!customValidators) {
                 if (model['aa_corpectomy_' + level + '_type'] === null) {
                   missingElementIds.push('field-aa_corpectomy_' + level + '_type-' + fieldId);
                 }
-                if (model['aa_corpectomy_' + level + '_companyName'] === null) {
+                if (model['aa_corpectomy_' + level + '_companyName'] === null || model['aa_corpectomy_' + level + '_companyName'] == '') {
                   missingElementIds.push('field-aa_corpectomy_' + level + '_companyName-' + fieldId);
                 }
-                if (model['aa_corpectomy_' + level + '_cageName'] === null) {
+                if (model['aa_corpectomy_' + level + '_cageName'] === null || model['aa_corpectomy_' + level + '_cageName'] == '') {
                   missingElementIds.push('field-aa_corpectomy_' + level + '_cageName-' + fieldId);
                 }
               }
@@ -197,7 +197,7 @@ if (!customValidators) {
               missingNDElementIds.push('field-nd_open-' + fieldId);
             }
             if (model.nd_procedure === null) {
-              missingNDElementIds.push('field-nd_procedure' + fieldId);
+              missingNDElementIds.push('field-nd_procedure-' + fieldId);
             }
 
             if (missingNDElementIds.length > 0) {
@@ -277,7 +277,7 @@ if (!customValidators) {
                 valid: false,
                 error: {
                   code: 'post_app_no_nd_no_pa',
-                  element_ids: ['field-toggle_posterior_approach-' + fieldId]
+                  element_ids: ['field-toggle_arthrodesis-' + fieldId]
                 },
                 rootScopeBroadCast: true
               }
@@ -308,10 +308,10 @@ if (!customValidators) {
 
             let missingPAElementIds = [];
 
-            if (model.pa_fixation_co_name === null) {
+            if (model.pa_fixation_co_name === null || model.pa_fixation_co_name == '') {
               missingPAElementIds.push('field-pa_fixation_co_name-' + fieldId);
             }
-            if (model.pa_fixation_trade_name === null) {
+            if (model.pa_fixation_trade_name === null || model.pa_fixation_trade_name == '') {
               missingPAElementIds.push('field-pa_fixation_trade_name-' + fieldId);
             }
 
