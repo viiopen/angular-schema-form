@@ -2254,7 +2254,7 @@ if (!customValidators) {
               }
             }
 
-            let discectomyLevels = [
+            var discectomyLevels = [
               'c2c3',
               'c3c4',
               'c4c5',
@@ -2263,9 +2263,9 @@ if (!customValidators) {
               'c7t1'
             ];
 
-            let missingElementIds = [];
+            var missingElementIds = [];
 
-            for (let i = 0; i < discectomyLevels.length; i++) {
+            for (var i = 0; i < discectomyLevels.length; i++) {
               const level = discectomyLevels[i];
 
               if (model['toggle_aa_discectomy_' + level]) {
@@ -2328,7 +2328,7 @@ if (!customValidators) {
               }
             }
 
-            let corpectomyLevels = [
+            var corpectomyLevels = [
               'c2',
               'c3',
               'c4',
@@ -2338,9 +2338,9 @@ if (!customValidators) {
               't1'
             ];
 
-            let missingElementIds = [];
+            var missingElementIds = [];
 
-            for (let i = 0; i < corpectomyLevels.length; i++) {
+            for (var i = 0; i < corpectomyLevels.length; i++) {
               const level = corpectomyLevels[i];
 
               if (model['toggle_aa_corpectomy_' + level]) {
@@ -2391,7 +2391,7 @@ if (!customValidators) {
 
           if (model.toggle_neural_decomp == 1) {
             // neural decompression was marked 'Yes'
-            let missingNDElementIds = [];
+            var missingNDElementIds = [];
 
             if (model.nd_open === null) {
               missingNDElementIds.push('field-nd_open-' + fieldId);
@@ -2434,7 +2434,7 @@ if (!customValidators) {
               };
             }
 
-            let neuralDecompLevels = [
+            var neuralDecompLevels = [
               'c2',
               'c3',
               'c4',
@@ -2446,9 +2446,9 @@ if (!customValidators) {
               't3'
             ];
 
-            let missingNDSideElementIds = [];
+            var missingNDSideElementIds = [];
 
-            for (let i = 0; i < neuralDecompLevels.length; i++) {
+            for (var i = 0; i < neuralDecompLevels.length; i++) {
               const level = neuralDecompLevels[i];
 
               if (model['toggle_nd_' + level]) {
@@ -2506,7 +2506,7 @@ if (!customValidators) {
               };
             }
 
-            let missingPAElementIds = [];
+            var missingPAElementIds = [];
 
             if (model.pa_fixation_co_name === null || model.pa_fixation_co_name == '') {
               missingPAElementIds.push('field-pa_fixation_co_name-' + fieldId);
