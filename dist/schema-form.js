@@ -1984,52 +1984,55 @@ if (!customValidators) {
 
         if (model.toggle_compression) {
             if (!(
-                model.toggle_sn_c2 ||
-                model.toggle_sn_c3 ||
-                model.toggle_sn_c4 ||
-                model.toggle_sn_c5 ||
-                model.toggle_sn_c6 ||
-                model.toggle_sn_c7 ||
-                model.toggle_sn_t1 ||
-                model.toggle_sn_t2 ||
-                model.toggle_sn_t3
+              model.toggle_sn_c2 ||
+              model.toggle_sn_c3 ||
+              model.toggle_sn_c4 ||
+              model.toggle_sn_c5 ||
+              model.toggle_sn_c6 ||
+              model.toggle_sn_c7 ||
+              model.toggle_sn_t1 ||
+              model.toggle_sn_t2 ||
+              model.toggle_sn_t3
             )) {
-                return {
-                    custom: true,
-                    valid: false,
-                    error: {
-                        code: 'sn_level',
-                        element_ids: [
-                            'field-toggle_compression-' + fieldId
-                        ]
-                    },
-                    rootScopeBroadCast: true
-                };
+              return {
+                custom: true,
+                valid: false,
+                error: {
+                  code: 'sn_level',
+                  element_ids: [
+                    'field-toggle_compression-' + fieldId
+                  ]
+                },
+                rootScopeBroadCast: true
+              };
             }
 
             var levels = [
-                'c2',
-                'c3',
-                'c4',
-                'c5',
-                'c6',
-                'c7',
-                't1',
-                't2',
-                't3'
+              'c2',
+              'c3',
+              'c4',
+              'c5',
+              'c6',
+              'c7',
+              't1',
+              't2',
+              't3'
             ];
 
             element_ids = [];
 
             for (var i in levels) {
-                if (model['toggle_sn_' + levels[i]]) {
-                    if (model['sn_' + levels[i] + '_side'] === null) {
-                        element_ids.push('field-sn_' + levels[i] + '_side-' + fieldId);
-                    }
-                    if (model['sn_' + levels[i] + '_type'] === null) {
-                        element_ids.push('field-sn_' + levels[i] + '_type-' + fieldId);
-                    }
-                 }
+              if (model['toggle_sn_' + levels[i]]) {
+                if (model['sn_' + levels[i] + '_side'] === null) {
+                  element_ids.push('field-sn_' + levels[i] + '_side-' + fieldId);
+                }
+                if (model['sn_' + levels[i] + '_type'] === null) {
+                  element_ids.push('field-sn_' + levels[i] + '_type-' + fieldId);
+                }
+                if (model['sn_' + levels[i] + '_nerve_root'] === null) {
+                  element_ids.push('field-sn_' + levels[i] + '_nerve_root-' + fieldId);
+                }
+               }
             }
 
             if (element_ids.length > 0) {
