@@ -2843,13 +2843,13 @@ if (!customValidators) {
       }
 
       if (model.toggle_cm_motor_deficit) {
-        if (model.cm_lowestMotor == null) {
+        if (model.cm_lowestMotor === null) {
           return {
             custom: true,
             valid: false,
             error: {
               code: 0,
-              element_ids: [ 'field-cm_lowestMotor-' + fieldId ]
+              element_ids: [ 'field-cm_lowestMotorScore-' + fieldId ]
             },
             rootScopeBroadCast: true
           }
