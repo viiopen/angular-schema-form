@@ -213,7 +213,7 @@ if (!customValidators) {
       }
 
       if (model.toggle_cm_motor_deficit) {
-        if (model.cm_lowestMotor === null) {
+        if (model.cm_lowestMotorScore === null) {
           return {
             custom: true,
             valid: false,
