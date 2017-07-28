@@ -198,7 +198,7 @@ if (!customValidators) {
         model.toggle_cm_neuroClaud ||
         model.toggle_cm_myelopathy ||
         model.toggle_cm_neuroBowelBladd ||
-        model.toggle_cm_lowestMotor ||
+        model.toggle_cm_motor_deficit ||
         model.toggle_cm_backPain
       )) {
         return {
@@ -212,7 +212,7 @@ if (!customValidators) {
         }
       }
 
-      if (model.toggle_cm_lowestMotor) {
+      if (model.toggle_cm_motor_deficit) {
         if (model.cm_lowestMotor == null) {
           return {
             custom: true,

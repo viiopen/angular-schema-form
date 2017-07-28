@@ -2032,7 +2032,7 @@ if (!customValidators) {
                 if (model['sn_' + levels[i] + '_nerve_root'] === null) {
                   element_ids.push('field-sn_' + levels[i] + '_nerve_root-' + fieldId);
                 }
-               }
+              }
             }
 
             if (element_ids.length > 0) {
@@ -2131,7 +2131,7 @@ if (!customValidators) {
                 model.toggle_cm_myelopathy ||
                 model.toggle_mechanicalInstability ||
                 model.toggle_cm_neuroBowelBladd ||
-                model.toggle_cm_lowestMotor
+                model.toggle_cm_motor_deficit
             )) {
                 return {
                     custom: true,
@@ -2144,7 +2144,7 @@ if (!customValidators) {
                 };
             }
 
-            if (model.toggle_cm_lowestMotor) {
+            if (model.toggle_cm_motor_deficit) {
                 if (model.cm_lowestMotorScore === null) {
                     return {
                         custom: true,
@@ -2828,7 +2828,7 @@ if (!customValidators) {
         model.toggle_cm_neuroClaud ||
         model.toggle_cm_myelopathy ||
         model.toggle_cm_neuroBowelBladd ||
-        model.toggle_cm_lowestMotor ||
+        model.toggle_cm_motor_deficit ||
         model.toggle_cm_backPain
       )) {
         return {
@@ -2842,7 +2842,7 @@ if (!customValidators) {
         }
       }
 
-      if (model.toggle_cm_lowestMotor) {
+      if (model.toggle_cm_motor_deficit) {
         if (model.cm_lowestMotor == null) {
           return {
             custom: true,
