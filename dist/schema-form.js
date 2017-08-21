@@ -2285,14 +2285,6 @@ if (!customValidators) {
                   if (model['aa_acdf_' + level + '_companyName'] === null || model['aa_acdf_' + level + '_companyName'] == '') {
                     missingElementIds.push('field-aa_acdf_' + level + '_companyName-' + fieldId);
                   }
-                  if (model['aa_acdf_' + level + '_tradeName'] === null || model['aa_acdf_' + level + '_tradeName'] == '') {
-                    missingElementIds.push('field-aa_acdf_' + level + '_tradeName-' + fieldId);
-                  }
-                } else if (model['aa_discectomy_' + level + '_procedure'] == 2) {
-                  // Arthroplasty procedure was selected
-                  if (model['aa_arthroplasty_' + level] === null || model['aa_arthroplasty_' + level] == '') {
-                    missingElementIds.push('field-aa_arthroplasty_' + level + '-' + fieldId);
-                  }
                 }
               }
             }
@@ -2355,9 +2347,6 @@ if (!customValidators) {
                 }
                 if (model['aa_corpectomy_' + level + '_companyName'] === null || model['aa_corpectomy_' + level + '_companyName'] == '') {
                   missingElementIds.push('field-aa_corpectomy_' + level + '_companyName-' + fieldId);
-                }
-                if (model['aa_corpectomy_' + level + '_cageName'] === null || model['aa_corpectomy_' + level + '_cageName'] == '') {
-                  missingElementIds.push('field-aa_corpectomy_' + level + '_cageName-' + fieldId);
                 }
               }
             }
@@ -2513,9 +2502,6 @@ if (!customValidators) {
 
             if (model.pa_fixation_co_name === null || model.pa_fixation_co_name == '') {
               missingPAElementIds.push('field-pa_fixation_co_name-' + fieldId);
-            }
-            if (model.pa_fixation_trade_name === null || model.pa_fixation_trade_name == '') {
-              missingPAElementIds.push('field-pa_fixation_trade_name-' + fieldId);
             }
 
             if (missingPAElementIds.length > 0) {
