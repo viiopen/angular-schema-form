@@ -2133,7 +2133,7 @@ if (!customValidators) {
       if (!(
         model.toggle_cm_radiculopathy ||
         model.toggle_cm_myelopathy ||
-        model.toggle_mechanicalInstability ||
+        model.toggle_cm_mechanicalInstability ||
         model.toggle_cm_neuroBowelBladd ||
         model.toggle_cm_motor_deficit
       )) {
