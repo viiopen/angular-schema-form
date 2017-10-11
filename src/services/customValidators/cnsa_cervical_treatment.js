@@ -202,6 +202,8 @@ if (!customValidators) {
             }
 
             if (!(
+              model.toggle_nd_occip ||
+              model.toggle_nd_c1 ||
               model.toggle_nd_c2 ||
               model.toggle_nd_c3 ||
               model.toggle_nd_c4 ||
@@ -224,6 +226,8 @@ if (!customValidators) {
             }
 
             var neuralDecompLevels = [
+              'occip',
+              'c1',
               'c2',
               'c3',
               'c4',
@@ -273,6 +277,7 @@ if (!customValidators) {
             }
 
             if (!(
+              model.toggle_pa_occipc1 ||
               model.toggle_pa_c1c2 ||
               model.toggle_pa_c2c3 ||
               model.toggle_pa_c3c4 ||
