@@ -234,6 +234,7 @@ if (!customValidators) {
               'c5',
               'c6',
               'c7',
+              'c8',
               't1',
               't2',
               't3'

@@ -36,6 +36,7 @@ if (!customValidators) {
         model.toggle_sn_c5 ||
         model.toggle_sn_c6 ||
         model.toggle_sn_c7 ||
+        model.toggle_sn_c8 ||
         model.toggle_sn_t1 ||
         model.toggle_sn_t2 ||
         model.toggle_sn_t3
@@ -62,6 +63,7 @@ if (!customValidators) {
         'c5',
         'c6',
         'c7',
+        'c8',
         't1',
         't2',
         't3'
