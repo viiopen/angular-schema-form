@@ -2419,6 +2419,7 @@ if (!customValidators) {
               model.toggle_nd_c5 ||
               model.toggle_nd_c6 ||
               model.toggle_nd_c7 ||
+              model.toggle_nd_c8 ||
               model.toggle_nd_t1 ||
               model.toggle_nd_t2 ||
               model.toggle_nd_t3
