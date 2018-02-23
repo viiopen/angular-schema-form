@@ -2260,7 +2260,7 @@ if (!customValidators) {
           }
         }
 
-        if (model['aa_discectomy_procedure'] === null) {
+        if (!model['aa_discectomy_procedure']) {
           return {
             custom: true,
             valid: false,
@@ -2274,15 +2274,15 @@ if (!customValidators) {
 
         var missingElementIds = [];
 
-        if ((model['aa_discectomy_' + level + '_procedure'] == 1) {
+        if (model['aa_discectomy_procedure'] == 1) {
           // ACDF procedure was selected
-          if (model['aa_acdf_material'] === null) {
+          if (!model['aa_acdf_material']) {
             missingElementIds.push('field-aa_acdf_material-' + fieldId);
           }
-          if (model['aa_acdf_type'] === null) {
+          if (!model['aa_acdf_type']) {
             missingElementIds.push('field-aa_acdf_type-' + fieldId);
           }
-          if (model['aa_acdf_companyName'] === null || model['aa_acdf_companyName'] == '') {
+          if (!model['aa_acdf_companyName']) {
             missingElementIds.push('field-aa_acdf_companyName-' + fieldId);
           }
         }
