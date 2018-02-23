@@ -51,7 +51,7 @@ if (!customValidators) {
           }
         }
 
-        if (!model['aa_discectomy_procedure']) {
+        if (!model.aa_discectomy_procedure) {
           return {
             custom: true,
             valid: false,
