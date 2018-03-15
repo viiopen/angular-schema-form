@@ -112,41 +112,13 @@ if (!customValidators) {
           }
         }
 
-        var corpectomyLevels = [
-          'c2',
-          'c3',
-          'c4',
-          'c5',
-          'c6',
-          'c7',
-          't1'
-        ];
-
-        var missingElementIds = [];
-
-        for (var i = 0; i < corpectomyLevels.length; i++) {
-          const level = corpectomyLevels[i];
-
-          if (model['toggle_aa_corpectomy_' + level]) {
-            if (model['aa_corpectomy_' + level + '_material'] === null) {
-              missingElementIds.push('field-aa_corpectomy_' + level + '_material-' + fieldId);
-            }
-            if (model['aa_corpectomy_' + level + '_type'] === null) {
-              missingElementIds.push('field-aa_corpectomy_' + level + '_type-' + fieldId);
-            }
-            if (model['aa_corpectomy_' + level + '_companyName'] === null || model['aa_corpectomy_' + level + '_companyName'] == '') {
-              missingElementIds.push('field-aa_corpectomy_' + level + '_companyName-' + fieldId);
-            }
-          }
-        }
-
-        if (missingElementIds.length > 0) {
+        if (model['aa_corpectomy_material'] === null) {
           return {
             custom: true,
             valid: false,
             error: {
               code: 0,
-              element_ids: missingElementIds
+              elementIds: ['field-aa_corpectomy_material-' + fieldId]
             },
             rootScopeBroadCast: true
           }
