@@ -2327,7 +2327,7 @@ if (!customValidators) {
             valid: false,
             error: {
               code: 0,
-              elementIds: ['field-aa_corpectomy_material-' + fieldId]
+              element_ids: ['field-aa_corpectomy_material-' + fieldId]
             },
             rootScopeBroadCast: true
           }
