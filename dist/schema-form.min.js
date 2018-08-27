@@ -1876,10 +1876,6 @@ if (!customValidators) {
       rootScopeBroadCast: true
     };
 
-    console.log('viewValue', viewValue);
-    console.log('form', form);
-    console.log('model', model);
-
     if (model.employment == 1) {
       var employedFields = [
         'full_part_time',
