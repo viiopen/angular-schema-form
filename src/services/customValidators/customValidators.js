@@ -2,6 +2,7 @@ angular.module('schemaForm').service('customValidators', [
   function() {
     var functions = {}
 
+    functions.validateCnsaBaseline = customValidators.validateCnsaBaseline;
 
     functions.validateDecideTactics = customValidators.validateDecideTactics;
 
