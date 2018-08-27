@@ -1866,6 +1866,10 @@ if (!customValidators) {
   customValidators.validateCnsaBaseline = function(viewValue, form, model) {
     var fieldId = form.fieldId;
 
+    console.log('viewValue', viewValue);
+    console.log('form', form);
+    console.log('model', model);
+
     if (model.employment == 1) {
       var employedFields = [
         'full_part_time',
@@ -1879,7 +1883,8 @@ if (!customValidators) {
         error: {
           code: 0,
           element_ids: []
-        }
+        },
+        rootScopeBroadCast: true
       };
 
       for (var i = 0; i < employedFields.length; i++) {
