@@ -3,7 +3,6 @@ if (!customValidators) {
 } else {
   customValidators.validateCnsaBaseline = function(viewValue, form, model) {
     var fieldId = form.fieldId;
-    var element_ids;
 
     if (model.employment == 1) {
       var employedFields = [
@@ -18,8 +17,7 @@ if (!customValidators) {
         error: {
           code: 0,
           element_ids: []
-        },
-        rootScopeBroadCast: true
+        }
       };
 
       for (var i = 0; i < employedFields.length; i++) {
