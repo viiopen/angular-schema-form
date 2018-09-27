@@ -3130,6 +3130,9 @@ if (!customValidators) {
         id,
         noneSelected = true;
 
+    console.log('form', form);
+    console.log('initial model', model);
+
     model[form.key[0]] = viewValue;
 
     // var toggles = [
@@ -3169,7 +3172,7 @@ if (!customValidators) {
     // Set value of backend toggle
     var backendKey = form.key[0].replace(/^toggle_/i, '');
 
-    console.log('model', model);
+    console.log('model2', model);
     console.log('backendKey', backendKey);
 
     // BWB if the model has the same key -{toggle_}
@@ -3185,7 +3188,7 @@ if (!customValidators) {
       }
     }
 
-    console.log('new model', model);
+    console.log('final model', model);
 
     // Handle the special case for thoraco lumbar treatment
     var toggleGroups = {
