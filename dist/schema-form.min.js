@@ -3130,9 +3130,6 @@ if (!customValidators) {
         id,
         noneSelected = true;
 
-    console.log('form', form);
-    console.log('initial model', model);
-
     model[form.key[0]] = viewValue;
 
     // var toggles = [
@@ -3172,13 +3169,13 @@ if (!customValidators) {
     // Set value of backend toggle
     var backendKey = form.key[0].replace(/^toggle_/i, '');
 
-    console.log('model2', model);
-    console.log('backendKey', backendKey);
-
     // BWB if the model has the same key -{toggle_}
     // and this validator is on the toggle, then just do this
     // don't whitelist anymore...
     if (_.has(model, backendKey)) {
+      // PHW - this was not working with compression, which is a bit different from all the other toggles.
+      // compression has a default of 0, but the model was not respecting that.
+      // it probably shouldn't have been done as a toggle, but here we are...
       if (model[backendKey] != null || backendKey === 'compression') {
         console.log('!= null');
         model[backendKey] = viewValue ? 1 : 0;
@@ -3187,8 +3184,6 @@ if (!customValidators) {
         model[backendKey] = viewValue ? 1 : null;
       }
     }
-
-    console.log('final model', model);
 
     // Handle the special case for thoraco lumbar treatment
     var toggleGroups = {
