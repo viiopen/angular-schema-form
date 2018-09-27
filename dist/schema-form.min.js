@@ -3179,7 +3179,7 @@ if (!customValidators) {
     // and this validator is on the toggle, then just do this
     // don't whitelist anymore...
     if (_.has(model, backendKey)) {
-      if (model[backendKey] != null) {
+      if (model[backendKey] != null || backendKey === 'compression') {
         console.log('!= null');
         model[backendKey] = viewValue ? 1 : 0;
       } else {
