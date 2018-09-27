@@ -47,16 +47,23 @@ if (!customValidators) {
     // Set value of backend toggle
     var backendKey = form.key[0].replace(/^toggle_/i, '');
 
+    console.log('model', model);
+    console.log('backendKey', backendKey);
+
     // BWB if the model has the same key -{toggle_}
     // and this validator is on the toggle, then just do this
     // don't whitelist anymore...
     if (_.has(model, backendKey)) {
       if (model[backendKey] != null) {
+        console.log('!= null');
         model[backendKey] = viewValue ? 1 : 0;
       } else {
+        console.log('== null');
         model[backendKey] = viewValue ? 1 : null;
       }
     }
+
+    console.log('new model', model);
 
     // Handle the special case for thoraco lumbar treatment
     var toggleGroups = {
