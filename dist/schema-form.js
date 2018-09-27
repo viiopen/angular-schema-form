@@ -3177,10 +3177,8 @@ if (!customValidators) {
       // compression has a default of 0, but the model was not respecting that.
       // it probably shouldn't have been done as a toggle, but here we are...
       if (model[backendKey] != null || backendKey === 'compression') {
-        console.log('!= null');
         model[backendKey] = viewValue ? 1 : 0;
       } else {
-        console.log('== null');
         model[backendKey] = viewValue ? 1 : null;
       }
     }
