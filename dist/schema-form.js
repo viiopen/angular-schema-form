@@ -1879,8 +1879,7 @@ if (!customValidators) {
     if (model.employment == 1) {
       var employedFields = [
         'full_part_time',
-        'occupation_level',
-        'plan_return_work'
+        'occupation_level'
       ];
 
       for (var i = 0; i < employedFields.length; i++) {
@@ -1890,13 +1889,16 @@ if (!customValidators) {
           returnValue.error.element_ids.push('field-' + fieldName + '-' + fieldId);
         }
       }
+
+      if (model.plan_return_work == -88) {
+        returnValue.error.element_ids.push('field-plan_return_work-' + fieldId);
+      }
     }
 
     if (model.employment == 2) {
       var notWorkingFields = [
         'employed_not_working',
-        'occupation_level',
-        'plan_return_work'
+        'occupation_level'
       ];
 
       for (var j = 0; j < notWorkingFields.length; j++) {
@@ -1905,6 +1907,10 @@ if (!customValidators) {
         if (!model[fieldName] || model[fieldName] == -88) {
           returnValue.error.element_ids.push('field-' + fieldName + '-' + fieldId);
         }
+      }
+
+      if (model.plan_return_work == -88) {
+        returnValue.error.element_ids.push('field-plan_return_work-' + fieldId);
       }
     }
 
